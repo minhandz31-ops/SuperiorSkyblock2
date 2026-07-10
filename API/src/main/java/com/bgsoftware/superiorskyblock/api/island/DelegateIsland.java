@@ -6,7 +6,6 @@ import com.bgsoftware.superiorskyblock.api.data.DatabaseBridge;
 import com.bgsoftware.superiorskyblock.api.enums.MemberRemoveReason;
 import com.bgsoftware.superiorskyblock.api.enums.Rating;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.bank.IslandBank;
 import com.bgsoftware.superiorskyblock.api.island.cache.IslandCache;
@@ -798,21 +797,6 @@ public class DelegateIsland implements Island {
     }
 
     @Override
-    public void calcIslandWorth(@Nullable SuperiorPlayer asker) {
-        this.handle.calcIslandWorth(asker);
-    }
-
-    @Override
-    public void calcIslandWorth(@Nullable SuperiorPlayer asker, @Nullable Runnable callback) {
-        this.handle.calcIslandWorth(asker, callback);
-    }
-
-    @Override
-    public IslandCalculationAlgorithm getCalculationAlgorithm() {
-        return this.handle.getCalculationAlgorithm();
-    }
-
-    @Override
     public void updateBorder() {
         this.handle.updateBorder();
     }
@@ -940,11 +924,6 @@ public class DelegateIsland implements Island {
     @Override
     public void executeCommand(String command, boolean onlyOnlineMembers, UUID... ignoredMembers) {
         this.handle.executeCommand(command, onlyOnlineMembers, ignoredMembers);
-    }
-
-    @Override
-    public boolean isBeingRecalculated() {
-        return this.handle.isBeingRecalculated();
     }
 
     @Override
@@ -1337,46 +1316,6 @@ public class DelegateIsland implements Island {
     @Override
     public IslandBlocksTrackerAlgorithm getBlocksTracker() {
         return this.handle.getBlocksTracker();
-    }
-
-    @Override
-    public BigDecimal getWorth() {
-        return this.handle.getWorth();
-    }
-
-    @Override
-    public BigDecimal getRawWorth() {
-        return this.handle.getRawWorth();
-    }
-
-    @Override
-    public BigDecimal getBonusWorth() {
-        return this.handle.getBonusWorth();
-    }
-
-    @Override
-    public void setBonusWorth(BigDecimal bonusWorth) {
-        this.handle.setBonusWorth(bonusWorth);
-    }
-
-    @Override
-    public BigDecimal getBonusLevel() {
-        return this.handle.getBonusLevel();
-    }
-
-    @Override
-    public void setBonusLevel(BigDecimal bonusLevel) {
-        this.handle.setBonusLevel(bonusLevel);
-    }
-
-    @Override
-    public BigDecimal getIslandLevel() {
-        return this.handle.getIslandLevel();
-    }
-
-    @Override
-    public BigDecimal getRawLevel() {
-        return this.handle.getRawLevel();
     }
 
     @Override

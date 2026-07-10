@@ -75,8 +75,6 @@ public class IslandBuilderImpl implements Island.Builder {
     public long creationTime = System.currentTimeMillis() / 1000;
     public String discord = "None";
     public String paypal = "None";
-    public BigDecimal bonusWorth = BigDecimal.ZERO;
-    public BigDecimal bonusLevel = BigDecimal.ZERO;
     public boolean isLocked = plugin.getSettings().isLockedIslands();
     public boolean isIgnored = false;
     public String description = "";
@@ -218,30 +216,6 @@ public class IslandBuilderImpl implements Island.Builder {
     @Override
     public String getPaypal() {
         return this.paypal;
-    }
-
-    @Override
-    public Island.Builder setBonusWorth(BigDecimal bonusWorth) {
-        Preconditions.checkNotNull(bonusWorth, "bonusWorth parameter cannot be null.");
-        this.bonusWorth = bonusWorth;
-        return this;
-    }
-
-    @Override
-    public BigDecimal getBonusWorth() {
-        return this.bonusWorth;
-    }
-
-    @Override
-    public Island.Builder setBonusLevel(BigDecimal bonusLevel) {
-        Preconditions.checkNotNull(bonusLevel, "bonusLevel parameter cannot be null.");
-        this.bonusLevel = bonusLevel;
-        return this;
-    }
-
-    @Override
-    public BigDecimal getBonusLevel() {
-        return this.bonusLevel;
     }
 
     @Override

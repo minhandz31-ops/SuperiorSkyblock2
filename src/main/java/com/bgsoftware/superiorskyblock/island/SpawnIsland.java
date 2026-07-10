@@ -17,7 +17,6 @@ import com.bgsoftware.superiorskyblock.api.island.PermissionNode;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
 import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.bank.IslandBank;
 import com.bgsoftware.superiorskyblock.api.island.cache.IslandCache;
@@ -51,7 +50,6 @@ import com.bgsoftware.superiorskyblock.core.persistence.EmptyPersistentDataConta
 import com.bgsoftware.superiorskyblock.core.serialization.Serializers;
 import com.bgsoftware.superiorskyblock.core.threads.BukkitExecutor;
 import com.bgsoftware.superiorskyblock.island.algorithm.SpawnIslandBlocksTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.island.algorithm.SpawnIslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.island.algorithm.SpawnIslandEntitiesTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.island.cache.IslandCacheImpl;
 import com.bgsoftware.superiorskyblock.island.chunk.DirtyChunksContainer;
@@ -975,21 +973,6 @@ public class SpawnIsland implements Island {
     }
 
     @Override
-    public void calcIslandWorth(SuperiorPlayer asker) {
-        // Do nothing.
-    }
-
-    @Override
-    public void calcIslandWorth(SuperiorPlayer asker, Runnable callback) {
-        // Do nothing.
-    }
-
-    @Override
-    public IslandCalculationAlgorithm getCalculationAlgorithm() {
-        return SpawnIslandCalculationAlgorithm.getInstance();
-    }
-
-    @Override
     public void updateBorder() {
         getAllPlayersInside().forEach(superiorPlayer -> superiorPlayer.updateWorldBorder(this));
     }
@@ -1117,11 +1100,6 @@ public class SpawnIsland implements Island {
     @Override
     public void executeCommand(String command, boolean onlyOnlineMembers, UUID... ignoredMembers) {
         // Do nothing.
-    }
-
-    @Override
-    public boolean isBeingRecalculated() {
-        return false;
     }
 
     @Override
@@ -1483,46 +1461,6 @@ public class SpawnIsland implements Island {
     @Override
     public IslandBlocksTrackerAlgorithm getBlocksTracker() {
         return SpawnIslandBlocksTrackerAlgorithm.getInstance();
-    }
-
-    @Override
-    public BigDecimal getWorth() {
-        return BigDecimal.ZERO;
-    }
-
-    @Override
-    public BigDecimal getRawWorth() {
-        return BigDecimal.ZERO;
-    }
-
-    @Override
-    public BigDecimal getBonusWorth() {
-        return BigDecimal.ZERO;
-    }
-
-    @Override
-    public void setBonusWorth(BigDecimal bonusWorth) {
-        // Do nothing.
-    }
-
-    @Override
-    public BigDecimal getBonusLevel() {
-        return BigDecimal.ZERO;
-    }
-
-    @Override
-    public void setBonusLevel(BigDecimal bonusLevel) {
-        // Do nothing.
-    }
-
-    @Override
-    public BigDecimal getIslandLevel() {
-        return getRawLevel();
-    }
-
-    @Override
-    public BigDecimal getRawLevel() {
-        return BigDecimal.ZERO;
     }
 
     @Override

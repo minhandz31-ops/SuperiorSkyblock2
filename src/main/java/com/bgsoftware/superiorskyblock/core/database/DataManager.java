@@ -240,8 +240,6 @@ public class DataManager extends Manager {
                     .setCreationTime(databaseResult.getLong("creation_time").orElse(System.currentTimeMillis() / 1000L))
                     .setDiscord(databaseResult.getString("discord").orElse("None"))
                     .setPaypal(databaseResult.getString("paypal").orElse("None"))
-                    .setBonusWorth(databaseResult.getBigDecimal("worth_bonus").orElse(BigDecimal.ZERO))
-                    .setBonusLevel(databaseResult.getBigDecimal("levels_bonus").orElse(BigDecimal.ZERO))
                     .setLocked(databaseResult.getBoolean("locked").orElse(false))
                     .setIgnored(databaseResult.getBoolean("ignored").orElse(false))
                     .setDescription(databaseResult.getString("description").orElse(""))

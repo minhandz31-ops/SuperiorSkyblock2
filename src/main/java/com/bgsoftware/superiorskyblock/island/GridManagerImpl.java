@@ -100,17 +100,11 @@ public class GridManagerImpl extends Manager implements GridManager {
     @Nullable
     private UUID serverUUID;
 
-    private BigDecimal totalWorth = BigDecimal.ZERO;
-    private long lastTimeWorthUpdate = 0;
-    private BigDecimal totalLevel = BigDecimal.ZERO;
-    private long lastTimeLevelUpdate = 0;
-
     private boolean pluginDisable = false;
 
     private boolean forceSort = false;
 
     private final List<SortingType> pendingSortingTypes = new LinkedList<>();
-    private final AtomicInteger activeCalcTasks = new AtomicInteger(0);
     private final LazyReference<Synchronized<EnumerateSet<SortingType>>> activeSortingTasks = new LazyReference<Synchronized<EnumerateSet<SortingType>>>() {
         @Override
         protected Synchronized<EnumerateSet<SortingType>> create() {
@@ -157,56 +151,35 @@ public class GridManagerImpl extends Manager implements GridManager {
     }
 
     @Override
-    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, BigDecimal bonus, Biome biome, String islandName) {
+    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, Biome biome, String islandName) {
         Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
         Preconditions.checkNotNull(schematicName, "schematicName parameter cannot be null.");
-        Preconditions.checkNotNull(bonus, "bonus parameter cannot be null.");
         Preconditions.checkNotNull(biome, "biome parameter cannot be null.");
         Preconditions.checkNotNull(islandName, "islandName parameter cannot be null.");
-        createIsland(superiorPlayer, schematicName, bonus, biome, islandName, false);
+        createIsland(superiorPlayer, schematicName, biome, islandName, false);
     }
 
     @Override
-    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, BigDecimal bonus, Biome biome, String islandName, boolean offset) {
+    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, Biome biome, String islandName, boolean offset) {
         Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
         Preconditions.checkNotNull(schematicName, "schematicName parameter cannot be null.");
-        Preconditions.checkNotNull(bonus, "bonus parameter cannot be null.");
         Preconditions.checkNotNull(biome, "biome parameter cannot be null.");
         Preconditions.checkNotNull(islandName, "islandName parameter cannot be null.");
-        createIsland(superiorPlayer, schematicName, bonus, BigDecimal.ZERO, biome, islandName, false);
+        createIsland(superiorPlayer, schematicName, biome, islandName, offset, null);
     }
 
     @Override
-    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, BigDecimal bonusWorth,
-                             BigDecimal bonusLevel, Biome biome, String islandName, boolean offset) {
-        Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
-        Preconditions.checkNotNull(schematicName, "schematicName parameter cannot be null.");
-        Preconditions.checkNotNull(bonusWorth, "bonusWorth parameter cannot be null.");
-        Preconditions.checkNotNull(bonusLevel, "bonusLevel parameter cannot be null.");
-        Preconditions.checkNotNull(biome, "biome parameter cannot be null.");
-        Preconditions.checkNotNull(islandName, "islandName parameter cannot be null.");
-        createIsland(superiorPlayer, schematicName, bonusWorth, bonusLevel, biome, islandName, offset, null);
-    }
-
-    @Override
-    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, BigDecimal bonusWorth,
-                             BigDecimal bonusLevel, Biome biome, String islandName, boolean offset,
+    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName,
+                             Biome biome, String islandName, boolean offset,
                              @Nullable BlockOffset spawnOffset) {
         Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
         Preconditions.checkNotNull(schematicName, "schematicName parameter cannot be null.");
-        Preconditions.checkNotNull(bonusWorth, "bonusWorth parameter cannot be null.");
-        Preconditions.checkNotNull(bonusLevel, "bonusLevel parameter cannot be null.");
         Preconditions.checkNotNull(biome, "biome parameter cannot be null.");
         Preconditions.checkNotNull(islandName, "islandName parameter cannot be null.");
         Island.Builder builder = Island.newBuilder()
                 .setOwner(superiorPlayer)
                 .setSchematicName(schematicName)
                 .setName(islandName);
-
-        if (!offset) {
-            builder.setBonusWorth(bonusWorth)
-                    .setBonusLevel(bonusLevel);
-        }
 
         createIsland(builder, biome, offset, spawnOffset);
     }
@@ -251,7 +224,7 @@ public class GridManagerImpl extends Manager implements GridManager {
                                            Schematic schematic, @Nullable BlockOffset spawnOffset) {
         assert builder.owner != null;
 
-        Log.debug(Debug.CREATE_ISLAND, builder.owner.getName(), builder.bonusWorth, builder.bonusLevel,
+        Log.debug(Debug.CREATE_ISLAND, builder.owner.getName(),
                 builder.islandName, offset, biome, schematic.getName());
 
         // Removing any active previews for the player.
@@ -284,7 +257,7 @@ public class GridManagerImpl extends Manager implements GridManager {
 
             Log.debugResult(Debug.CREATE_ISLAND, "Creation Callback", "Failed to create island");
 
-            Log.entering(builder.owner.getName(), builder.bonusWorth, builder.bonusLevel, builder.islandName,
+            Log.entering(builder.owner.getName(), builder.islandName,
                     offset, biome, schematic.getName());
 
             if (error != null)
@@ -338,11 +311,6 @@ public class GridManagerImpl extends Manager implements GridManager {
             island.setBiome(biome, false);
             island.setSchematicGenerate(defaultDimension);
             island.setCurrentlyActive(true);
-
-            if (offset) {
-                island.setBonusWorth(island.getRawWorth().negate());
-                island.setBonusLevel(island.getRawLevel().negate());
-            }
         } finally {
             island.getDatabaseBridge().setDatabaseBridgeMode(DatabaseBridgeMode.SAVE_DATA);
         }
@@ -843,40 +811,6 @@ public class GridManagerImpl extends Manager implements GridManager {
     }
 
     @Override
-    public void calcAllIslands() {
-        calcAllIslands(null);
-    }
-
-    @Override
-    public void calcAllIslands(Runnable callback) {
-        Log.debug(Debug.CALCULATE_ALL_ISLANDS);
-
-        List<Island> islands = new ArrayList<>();
-
-        {
-            for (Island island : this.islandsContainer.getIslandsUnsorted()) {
-                if (!island.isBeingRecalculated())
-                    islands.add(island);
-            }
-        }
-
-        for (int i = 0; i < islands.size(); i++) {
-            islands.get(i).calcIslandWorth(null, i + 1 < islands.size() ? null : callback);
-        }
-    }
-
-    public void startCalcTask() {
-        this.activeCalcTasks.incrementAndGet();
-    }
-
-    public boolean stopCalcTask() {
-        int activeCalcTasks = this.activeCalcTasks.decrementAndGet();
-        if (activeCalcTasks < 0)
-            throw new IllegalStateException();
-        return activeCalcTasks == 0;
-    }
-
-    @Override
     public void addIslandToPurge(Island island) {
         Preconditions.checkNotNull(island, "island parameter cannot be null.");
         Preconditions.checkNotNull(island.getOwner(), "island's owner cannot be null.");
@@ -919,34 +853,6 @@ public class GridManagerImpl extends Manager implements GridManager {
         } else {
             this.islandsContainer.addSortingType(sortingType, true);
         }
-    }
-
-    @Override
-    public BigDecimal getTotalWorth() {
-        long currentTime = System.currentTimeMillis();
-
-        if (currentTime - lastTimeWorthUpdate > 60000) {
-            lastTimeWorthUpdate = currentTime;
-            totalWorth = BigDecimal.ZERO;
-            for (Island island : getIslands())
-                totalWorth = totalWorth.add(island.getWorth());
-        }
-
-        return totalWorth;
-    }
-
-    @Override
-    public BigDecimal getTotalLevel() {
-        long currentTime = System.currentTimeMillis();
-
-        if (currentTime - lastTimeLevelUpdate > 60000) {
-            lastTimeLevelUpdate = currentTime;
-            totalLevel = BigDecimal.ZERO;
-            for (Island island : getIslands())
-                totalLevel = totalLevel.add(island.getIslandLevel());
-        }
-
-        return totalLevel;
     }
 
     @Override

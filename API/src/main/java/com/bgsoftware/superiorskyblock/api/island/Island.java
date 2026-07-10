@@ -9,7 +9,6 @@ import com.bgsoftware.superiorskyblock.api.enums.Rating;
 import com.bgsoftware.superiorskyblock.api.enums.SyncStatus;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeGeneratorRateEvent;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.bank.BankTransaction;
 import com.bgsoftware.superiorskyblock.api.island.bank.IslandBank;
@@ -1175,26 +1174,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
     void replacePlayers(SuperiorPlayer originalPlayer, @Nullable SuperiorPlayer newPlayer);
 
     /**
-     * Recalculate the island's worth value.
-     *
-     * @param asker The player who makes the operation.
-     */
-    void calcIslandWorth(@Nullable SuperiorPlayer asker);
-
-    /**
-     * Recalculate the island's worth value.
-     *
-     * @param asker    The player who makes the operation.
-     * @param callback Runnable which will be ran when process is finished.
-     */
-    void calcIslandWorth(@Nullable SuperiorPlayer asker, @Nullable Runnable callback);
-
-    /**
-     * Get the calculation algorithm used by this island.
-     */
-    IslandCalculationAlgorithm getCalculationAlgorithm();
-
-    /**
      * Update the border of all the players inside the island.
      */
     void updateBorder();
@@ -1370,11 +1349,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
      * @param ignoredMembers    An array of ignored members.
      */
     void executeCommand(String command, boolean onlyOnlineMembers, UUID... ignoredMembers);
-
-    /**
-     * Checks whether the island is being recalculated currently.
-     */
-    boolean isBeingRecalculated();
 
     /**
      * Update the last time the island was used.
@@ -1935,50 +1909,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
      * Get the blocks-tracker used by this island.
      */
     IslandBlocksTrackerAlgorithm getBlocksTracker();
-
-    /**
-     * Get the worth value of the island, including the money in the bank.
-     */
-    BigDecimal getWorth();
-
-    /**
-     * Get the worth value of the island, excluding bonus worth and the money in the bank.
-     */
-    BigDecimal getRawWorth();
-
-    /**
-     * Get the bonus worth of the island.
-     */
-    BigDecimal getBonusWorth();
-
-    /**
-     * Set a bonus worth for the island.
-     *
-     * @param bonusWorth The bonus to give.
-     */
-    void setBonusWorth(BigDecimal bonusWorth);
-
-    /**
-     * Get the bonus level of the island.
-     */
-    BigDecimal getBonusLevel();
-
-    /**
-     * Set a bonus level for the island.
-     *
-     * @param bonusLevel The bonus to give.
-     */
-    void setBonusLevel(BigDecimal bonusLevel);
-
-    /**
-     * Get the level of the island.
-     */
-    BigDecimal getIslandLevel();
-
-    /**
-     * Get the level value of the island, excluding the bonus level.
-     */
-    BigDecimal getRawLevel();
 
     /*
      *  Upgrades related methods
@@ -2826,14 +2756,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
         Builder setPaypal(String paypal);
 
         String getPaypal();
-
-        Builder setBonusWorth(BigDecimal bonusWorth);
-
-        BigDecimal getBonusWorth();
-
-        Builder setBonusLevel(BigDecimal bonusLevel);
-
-        BigDecimal getBonusLevel();
 
         Builder setLocked(boolean isLocked);
 

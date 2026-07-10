@@ -12,7 +12,6 @@ import com.bgsoftware.superiorskyblock.api.handlers.GridManager;
 import com.bgsoftware.superiorskyblock.api.handlers.StackedBlocksManager;
 import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.bank.BankTransaction;
 import com.bgsoftware.superiorskyblock.api.island.bank.IslandBank;
@@ -37,7 +36,6 @@ import com.bgsoftware.superiorskyblock.core.database.sql.SQLDatabaseBridge;
 import com.bgsoftware.superiorskyblock.core.persistence.PersistentDataContainerImpl;
 import com.bgsoftware.superiorskyblock.island.SIsland;
 import com.bgsoftware.superiorskyblock.island.algorithm.DefaultIslandBlocksTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.island.algorithm.DefaultIslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.island.algorithm.DefaultIslandEntitiesTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.island.bank.SBankTransaction;
 import com.bgsoftware.superiorskyblock.island.bank.SIslandBank;
@@ -216,15 +214,6 @@ public class FactoriesManagerImpl implements FactoriesManager {
 
     public IslandBank createIslandBank(Island island, Supplier<Boolean> isGiveInterestFailed) {
         return banksFactory.createIslandBank(island, new SIslandBank(island, isGiveInterestFailed));
-    }
-
-    public IslandCalculationAlgorithm createIslandCalculationAlgorithm(Island island) {
-        try {
-            // noinspection deprecation
-            return islandsFactory.createIslandCalculationAlgorithm(island);
-        } catch (UnsupportedOperationException error) {
-            return islandsFactory.createIslandCalculationAlgorithm(island, DefaultIslandCalculationAlgorithm.getInstance());
-        }
     }
 
     public IslandBlocksTrackerAlgorithm createIslandBlocksTrackerAlgorithm(Island island) {

@@ -18,7 +18,6 @@ import com.bgsoftware.superiorskyblock.api.island.PermissionNode;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
 import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.bank.IslandBank;
 import com.bgsoftware.superiorskyblock.api.island.cache.IslandCache;
@@ -177,7 +176,6 @@ public class SIsland implements Island {
 
     private final DatabaseBridge databaseBridge;
     private final IslandBank islandBank;
-    private final IslandCalculationAlgorithm calculationAlgorithm;
     private final IslandBlocksTrackerAlgorithm blocksTracker;
     private final IslandEntitiesTrackerAlgorithm entitiesTracker;
     private final Synchronized<BukkitTask> bankInterestTask = Synchronized.of(null);
@@ -240,10 +238,6 @@ public class SIsland implements Island {
     private final Map<IslandPrivilege, Integer> rolePermissions = new ConcurrentHashMap<>();
     private final Map<IslandFlag, Byte> islandFlags = new ConcurrentHashMap<>();
     private final IslandUpgrades upgrades = new IslandUpgrades();
-    private final AtomicReference<BigDecimal> islandWorth = new AtomicReference<>(BigDecimal.ZERO);
-    private final AtomicReference<BigDecimal> islandLevel = new AtomicReference<>(BigDecimal.ZERO);
-    private final AtomicReference<BigDecimal> bonusWorth = new AtomicReference<>(BigDecimal.ZERO);
-    private final AtomicReference<BigDecimal> bonusLevel = new AtomicReference<>(BigDecimal.ZERO);
     private final Map<MissionReference, Counter> completedMissions = new ConcurrentHashMap<>();
     private final Synchronized<IslandChest[]> islandChests = Synchronized.of(createDefaultIslandChests());
     private final Synchronized<CompletableFuture<Biome>> biomeGetterTask = Synchronized.of(null);
@@ -254,7 +248,6 @@ public class SIsland implements Island {
     /*
      * Island Flags
      */
-    private volatile boolean beingRecalculated = false;
     private final AtomicReference<BigInteger> currentTotalBlockCounts = new AtomicReference<>(BigInteger.ZERO);
     private volatile BigInteger lastSavedBlockCounts = BigInteger.ZERO;
     private SuperiorPlayer owner;
@@ -291,8 +284,6 @@ public class SIsland implements Island {
         this.schematicName = builder.islandType;
         this.discord = builder.discord;
         this.paypal = builder.paypal;
-        this.bonusWorth.set(builder.bonusWorth);
-        this.bonusLevel.set(builder.bonusLevel);
         this.isLocked = builder.isLocked;
         this.isTopIslandsIgnored = builder.isIgnored;
         this.description = builder.description;
@@ -336,7 +327,6 @@ public class SIsland implements Island {
 
         this.databaseBridge = plugin.getFactory().createDatabaseBridge(this);
         this.islandBank = plugin.getFactory().createIslandBank(this, this::hasGiveInterestFailed);
-        this.calculationAlgorithm = plugin.getFactory().createIslandCalculationAlgorithm(this);
         this.blocksTracker = plugin.getFactory().createIslandBlocksTrackerAlgorithm(this);
         this.entitiesTracker = plugin.getFactory().createIslandEntitiesTrackerAlgorithm(this);
         this.dirtyChunksContainer = new DirtyChunksContainer(this);
@@ -1840,33 +1830,6 @@ public class SIsland implements Island {
     }
 
     @Override
-    public void calcIslandWorth(@Nullable SuperiorPlayer asker) {
-        calcIslandWorth(asker, null);
-    }
-
-    @Override
-    public void calcIslandWorth(@Nullable SuperiorPlayer asker, @Nullable Runnable callback) {
-        Log.debug(Debug.CALCULATE_ISLAND, owner.getName(), asker);
-
-        long lastUpdateTime = getLastTimeUpdate();
-
-        if (lastUpdateTime != -1 && (System.currentTimeMillis() / 1000) - lastUpdateTime >= 600) {
-            Log.debugResult(Debug.CALCULATE_ISLAND, "Result Cooldown", owner.getName());
-            finishCalcIsland(asker, callback, getIslandLevel(), getWorth());
-            return;
-        }
-
-        registerTask(BukkitExecutor.ensureMain(() -> {
-            calcIslandWorthInternal(asker, callback);
-        }));
-    }
-
-    @Override
-    public IslandCalculationAlgorithm getCalculationAlgorithm() {
-        return this.calculationAlgorithm;
-    }
-
-    @Override
     public void updateBorder() {
         Log.debug(Debug.UPDATE_BORDER, owner.getName());
         getAllPlayersInside().forEach(superiorPlayer -> superiorPlayer.updateWorldBorder(this));
@@ -2212,11 +2175,6 @@ public class SIsland implements Island {
     }
 
     @Override
-    public boolean isBeingRecalculated() {
-        return beingRecalculated;
-    }
-
-    @Override
     public void updateLastTime() {
         setLastTimeUpdate(System.currentTimeMillis() / 1000);
     }
@@ -2549,8 +2507,6 @@ public class SIsland implements Island {
         if (blocks.isEmpty())
             return KeyMaps.createEmptyMap();
 
-        BigDecimal oldWorth = getWorth();
-        BigDecimal oldLevel = getIslandLevel();
 
         boolean rawBlocks = (flags & IslandBlockFlags.RAW_BLOCKS) != 0;
 
@@ -2724,8 +2680,6 @@ public class SIsland implements Island {
         if (blocks.isEmpty())
             return KeyMaps.createEmptyMap();
 
-        BigDecimal oldWorth = getWorth();
-        BigDecimal oldLevel = getIslandLevel();
 
         boolean rawBlocks = (flags & IslandBlockFlags.RAW_BLOCKS) != 0;
 
@@ -2826,94 +2780,6 @@ public class SIsland implements Island {
     @Override
     public IslandBlocksTrackerAlgorithm getBlocksTracker() {
         return this.blocksTracker;
-    }
-
-    @Override
-    public BigDecimal getWorth() {
-        double bankWorthRate = BuiltinModules.BANK.getConfiguration().getBankWorthRate();
-
-        BigDecimal islandWorth = this.islandWorth.get();
-        BigDecimal islandBank = this.islandBank.getBalance();
-        BigDecimal bonusWorth = this.bonusWorth.get();
-        BigDecimal finalIslandWorth = (bankWorthRate <= 0 ? getRawWorth() : islandWorth.add(
-                islandBank.multiply(BigDecimal.valueOf(bankWorthRate)))).add(bonusWorth);
-
-        if (!plugin.getSettings().isNegativeWorth() && finalIslandWorth.compareTo(BigDecimal.ZERO) < 0)
-            return BigDecimal.ZERO;
-
-        return finalIslandWorth;
-    }
-
-    @Override
-    public BigDecimal getRawWorth() {
-        return islandWorth.get();
-    }
-
-    @Override
-    public BigDecimal getBonusWorth() {
-        return bonusWorth.get();
-    }
-
-    @Override
-    public void setBonusWorth(BigDecimal bonusWorth) {
-        Preconditions.checkNotNull(bonusWorth, "bonusWorth parameter cannot be null.");
-
-        Log.debug(Debug.SET_BONUS_WORTH, owner.getName(), bonusWorth);
-
-        BigDecimal oldBonusWorth = this.bonusWorth.getAndSet(bonusWorth);
-
-        if (Objects.equals(oldBonusWorth, bonusWorth))
-            return;
-
-        IslandsDatabaseBridge.saveBonusWorth(this);
-    }
-
-    @Override
-    public BigDecimal getBonusLevel() {
-        return bonusLevel.get();
-    }
-
-    @Override
-    public void setBonusLevel(BigDecimal bonusLevel) {
-        Preconditions.checkNotNull(bonusLevel, "bonusLevel parameter cannot be null.");
-
-        Log.debug(Debug.SET_BONUS_LEVEL, owner.getName(), bonusLevel);
-
-        BigDecimal oldBonusLevel = this.bonusLevel.getAndSet(bonusLevel);
-
-        if (Objects.equals(oldBonusLevel, bonusLevel))
-            return;
-
-        IslandsDatabaseBridge.saveBonusLevel(this);
-    }
-
-    @Override
-    public BigDecimal getIslandLevel() {
-        BigDecimal bonusLevel = this.bonusLevel.get();
-        BigDecimal islandLevel = this.islandLevel.get().add(bonusLevel);
-
-        if (plugin.getSettings().isRoundedIslandLevels()) {
-            islandLevel = islandLevel.setScale(0, plugin.getSettings().getIslandLevelRoundingMode());
-        }
-
-        if (!plugin.getSettings().isNegativeLevel() && islandLevel.compareTo(BigDecimal.ZERO) < 0)
-            islandLevel = BigDecimal.ZERO;
-
-        return islandLevel;
-    }
-
-    @Override
-    public BigDecimal getRawLevel() {
-        BigDecimal islandLevel = this.islandLevel.get();
-
-        if (plugin.getSettings().isRoundedIslandLevels()) {
-            islandLevel = islandLevel.setScale(0, plugin.getSettings().getIslandLevelRoundingMode());
-        }
-
-        if (!plugin.getSettings().isNegativeLevel() && islandLevel.compareTo(BigDecimal.ZERO) < 0)
-            islandLevel = BigDecimal.ZERO;
-
-        return islandLevel;
     }
 
     @Override
@@ -4436,67 +4302,6 @@ public class SIsland implements Island {
         IslandsDatabaseBridge.markIslandChestsToBeSaved(this, islandChests[index]);
     }
 
-    private void calcIslandWorthInternal(@Nullable SuperiorPlayer asker, @Nullable Runnable callback) {
-        try {
-            this.beingRecalculated = true;
-            plugin.getGrid().startCalcTask();
-            runCalcIslandWorthInternal(asker, callback);
-        } catch (Throwable error) {
-            // In case of an error, we get out of the recalculate state.
-            this.beingRecalculated = false;
-            plugin.getGrid().stopCalcTask();
-            throw error;
-        }
-    }
-
-    private void runCalcIslandWorthInternal(@Nullable SuperiorPlayer asker, @Nullable Runnable callback) {
-        Log.debug(Debug.CALCULATE_ISLAND, owner.getName(), asker);
-
-        BigDecimal oldWorth = getWorth();
-        BigDecimal oldLevel = getIslandLevel();
-
-        CompletableFuture<IslandCalculationAlgorithm.IslandCalculationResult> calculationResult;
-
-        try {
-            // Legacy support
-            // noinspection deprecation
-            calculationResult = calculationAlgorithm.calculateIsland();
-        } catch (UnsupportedOperationException ex) {
-            calculationResult = calculationAlgorithm.calculateIsland(this);
-        }
-
-        calculationResult.whenComplete((result, error) -> {
-            beingRecalculated = false;
-            boolean isLastActiveTask = plugin.getGrid().stopCalcTask();
-
-            if (error != null) {
-                if (error instanceof TimeoutException) {
-                    if (asker != null)
-                        Message.ISLAND_WORTH_TIME_OUT.send(asker);
-                } else {
-                    Log.entering(owner.getName(), asker);
-                    Log.error(error, "An unexpected error occurred while calculating island worth:");
-
-                    if (asker != null)
-                        Message.ISLAND_WORTH_ERROR.send(asker);
-                }
-
-                return;
-            }
-
-            clearBlockCounts();
-            result.getBlockCounts().forEach((blockKey, amount) -> handleBlockPlaceInternal(blockKey, amount, 0));
-
-            BigDecimal newIslandLevel = getIslandLevel();
-            BigDecimal newIslandWorth = getWorth();
-
-            finishCalcIsland(asker, callback, newIslandLevel, newIslandWorth);
-
-            saveBlockCounts(this.currentTotalBlockCounts.get(), true, isLastActiveTask);
-            updateLastTime();
-        });
-    }
-
     private boolean hasGiveInterestFailed() {
         return this.giveInterestFailed;
     }
@@ -5166,16 +4971,6 @@ public class SIsland implements Island {
         if (updatedChests) {
             this.islandChests.set(islandChestList.toArray(new IslandChest[0]));
         }
-    }
-
-    private void finishCalcIsland(SuperiorPlayer asker, Runnable callback, BigDecimal islandLevel, BigDecimal islandWorth) {
-        PluginEventsFactory.callIslandWorthCalculatedEvent(this, asker, islandLevel, islandWorth);
-
-        if (asker != null)
-            Message.ISLAND_WORTH_RESULT.send(asker, islandWorth, islandLevel);
-
-        if (callback != null)
-            callback.run();
     }
 
     private void forEachIslandMember(UUID[] ignoredMembersArray, boolean onlyOnline, Consumer<SuperiorPlayer> islandMemberConsumer) {

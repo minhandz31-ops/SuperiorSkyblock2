@@ -238,14 +238,6 @@ public class IslandsDatabaseBridge {
         updateIslandSettingsValue(island, "bank_limit", island.getBankLimit() + "");
     }
 
-    public static void saveBonusWorth(Island island) {
-        updateIslandValue(island, "worth_bonus", island.getBonusWorth() + "");
-    }
-
-    public static void saveBonusLevel(Island island) {
-        updateIslandValue(island, "levels_bonus", island.getBonusLevel() + "");
-    }
-
     public static void saveUpgrade(Island island, Upgrade upgrade, int level) {
         runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
             try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
@@ -760,8 +752,6 @@ public class IslandsDatabaseBridge {
                         pool.obtain().withNameAndValue("island_type", island.getSchematicName()),
                         pool.obtain().withNameAndValue("discord", island.getDiscord()),
                         pool.obtain().withNameAndValue("paypal", island.getPaypal()),
-                        pool.obtain().withNameAndValue("worth_bonus", island.getBonusWorth() + ""),
-                        pool.obtain().withNameAndValue("levels_bonus", island.getBonusLevel() + ""),
                         pool.obtain().withNameAndValue("locked", island.isLocked()),
                         pool.obtain().withNameAndValue("ignored", island.isIgnored()),
                         pool.obtain().withNameAndValue("name", IslandNames.getNameForDatabase(island)),

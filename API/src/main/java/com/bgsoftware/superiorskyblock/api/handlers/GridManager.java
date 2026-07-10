@@ -29,51 +29,33 @@ public interface GridManager extends IDatabaseBridgeHolder {
      *
      * @param superiorPlayer The new owner for the island.
      * @param schemName      The schematic that should be used.
-     * @param bonus          A starting worth for the island.
      * @param biome          A starting biome for the island.
      * @param islandName     The name of the new island.
      */
-    void createIsland(SuperiorPlayer superiorPlayer, String schemName, BigDecimal bonus, Biome biome, String islandName);
+    void createIsland(SuperiorPlayer superiorPlayer, String schemName, Biome biome, String islandName);
 
     /**
      * Create a new island.
      *
      * @param superiorPlayer The new owner for the island.
      * @param schemName      The schematic that should be used.
-     * @param bonus          A starting worth for the island.
      * @param biome          A starting biome for the island.
      * @param islandName     The name of the new island.
-     * @param offset         Should the island have an offset for it's values? If disabled, the bonus will be given.
+     * @param offset         Should the island have an offset for it's values?
      */
-    void createIsland(SuperiorPlayer superiorPlayer, String schemName, BigDecimal bonus, Biome biome, String islandName, boolean offset);
+    void createIsland(SuperiorPlayer superiorPlayer, String schemName, Biome biome, String islandName, boolean offset);
 
     /**
      * Create a new island.
      *
      * @param superiorPlayer The new owner for the island.
      * @param schemName      The schematic that should be used.
-     * @param bonusWorth     A starting worth for the island.
-     * @param bonusLevel     A starting level for the island.
      * @param biome          A starting biome for the island.
      * @param islandName     The name of the new island.
-     * @param offset         Should the island have an offset for it's values? If disabled, the bonus will be given.
-     */
-    void createIsland(SuperiorPlayer superiorPlayer, String schemName, BigDecimal bonusWorth, BigDecimal bonusLevel,
-                      Biome biome, String islandName, boolean offset);
-
-    /**
-     * Create a new island.
-     *
-     * @param superiorPlayer The new owner for the island.
-     * @param schemName      The schematic that should be used.
-     * @param bonusWorth     A starting worth for the island.
-     * @param bonusLevel     A starting level for the island.
-     * @param biome          A starting biome for the island.
-     * @param islandName     The name of the new island.
-     * @param offset         Should the island have an offset for it's values? If disabled, the bonus will be given.
+     * @param offset         Should the island have an offset for it's values?
      * @param spawnOffset    The offset to teleport the player to from the center of the schematic
      */
-    void createIsland(SuperiorPlayer superiorPlayer, String schemName, BigDecimal bonusWorth, BigDecimal bonusLevel,
+    void createIsland(SuperiorPlayer superiorPlayer, String schemName,
                       Biome biome, String islandName, boolean offset, @Nullable BlockOffset spawnOffset);
 
     /**
@@ -397,18 +379,6 @@ public interface GridManager extends IDatabaseBridgeHolder {
     List<Location> getStackedBlocks();
 
     /**
-     * Calculate the worth of all the islands on the server.
-     */
-    void calcAllIslands();
-
-    /**
-     * Calculate the worth of all the islands on the server.
-     *
-     * @param callback Runnable that will be ran when process is finished.
-     */
-    void calcAllIslands(@Nullable Runnable callback);
-
-    /**
      * Make the island to be deleted when server stops.
      *
      * @param island The island to delete.
@@ -438,18 +408,6 @@ public interface GridManager extends IDatabaseBridgeHolder {
      * @param sortingType The new sorting type to register.
      */
     void registerSortingType(SortingType sortingType);
-
-    /**
-     * Get the total worth of all the islands.
-     * This value is updated every minute, so it might not be 100% accurate.
-     */
-    BigDecimal getTotalWorth();
-
-    /**
-     * Get the total level of all the islands.
-     * This value is updated every minute, so it might not be 100% accurate.
-     */
-    BigDecimal getTotalLevel();
 
     /**
      * Get the location of the last island that was generated.

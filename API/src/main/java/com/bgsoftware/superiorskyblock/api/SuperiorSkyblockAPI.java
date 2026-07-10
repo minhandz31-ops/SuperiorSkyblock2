@@ -112,12 +112,10 @@ public class SuperiorSkyblockAPI {
      *
      * @param superiorPlayer owner of the island
      * @param schemName      the schematic of the island to be pasted
-     * @param bonus          The default island bonus level
-     * @param biome          The default island biome
      * @param islandName     The island name
      */
-    public static void createIsland(SuperiorPlayer superiorPlayer, String schemName, BigDecimal bonus, Biome biome, String islandName) {
-        plugin.getGrid().createIsland(superiorPlayer, schemName, bonus, biome, islandName);
+    public static void createIsland(SuperiorPlayer superiorPlayer, String schemName, Biome biome, String islandName) {
+        plugin.getGrid().createIsland(superiorPlayer, schemName, biome, islandName);
     }
 
     /**
@@ -125,28 +123,12 @@ public class SuperiorSkyblockAPI {
      *
      * @param superiorPlayer The new owner for the island.
      * @param schemName      The schematic that should be used.
-     * @param bonus          A starting worth for the island.
      * @param biome          A starting biome for the island.
      * @param islandName     The name of the new island.
-     * @param offset         Should the island have an offset for it's values? If disabled, the bonus will be given.
+     * @param offset         Should the island have an offset for it's values?
      */
-    public static void createIsland(SuperiorPlayer superiorPlayer, String schemName, BigDecimal bonus, Biome biome, String islandName, boolean offset) {
-        plugin.getGrid().createIsland(superiorPlayer, schemName, bonus, biome, islandName, offset);
-    }
-
-    /**
-     * Create a new island.
-     *
-     * @param superiorPlayer The new owner for the island.
-     * @param schemName      The schematic that should be used.
-     * @param bonusWorth     A starting worth for the island.
-     * @param bonusLevel     A starting level for the island.
-     * @param biome          A starting biome for the island.
-     * @param islandName     The name of the new island.
-     * @param offset         Should the island have an offset for it's values? If disabled, the bonus will be given.
-     */
-    public static void createIsland(SuperiorPlayer superiorPlayer, String schemName, BigDecimal bonusWorth, BigDecimal bonusLevel, Biome biome, String islandName, boolean offset) {
-        plugin.getGrid().createIsland(superiorPlayer, schemName, bonusWorth, bonusLevel, biome, islandName, offset);
+    public static void createIsland(SuperiorPlayer superiorPlayer, String schemName, Biome biome, String islandName, boolean offset) {
+        plugin.getGrid().createIsland(superiorPlayer, schemName, biome, islandName, offset);
     }
 
     /**
@@ -193,13 +175,6 @@ public class SuperiorSkyblockAPI {
     @Nullable
     public static Island getIslandAt(Location location) {
         return plugin.getGrid().getIslandAt(location);
-    }
-
-    /**
-     * Calculate all island worths on the server
-     */
-    public static void calcAllIslands() {
-        plugin.getGrid().calcAllIslands();
     }
 
     /*

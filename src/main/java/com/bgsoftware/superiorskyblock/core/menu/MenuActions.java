@@ -125,8 +125,8 @@ public class MenuActions {
 
         BlockOffset spawnOffset = creationConfig.getSpawnOffset();
 
-        plugin.getGrid().createIsland(clickedPlayer, schematic.getName(), creationConfig.getBonusWorth(),
-                creationConfig.getBonusLevel(), creationConfig.getBiome(), islandName, offset, spawnOffset);
+        plugin.getGrid().createIsland(clickedPlayer, schematic.getName(),
+                creationConfig.getBiome(), islandName, offset, spawnOffset);
     }
 
     public static void simulateWarpsClick(SuperiorPlayer superiorPlayer, Island island, IslandWarp islandWarp) {
