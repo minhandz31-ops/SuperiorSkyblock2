@@ -11,7 +11,6 @@ import com.bgsoftware.superiorskyblock.core.menu.button.impl.IslandCreationButto
 import com.bgsoftware.superiorskyblock.island.IslandUtils;
 import org.bukkit.block.Biome;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
@@ -64,16 +63,6 @@ public class MenuConfig {
         @Override
         public BlockOffset getSpawnOffset() {
             return this.template == null ? null : this.template.getSpawnOffset();
-        }
-
-        @Override
-        public BigDecimal getBonusWorth() {
-            return this.template == null ? BigDecimal.ZERO : this.template.getBonusWorth();
-        }
-
-        @Override
-        public BigDecimal getBonusLevel() {
-            return this.template == null ? BigDecimal.ZERO : this.template.getBonusLevel();
         }
 
         @Override

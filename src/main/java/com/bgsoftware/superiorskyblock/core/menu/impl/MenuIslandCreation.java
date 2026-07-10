@@ -84,24 +84,6 @@ public class MenuIslandCreation extends AbstractMenu<MenuIslandCreation.View, Me
                     }
                 }
 
-                {
-                    Object bonusWorth = itemSection.get("bonus", itemSection.get("bonus-worth", 0D));
-                    if (bonusWorth instanceof Double) {
-                        buttonBuilder.setBonusWorth(BigDecimal.valueOf((double) bonusWorth));
-                    } else if (bonusWorth instanceof String) {
-                        buttonBuilder.setBonusWorth(new BigDecimal((String) bonusWorth));
-                    }
-                }
-
-                {
-                    Object bonusLevel = itemSection.get("bonus-level", 0D);
-                    if (bonusLevel instanceof Double) {
-                        buttonBuilder.setBonusLevel(BigDecimal.valueOf((double) bonusLevel));
-                    } else if (bonusLevel instanceof String) {
-                        buttonBuilder.setBonusLevel(new BigDecimal((String) bonusLevel));
-                    }
-                }
-
                 ConfigurationSection soundSection = cfg.getConfigurationSection("sounds." + itemSectionName);
                 if (soundSection != null) {
                     buttonBuilder.setAccessSound(MenuParserImpl.getInstance().getSound(soundSection.getConfigurationSection("access")));

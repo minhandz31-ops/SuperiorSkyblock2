@@ -38,16 +38,6 @@ public interface MenuIslandCreationConfig {
     boolean shouldOffsetIslandValue();
 
     /**
-     * Custom worth bonus when the island is created.
-     */
-    BigDecimal getBonusWorth();
-
-    /**
-     * Custom level bonus when the island is created.
-     */
-    BigDecimal getBonusLevel();
-
-    /**
      * Get the spawn offset of the island's home location from where the schematic was placed.
      */
     @Nullable
