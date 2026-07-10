@@ -14,7 +14,6 @@ import com.bgsoftware.superiorskyblock.core.ObjectsPools;
 import com.bgsoftware.superiorskyblock.core.mutable.MutableBoolean;
 import com.bgsoftware.superiorskyblock.core.threads.BukkitExecutor;
 import com.bgsoftware.superiorskyblock.island.IslandUtils;
-import com.bgsoftware.superiorskyblock.island.algorithm.DefaultIslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.island.cache.IslandCacheKeys;
 import com.bgsoftware.superiorskyblock.module.BuiltinModules;
 import com.bgsoftware.superiorskyblock.module.upgrades.type.UpgradeTypeCropGrowth;
@@ -187,8 +186,6 @@ public class ChunksListener extends AbstractGameEventListener {
                 islandCache.remove(IslandCacheKeys.PENDING_LOADED_CHUNKS);
             }
         }, 2L);
-
-        DefaultIslandCalculationAlgorithm.CACHED_CALCULATED_CHUNKS.write(cache -> cache.remove(chunkPosition));
     }
 
     private static boolean isOldHologram(ArmorStand armorStand) {
