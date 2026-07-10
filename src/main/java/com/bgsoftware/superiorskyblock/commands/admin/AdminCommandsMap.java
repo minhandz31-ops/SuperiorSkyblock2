@@ -14,7 +14,6 @@ public class AdminCommandsMap extends CommandsMap {
         clearCommands();
 
         registerCommand(new CmdAdminAdd());
-        registerCommand(new CmdAdminAddBonus());
         if (plugin.getSettings().isCoopMembers())
             registerCommand(new CmdAdminAddCoopLimit());
         registerCommand(new CmdAdminAddDisbands());
@@ -43,7 +42,6 @@ public class AdminCommandsMap extends CommandsMap {
         registerCommand(new CmdAdminOpenMenu());
         registerCommand(new CmdAdminPromote());
         registerCommand(new CmdAdminPurge());
-        registerCommand(new CmdAdminRecalc());
         registerCommand(new CmdAdminReload());
         registerCommand(new CmdAdminRemoveRatings());
         registerCommand(new CmdAdminResetPermissions());
@@ -52,7 +50,6 @@ public class AdminCommandsMap extends CommandsMap {
         registerCommand(new CmdAdminSchematic());
         registerCommand(new CmdAdminSetBiome());
         registerCommand(new CmdAdminSetBlockAmount());
-        registerCommand(new CmdAdminSetBonus());
         registerCommand(new CmdAdminSetChestRow());
         if (plugin.getSettings().isCoopMembers())
             registerCommand(new CmdAdminSetCoopLimit());
@@ -72,7 +69,6 @@ public class AdminCommandsMap extends CommandsMap {
         registerCommand(new CmdAdminSpawn());
         registerCommand(new CmdAdminSpy());
         registerCommand(new CmdAdminStats());
-        registerCommand(new CmdAdminSyncBonus());
         registerCommand(new CmdAdminTeleport());
         registerCommand(new CmdAdminTitle());
         registerCommand(new CmdAdminTitleAll());
