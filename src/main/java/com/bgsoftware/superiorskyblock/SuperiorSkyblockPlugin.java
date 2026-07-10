@@ -38,7 +38,6 @@ import com.bgsoftware.superiorskyblock.core.messages.Message;
 import com.bgsoftware.superiorskyblock.core.stackedblocks.StackedBlocksManagerImpl;
 import com.bgsoftware.superiorskyblock.core.stackedblocks.container.DefaultStackedBlocksContainer;
 import com.bgsoftware.superiorskyblock.core.stats.StatsClient;
-import com.bgsoftware.superiorskyblock.core.task.CalcTask;
 import com.bgsoftware.superiorskyblock.core.task.ShutdownTask;
 import com.bgsoftware.superiorskyblock.core.threads.BukkitExecutor;
 import com.bgsoftware.superiorskyblock.core.values.BlockValuesManagerImpl;
@@ -370,11 +369,6 @@ public class SuperiorSkyblockPlugin extends JavaPlugin implements SuperiorSkyblo
             Log.info("Shutting down stats client...");
             StatsClient.getIfExists().ifPresent(StatsClient::shutdown);
 
-            if (loadingStage.isAtLeast(PluginLoadingStage.MANAGERS_INITIALIZED)) {
-                Log.info("Shutting down calculation task...");
-                CalcTask.cancelTask();
-            }
-
             if (loadingStage.isAtLeast(PluginLoadingStage.NMS_INITIALIZED))
                 nmsChunks.shutdown();
 
@@ -502,8 +496,6 @@ public class SuperiorSkyblockPlugin extends JavaPlugin implements SuperiorSkyblo
                 }
             }
         });
-
-        CalcTask.startTask();
 
         modulesHandler.runModuleLifecycle(ModuleLoadTime.AFTER_HANDLERS_LOADING, reloadReason == PluginReloadReason.COMMAND);
 
