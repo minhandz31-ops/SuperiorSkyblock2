@@ -15,11 +15,6 @@ public enum InteractionResult {
     MISSING_PRIVILEGE,
 
     /**
-     * The interaction that was made cannot be done while the island is being recalculated.
-     */
-    ISLAND_RECALCULATE,
-
-    /**
      * The interaction can be done.
      */
     SUCCESS

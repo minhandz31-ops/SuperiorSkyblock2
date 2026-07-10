@@ -27,10 +27,6 @@ public class ProtectionHelper {
     public static boolean shouldPreventInteraction(InteractionResult interactionResult,
                                                    @Nullable SuperiorPlayer superiorPlayer, boolean sendMessages) {
         switch (interactionResult) {
-            case ISLAND_RECALCULATE:
-                if (sendMessages && superiorPlayer != null)
-                    Message.ISLAND_BEING_CALCULATED.send(superiorPlayer);
-                return true;
             case MISSING_PRIVILEGE:
                 if (sendMessages && superiorPlayer != null)
                     sendProtectionMessage(superiorPlayer.asPlayer());

@@ -22,7 +22,6 @@ import com.bgsoftware.superiorskyblock.core.formatting.Formatters;
 import com.bgsoftware.superiorskyblock.core.key.ConstantKeys;
 import com.bgsoftware.superiorskyblock.core.key.Keys;
 import com.bgsoftware.superiorskyblock.core.logging.Log;
-import com.bgsoftware.superiorskyblock.core.values.BlockValue;
 import com.bgsoftware.superiorskyblock.external.placeholders.PlaceholdersProvider;
 import com.bgsoftware.superiorskyblock.island.IslandUtils;
 import com.bgsoftware.superiorskyblock.island.privilege.IslandPrivileges;
@@ -34,7 +33,6 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.potion.PotionEffectType;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,11 +54,7 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
     private static final Pattern PLAYER_PLACEHOLDER_PATTERN = Pattern.compile("player_(.+)");
 
     private static final Pattern BLOCK_COUNT_PLACEHOLDER_PATTERN = Pattern.compile("island_block_count_(.+)");
-    private static final Pattern BLOCK_LEVEL_PLACEHOLDER_PATTERN = Pattern.compile("island_block_level_(.+)");
     private static final Pattern BLOCK_LIMIT_PLACEHOLDER_PATTERN = Pattern.compile("island_block_limit_(.+)");
-    private static final Pattern BLOCK_TOTAL_LEVEL_PLACEHOLDER_PATTERN = Pattern.compile("island_block_total_level_(.+)");
-    private static final Pattern BLOCK_TOTAL_WORTH_PLACEHOLDER_PATTERN = Pattern.compile("island_block_total_worth_(.+)");
-    private static final Pattern BLOCK_WORTH_PLACEHOLDER_PATTERN = Pattern.compile("island_block_worth_(.+)");
     private static final Pattern COUNT_PLACEHOLDER_PATTERN = Pattern.compile("island_count_(.+)");
     private static final Pattern DATA_PLACEHOLDER_PATTERN = Pattern.compile("island_data_(.+)");
     private static final Pattern EFFECT_PLACEHOLDER_PATTERN = Pattern.compile("island_effect_(.+)");
@@ -161,22 +155,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                     })
                     .put("biome", (island, superiorPlayer) ->
                             Formatters.CAPITALIZED_FORMATTER.format(island.getBiome().name()))
-                    .put("bonus_level", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(island.getBonusLevel()))
-                    .put("bonus_level_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(island.getBonusLevel(), superiorPlayer.getUserLocale()))
-                    .put("bonus_level_int", (island, superiorPlayer) ->
-                            island.getBonusLevel().toBigInteger().toString())
-                    .put("bonus_level_raw", (island, superiorPlayer) ->
-                            island.getBonusLevel().toString())
-                    .put("bonus_worth", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(island.getBonusWorth()))
-                    .put("bonus_worth_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(island.getBonusWorth(), superiorPlayer.getUserLocale()))
-                    .put("bonus_worth_int", (island, superiorPlayer) ->
-                            island.getBonusWorth().toBigInteger().toString())
-                    .put("bonus_worth_raw", (island, superiorPlayer) ->
-                            island.getBonusWorth().toString())
                     .put("center", (island, superiorPlayer) ->
                             Formatters.BLOCK_POSITION_FORMATTER.format(island.getCenterPosition(), getDefaultWorldInfo(island)))
                     .put("center_x", (island, superiorPlayer) ->
@@ -238,14 +216,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                             Formatters.TIME_FORMATTER.format(Duration.ofSeconds(island.getLastTimeUpdate()), superiorPlayer.getUserLocale()))
                     .put("leader", (island, superiorPlayer) ->
                             island.getOwner().getName())
-                    .put("level", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(island.getIslandLevel()))
-                    .put("level_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(island.getIslandLevel(), superiorPlayer.getUserLocale()))
-                    .put("level_int", (island, superiorPlayer) ->
-                            island.getIslandLevel().toBigInteger().toString())
-                    .put("level_raw", (island, superiorPlayer) ->
-                            island.getIslandLevel().toString())
                     .put("locked", (island, superiorPlayer) ->
                             Formatters.BOOLEAN_FORMATTER.format(island.isLocked(), superiorPlayer.getUserLocale()))
                     .put("missions_completed", (island, superiorPlayer) ->
@@ -294,14 +264,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                             island.getCropGrowthRaw() + "")
                     .put("raw_drops_multiplier", (island, superiorPlayer) ->
                             island.getMobDropsRaw() + "")
-                    .put("raw_level", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(island.getRawLevel()))
-                    .put("raw_level_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(island.getRawLevel(), superiorPlayer.getUserLocale()))
-                    .put("raw_level_int", (island, superiorPlayer) ->
-                            island.getRawLevel().toBigInteger().toString())
-                    .put("raw_level_raw", (island, superiorPlayer) ->
-                            island.getRawLevel().toString())
                     .put("raw_radius", (island, superiorPlayer) ->
                             island.getIslandSizeRaw() + "")
                     .put("raw_spawners_multiplier", (island, superiorPlayer) ->
@@ -310,14 +272,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                             island.getTeamLimitRaw() + "")
                     .put("raw_warps_limit", (island, superiorPlayer) ->
                             island.getWarpsLimitRaw() + "")
-                    .put("raw_worth", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(island.getRawWorth()))
-                    .put("raw_worth_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(island.getRawWorth(), superiorPlayer.getUserLocale()))
-                    .put("raw_worth_int", (island, superiorPlayer) ->
-                            island.getRawWorth().toBigInteger().toString())
-                    .put("raw_worth_raw", (island, superiorPlayer) ->
-                            island.getRawWorth().toString())
                     .put("schematic", (island, superiorPlayer) ->
                             island.getSchematicName())
                     .put("size", (island, superiorPlayer) -> {
@@ -394,14 +348,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                             island.getWarpsLimit() + "")
                     .put("world", (island, superiorPlayer) ->
                             getDefaultWorldInfo(island).getName())
-                    .put("worth", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(island.getWorth()))
-                    .put("worth_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(island.getWorth(), superiorPlayer.getUserLocale()))
-                    .put("worth_int", (island, superiorPlayer) ->
-                            island.getWorth().toBigInteger().toString())
-                    .put("worth_raw", (island, superiorPlayer) ->
-                            island.getWorth().toString())
                     // Deprecated Island Placeholders
                     .put("end_unlocked", legacyPlaceholder("superior_island_end_unlocked", "superior_island_world_unlocked_the_end", (island, superiorPlayer) ->
                             Formatters.BOOLEAN_FORMATTER.format(island.isEndEnabled(), superiorPlayer.getUserLocale())))
@@ -424,30 +370,10 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                             Formatters.FANCY_NUMBER_FORMATTER.format(plugin.getGrid().getIslands().size(), superiorPlayer.getUserLocale()))
                     .put("total_count_raw", (island, superiorPlayer) ->
                             plugin.getGrid().getIslands().size() + "")
-                    .put("total_level", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(plugin.getGrid().getTotalLevel()))
-                    .put("total_level_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(plugin.getGrid().getTotalLevel(), superiorPlayer.getUserLocale()))
-                    .put("total_level_int", (island, superiorPlayer) ->
-                            plugin.getGrid().getTotalLevel().toBigInteger().toString())
-                    .put("total_level_raw", (island, superiorPlayer) ->
-                            plugin.getGrid().getTotalLevel().toString())
-                    .put("total_worth", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(plugin.getGrid().getTotalWorth()))
-                    .put("total_worth_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(plugin.getGrid().getTotalWorth(), superiorPlayer.getUserLocale()))
-                    .put("total_worth_int", (island, superiorPlayer) ->
-                            plugin.getGrid().getTotalWorth().toBigInteger().toString())
-                    .put("total_worth_raw", (island, superiorPlayer) ->
-                            plugin.getGrid().getTotalWorth().toString())
                     .build();
 
     private static final Map<SortingType, BiFunction<Island, SuperiorPlayer, String>> TOP_VALUE_FORMAT_FUNCTIONS =
             new ImmutableMap.Builder<SortingType, BiFunction<Island, SuperiorPlayer, String>>()
-                    .put(SortingTypes.BY_WORTH, (targetIsland, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(targetIsland.getWorth(), superiorPlayer.getUserLocale()))
-                    .put(SortingTypes.BY_LEVEL, (targetIsland, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(targetIsland.getIslandLevel(), superiorPlayer.getUserLocale()))
                     .put(SortingTypes.BY_RATING, (targetIsland, superiorPlayer) ->
                             Formatters.NUMBER_FORMATTER.format(targetIsland.getTotalRating()))
                     .put(SortingTypes.BY_PLAYERS, (targetIsland, superiorPlayer) ->
@@ -456,16 +382,12 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
 
     private static final Map<SortingType, Function<Island, String>> TOP_VALUE_RAW_FUNCTIONS =
             new ImmutableMap.Builder<SortingType, Function<Island, String>>()
-                    .put(SortingTypes.BY_WORTH, targetIsland -> targetIsland.getWorth().toString())
-                    .put(SortingTypes.BY_LEVEL, targetIsland -> targetIsland.getIslandLevel().toString())
                     .put(SortingTypes.BY_RATING, targetIsland -> targetIsland.getTotalRating() + "")
                     .put(SortingTypes.BY_PLAYERS, targetIsland -> targetIsland.getAllPlayersInside().size() + "")
                     .build();
 
     private static final Map<SortingType, Function<Island, String>> TOP_VALUE_FUNCTIONS =
             new ImmutableMap.Builder<SortingType, Function<Island, String>>()
-                    .put(SortingTypes.BY_WORTH, targetIsland -> Formatters.NUMBER_FORMATTER.format(targetIsland.getWorth()))
-                    .put(SortingTypes.BY_LEVEL, targetIsland -> Formatters.NUMBER_FORMATTER.format(targetIsland.getIslandLevel()))
                     .put(SortingTypes.BY_RATING, targetIsland -> Formatters.NUMBER_FORMATTER.format(targetIsland.getTotalRating()))
                     .put(SortingTypes.BY_PLAYERS, targetIsland -> Formatters.NUMBER_FORMATTER.format(targetIsland.getAllPlayersInside().size()))
                     .build();
@@ -645,27 +567,9 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                         (matcher = COUNT_PLACEHOLDER_PATTERN.matcher(placeholder)).matches()) {
                     String keyName = matcher.group(1);
                     return Optional.of(island.getBlockCountAsBigInteger(Keys.ofMaterialAndData(keyName)) + "");
-                } else if ((matcher = BLOCK_LEVEL_PLACEHOLDER_PATTERN.matcher(placeholder)).matches()) {
-                    String keyName = matcher.group(1);
-                    BlockValue blockValue = plugin.getBlockValues().getBlockValue(Keys.ofMaterialAndData(keyName));
-                    return Optional.of(blockValue.getLevel() + "");
                 } else if ((matcher = BLOCK_LIMIT_PLACEHOLDER_PATTERN.matcher(placeholder)).matches()) {
                     String keyName = matcher.group(1);
                     return Optional.of(island.getBlockLimit(Keys.ofMaterialAndData(keyName)) + "");
-                } else if ((matcher = BLOCK_TOTAL_LEVEL_PLACEHOLDER_PATTERN.matcher(placeholder)).matches()) {
-                    String keyName = matcher.group(1);
-                    BlockValue blockValue = plugin.getBlockValues().getBlockValue(Keys.ofMaterialAndData(keyName));
-                    BigDecimal amount = new BigDecimal(island.getBlockCountAsBigInteger(Keys.ofMaterialAndData(keyName)));
-                    return Optional.of(blockValue.getLevel().multiply(amount) + "");
-                } else if ((matcher = BLOCK_TOTAL_WORTH_PLACEHOLDER_PATTERN.matcher(placeholder)).matches()) {
-                    String keyName = matcher.group(1);
-                    BlockValue blockValue = plugin.getBlockValues().getBlockValue(Keys.ofMaterialAndData(keyName));
-                    BigDecimal amount = new BigDecimal(island.getBlockCountAsBigInteger(Keys.ofMaterialAndData(keyName)));
-                    return Optional.of(blockValue.getWorth().multiply(amount) + "");
-                } else if ((matcher = BLOCK_WORTH_PLACEHOLDER_PATTERN.matcher(placeholder)).matches()) {
-                    String keyName = matcher.group(1);
-                    BlockValue blockValue = plugin.getBlockValues().getBlockValue(Keys.ofMaterialAndData(keyName));
-                    return Optional.of(blockValue.getWorth() + "");
                 } else if ((matcher = DATA_PLACEHOLDER_PATTERN.matcher(placeholder)).matches()) {
                     String keyName = matcher.group(1);
                     Object data = island.getPersistentDataContainer().get(keyName);

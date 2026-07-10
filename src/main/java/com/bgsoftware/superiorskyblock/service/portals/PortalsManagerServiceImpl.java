@@ -3,8 +3,6 @@ package com.bgsoftware.superiorskyblock.service.portals;
 import com.bgsoftware.common.annotations.Nullable;
 import com.bgsoftware.superiorskyblock.SuperiorSkyblockPlugin;
 import com.bgsoftware.superiorskyblock.api.config.SettingsManager;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeLevelBonusEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeWorthBonusEvent;
 import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.player.PlayerStatus;
 import com.bgsoftware.superiorskyblock.api.schematic.Schematic;
@@ -33,7 +31,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
-import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -308,30 +305,9 @@ public class PortalsManagerServiceImpl implements PortalsManagerService, IServic
                     Location centerLocation = island.getCenter(destination);
                     Location schematicPlacementLocation = centerLocation.getBlock().getRelative(BlockFace.DOWN).getLocation();
 
-                    BigDecimal originalWorth = island.getRawWorth();
-                    BigDecimal originalLevel = island.getRawLevel();
-
                     schematic.pasteSchematic(island, schematicPlacementLocation, () -> {
                         generatingSchematicsIslands.remove(island.getUniqueId());
                         island.setSchematicGenerate(destination);
-
-                        SettingsManager.Worlds.DimensionConfig destinationConfig = plugin.getSettings().getWorlds().getDimensionConfig(destination);
-                        if (destinationConfig != null && destinationConfig.isSchematicOffset()) {
-                            {
-                                BigDecimal schematicWorth = island.getRawWorth().subtract(originalWorth);
-                                PluginEvent<PluginEventArgs.IslandChangeWorthBonus> event = PluginEventsFactory.callIslandChangeWorthBonusEvent(
-                                        island, (SuperiorPlayer) null, IslandChangeWorthBonusEvent.Reason.SCHEMATIC, island.getBonusWorth().subtract(schematicWorth));
-                                if (!event.isCancelled())
-                                    island.setBonusWorth(event.getArgs().worthBonus);
-                            }
-                            {
-                                BigDecimal schematicLevel = island.getRawLevel().subtract(originalLevel);
-                                PluginEvent<PluginEventArgs.IslandChangeLevelBonus> event = PluginEventsFactory.callIslandChangeLevelBonusEvent(
-                                        island, (SuperiorPlayer) null, IslandChangeLevelBonusEvent.Reason.SCHEMATIC, island.getBonusLevel().subtract(schematicLevel));
-                                if (!event.isCancelled())
-                                    island.setBonusLevel(event.getArgs().levelBonus);
-                            }
-                        }
 
                         Location homeLocation = schematic.adjustRotation(centerLocation);
                         island.setIslandHome(homeLocation);

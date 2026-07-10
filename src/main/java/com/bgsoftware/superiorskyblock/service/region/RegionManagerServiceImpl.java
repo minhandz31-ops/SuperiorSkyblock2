@@ -155,10 +155,6 @@ public class RegionManagerServiceImpl implements RegionManagerService, IService 
 
             if (island == null)
                 return InteractionResult.SUCCESS;
-
-            if (plugin.getSettings().getValuableBlocks().contains(Keys.of(block)))
-                return handleInteractionInternal(superiorPlayer, blockLocation, IslandPrivileges.VALUABLE_BREAK,
-                        0, false, false, island, false);
         }
 
         return InteractionResult.SUCCESS;
@@ -574,8 +570,6 @@ public class RegionManagerServiceImpl implements RegionManagerService, IService 
             if (!island.hasPermission(superiorPlayer, islandPrivilege))
                 return InteractionResult.MISSING_PRIVILEGE;
 
-            if (checkRecalculation && island.isBeingRecalculated())
-                return InteractionResult.ISLAND_RECALCULATE;
         }
 
         return InteractionResult.SUCCESS;
