@@ -486,9 +486,6 @@ public class ProvidersManagerImpl extends Manager implements ProvidersManager {
         if (Bukkit.getPluginManager().isPluginEnabled("ItemsAdder"))
             registerHook("ItemsAdderHook");
 
-        if (canRegisterHook("Plan"))
-            registerHook("PlanHook");
-
         if (Bukkit.getPluginManager().isPluginEnabled("CraftEngine")) {
             // We load the hook with an extra delay to let CraftEngine load its data first
             Plugin plugin = Bukkit.getPluginManager().getPlugin("CraftEngine");
