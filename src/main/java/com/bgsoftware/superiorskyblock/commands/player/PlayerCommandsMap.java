@@ -47,7 +47,6 @@ public class PlayerCommandsMap extends CommandsMap {
         registerCommand(new CmdPromote());
         registerCommand(new CmdRate());
         registerCommand(new CmdRatings());
-        registerCommand(new CmdRecalc());
         registerCommand(new CmdSetDiscord());
         registerCommand(new CmdSetPaypal());
         registerCommand(new CmdSetRole());
@@ -59,12 +58,9 @@ public class PlayerCommandsMap extends CommandsMap {
         registerCommand(new CmdTeamChat());
         registerCommand(new CmdTeleport());
         registerCommand(new CmdToggle());
-        registerCommand(new CmdTop());
         registerCommand(new CmdTransfer());
         if (plugin.getSettings().isCoopMembers())
             registerCommand(new CmdUncoop());
-        registerCommand(new CmdValue());
-        registerCommand(new CmdValues());
         registerCommand(new CmdVisit());
         registerCommand(new CmdVisitors());
         registerCommand(new CmdWarp());
