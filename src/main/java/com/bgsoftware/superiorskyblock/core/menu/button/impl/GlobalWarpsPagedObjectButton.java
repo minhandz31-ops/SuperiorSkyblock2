@@ -57,13 +57,9 @@ public class GlobalWarpsPagedObjectButton extends AbstractPagedMenuButton<MenuGl
                 .replaceLoreWithLines("{1}", description)
                 .replaceAll("{2}", String.valueOf(pagedObject.getIslandWarps().size()))
                 .replaceAll("{3}", islandName)
-                .replaceAll("{4}", Formatters.NUMBER_FORMATTER.format(pagedObject.getIslandLevel()))
-                .replaceAll("{5}", Formatters.FANCY_NUMBER_FORMATTER.format(pagedObject.getIslandLevel(), locale))
-                .replaceAll("{6}", Formatters.NUMBER_FORMATTER.format(pagedObject.getWorth()))
-                .replaceAll("{7}", Formatters.FANCY_NUMBER_FORMATTER.format(pagedObject.getWorth(), locale))
-                .replaceAll("{8}", Formatters.NUMBER_FORMATTER.format(pagedObject.getTotalRating()))
-                .replaceAll("{9}", Formatters.RATING_FORMATTER.format(pagedObject.getTotalRating(), locale))
-                .replaceAll("{10}", String.valueOf(pagedObject.getRatingAmount()))
+                .replaceAll("{4}", Formatters.NUMBER_FORMATTER.format(pagedObject.getTotalRating()))
+                .replaceAll("{5}", Formatters.RATING_FORMATTER.format(pagedObject.getTotalRating(), locale))
+                .replaceAll("{6}", String.valueOf(pagedObject.getRatingAmount()))
                 .build(pagedObject.getOwner());
     }
 

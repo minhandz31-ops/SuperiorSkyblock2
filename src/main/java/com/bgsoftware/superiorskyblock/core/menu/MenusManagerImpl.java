@@ -7,7 +7,6 @@ import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
-import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
 import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.menu.ISuperiorMenu;
@@ -130,21 +129,6 @@ public class MenusManagerImpl extends Manager implements MenusManager {
     @Override
     public void refreshCoops(Island island) {
         plugin.getProviders().getMenusProvider().refreshCoops(island);
-    }
-
-    @Override
-    public void openCounts(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        plugin.getProviders().getMenusProvider().openCounts(targetPlayer, previousMenu, targetIsland);
-    }
-
-    @Override
-    public void openIslandCountsMenu(SuperiorPlayer superiorPlayer, Island island) {
-        openCounts(superiorPlayer, null, island);
-    }
-
-    @Override
-    public void refreshCounts(Island island) {
-        plugin.getProviders().getMenusProvider().refreshCounts(island);
     }
 
     @Override
@@ -368,21 +352,6 @@ public class MenusManagerImpl extends Manager implements MenusManager {
     }
 
     @Override
-    public void openTopIslands(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, SortingType sortingType) {
-        plugin.getProviders().getMenusProvider().openTopIslands(targetPlayer, previousMenu, sortingType);
-    }
-
-    @Override
-    public void openIslandsTopMenu(SuperiorPlayer superiorPlayer, SortingType sortingType) {
-        openTopIslands(superiorPlayer, null, sortingType);
-    }
-
-    @Override
-    public void refreshTopIslands(SortingType sortingType) {
-        plugin.getProviders().getMenusProvider().refreshTopIslands(sortingType);
-    }
-
-    @Override
     public void openUniqueVisitors(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
         plugin.getProviders().getMenusProvider().openUniqueVisitors(targetPlayer, previousMenu, targetIsland);
     }
@@ -410,21 +379,6 @@ public class MenusManagerImpl extends Manager implements MenusManager {
     @Override
     public void refreshUpgrades(Island island) {
         plugin.getProviders().getMenusProvider().refreshUpgrades(island);
-    }
-
-    @Override
-    public void openValues(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        plugin.getProviders().getMenusProvider().openValues(targetPlayer, previousMenu, targetIsland);
-    }
-
-    @Override
-    public void openIslandValuesMenu(SuperiorPlayer superiorPlayer, Island island) {
-        openValues(superiorPlayer, null, island);
-    }
-
-    @Override
-    public void refreshValues(Island island) {
-        plugin.getProviders().getMenusProvider().refreshValues(island);
     }
 
     @Override

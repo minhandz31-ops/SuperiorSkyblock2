@@ -10,12 +10,10 @@ import com.bgsoftware.superiorskyblock.commands.IAdminIslandCommand;
 import com.bgsoftware.superiorskyblock.commands.arguments.CommandArguments;
 import com.bgsoftware.superiorskyblock.core.formatting.Formatters;
 import com.bgsoftware.superiorskyblock.core.key.Keys;
-import com.bgsoftware.superiorskyblock.core.menu.view.MenuViewWrapper;
 import com.bgsoftware.superiorskyblock.core.messages.Message;
 import com.bgsoftware.superiorskyblock.player.PlayerLocales;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.math.BigInteger;
 import java.util.Collections;
@@ -52,7 +50,7 @@ public class CmdAdminCount implements IAdminIslandCommand {
 
     @Override
     public int getMinArgs() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -72,17 +70,6 @@ public class CmdAdminCount implements IAdminIslandCommand {
 
     @Override
     public void execute(SuperiorSkyblockPlugin plugin, CommandSender sender, @Nullable SuperiorPlayer targetPlayer, Island island, String[] args) {
-        if (args.length == 3) {
-            if (!(sender instanceof Player)) {
-                Message.CUSTOM.send(sender, "&cYou must be a player in order to open the counts menu.", true);
-                return;
-            }
-
-            SuperiorPlayer superiorPlayer = plugin.getPlayers().getSuperiorPlayer(sender);
-            plugin.getMenus().openCounts(superiorPlayer, MenuViewWrapper.fromView(superiorPlayer.getOpenedView()), island);
-            return;
-        }
-
         String materialName = args[3].toUpperCase(Locale.ENGLISH);
 
         if (materialName.equals("*")) {

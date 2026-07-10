@@ -682,7 +682,6 @@ public class GridManagerImpl extends Manager implements GridManager {
         activeSortingTasks.get().write(activeSortingTasks -> activeSortingTasks.add(sortingType));
 
         this.islandsContainer.sortIslands(sortingType, forceSort, () -> {
-            plugin.getMenus().refreshTopIslands(sortingType);
             activeSortingTasks.get().write(activeSortingTasks -> activeSortingTasks.remove(sortingType));
             if (onFinish != null)
                 onFinish.run();

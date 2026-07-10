@@ -4541,9 +4541,6 @@ public class SIsland implements Island {
 
             finishCalcIsland(asker, callback, newIslandLevel, newIslandWorth);
 
-            plugin.getMenus().refreshValues(this);
-            plugin.getMenus().refreshCounts(this);
-
             saveBlockCounts(this.currentTotalBlockCounts.get(), oldWorth, oldLevel, true, isLastActiveTask);
             updateLastTime();
         });
@@ -4676,8 +4673,6 @@ public class SIsland implements Island {
         if (forceBlocksCountSave || deltaBlockCounts.compareTo(plugin.getSettings().getBlockCountsSaveThreshold()) >= 0) {
             this.lastSavedBlockCounts = currentTotalBlocksCount;
             IslandsDatabaseBridge.saveBlockCounts(this);
-            plugin.getMenus().refreshValues(this);
-            plugin.getMenus().refreshCounts(this);
             if (sortIslands) {
                 plugin.getGrid().sortIslands(SortingTypes.BY_WORTH);
                 plugin.getGrid().sortIslands(SortingTypes.BY_LEVEL);

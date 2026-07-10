@@ -14,7 +14,6 @@ public class MenuIdentifiers {
     public static final String MENU_CONFIRM_TRANSFER = "MenuConfirmTransfer";
     public static final String MENU_CONTROL_PANEL = "MenuControlPanel";
     public static final String MENU_COOPS = "MenuCoops";
-    public static final String MENU_COUNTS = "MenuCounts";
     public static final String MENU_CUSTOM_PREFIX = "MenuCustom_";
     public static final String MENU_GLOBAL_WARPS = "MenuGlobalWarps";
     public static final String MENU_ISLAND_BANK = "MenuIslandBank";
@@ -28,14 +27,12 @@ public class MenuIdentifiers {
     public static final String MENU_ISLAND_RATINGS = "MenuIslandRatings";
     public static final String MENU_ISLAND_UNIQUE_VISITORS = "MenuUniqueVisitors";
     public static final String MENU_ISLAND_UPGRADES = "MenuIslandUpgrades";
-    public static final String MENU_ISLAND_VALUES = "MenuIslandValues";
     public static final String MENU_ISLAND_VISITORS = "MenuIslandVisitors";
     public static final String MENU_MEMBER_MANAGE = "MenuMemberManage";
     public static final String MENU_MEMBER_ROLE = "MenuMemberRole";
     public static final String MENU_MISSIONS = "MenuMissions";
     public static final String MENU_MISSIONS_CATEGORY = "MenuMissionsCategory";
     public static final String MENU_PLAYER_LANGUAGE = "MenuPlayerLanguage";
-    public static final String MENU_TOP_ISLANDS = "MenuTopIslands";
     public static final String MENU_WARP_CATEGORIES = "MenuWarpCategories";
     public static final String MENU_WARP_CATEGORIES_ICON_EDIT = "MenuWarpCategoryIconEdit";
     public static final String MENU_WARP_CATEGORIES_MANAGE = "MenuWarpCategoryManage";

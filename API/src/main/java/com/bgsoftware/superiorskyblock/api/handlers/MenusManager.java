@@ -5,7 +5,6 @@ import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
-import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
 import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.menu.ISuperiorMenu;
@@ -176,33 +175,6 @@ public interface MenusManager {
      * @param island The island to refresh the menus for.
      */
     void refreshCoops(Island island);
-
-    /**
-     * Open the block-counts menu.
-     * Used when opening the counts menu of an island (using /is counts, for example)
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetIsland The island to get block counts from.
-     */
-    void openCounts(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland);
-
-    /**
-     * Open the island counts menu for a player.
-     *
-     * @param superiorPlayer The player to open the menu for.
-     * @param island         The island to get the block counts from.
-     * @deprecated see {@link #openCounts(SuperiorPlayer, ISuperiorMenu, Island)}
-     */
-    @Deprecated
-    void openIslandCountsMenu(SuperiorPlayer superiorPlayer, Island island);
-
-    /**
-     * Refresh the counts-menu for a specific island.
-     *
-     * @param island The island to refresh the menus for.
-     */
-    void refreshCounts(Island island);
 
     /**
      * Open the global-warps menu.
@@ -597,32 +569,6 @@ public interface MenusManager {
     void updateSettings(IslandFlag islandFlag);
 
     /**
-     * Open the top-islands menu.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param sortingType  The type of sorting of islands to use.
-     */
-    void openTopIslands(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, SortingType sortingType);
-
-    /**
-     * Open the islands top menu for a player.
-     *
-     * @param superiorPlayer The player to open the menu for.
-     * @param sortingType    The sorting type you want to open.
-     * @deprecated see {@link #openTopIslands(SuperiorPlayer, ISuperiorMenu, SortingType)}
-     */
-    @Deprecated
-    void openIslandsTopMenu(SuperiorPlayer superiorPlayer, SortingType sortingType);
-
-    /**
-     * Refresh the top-islands menu for a specific sorting type.
-     *
-     * @param sortingType The sorting type to refresh.
-     */
-    void refreshTopIslands(SortingType sortingType);
-
-    /**
      * Open the unique-visitors menu.
      *
      * @param targetPlayer The player to open the menu for.
@@ -673,33 +619,6 @@ public interface MenusManager {
      * @param island The island to refresh the menus for.
      */
     void refreshUpgrades(Island island);
-
-    /**
-     * Open the values-menu.
-     * Used when right-clicking an island in the top-islands menu.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetIsland The island to get values from.
-     */
-    void openValues(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland);
-
-    /**
-     * Open the island values menu for a player.
-     *
-     * @param superiorPlayer The player to open the menu for.
-     * @param island         The island to get the values from.
-     * @deprecated see {@link #openValues(SuperiorPlayer, ISuperiorMenu, Island)}
-     */
-    @Deprecated
-    void openIslandValuesMenu(SuperiorPlayer superiorPlayer, Island island);
-
-    /**
-     * Refresh the values-menu for a specific island.
-     *
-     * @param island The island to refresh the menus for.
-     */
-    void refreshValues(Island island);
 
     /**
      * Open the visitors-menu.

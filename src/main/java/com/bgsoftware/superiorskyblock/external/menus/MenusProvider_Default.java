@@ -8,7 +8,6 @@ import com.bgsoftware.superiorskyblock.api.island.IslandChest;
 import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
-import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
 import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.menu.ISuperiorMenu;
@@ -30,7 +29,6 @@ import com.bgsoftware.superiorskyblock.core.menu.impl.MenuConfirmTransfer;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandCreation;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandPrivileges;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuMissionsCategory;
-import com.bgsoftware.superiorskyblock.core.menu.impl.MenuTopIslands;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuWarpCategoryIconEdit;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuWarpCategoryManage;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuWarpIconEdit;
@@ -176,19 +174,6 @@ public class MenusProvider_Default implements MenusProvider {
     public void refreshCoops(Island island) {
         Preconditions.checkNotNull(island, "island parameter cannot be null.");
         Menus.MENU_COOPS.refreshViews(island);
-    }
-
-    @Override
-    public void openCounts(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        Preconditions.checkNotNull(targetPlayer, "targetPlayer parameter cannot be null.");
-        Preconditions.checkNotNull(targetIsland, "targetIsland parameter cannot be null.");
-        Menus.MENU_COUNTS.createView(targetPlayer, new IslandViewArgs(targetIsland), previousMenu);
-    }
-
-    @Override
-    public void refreshCounts(Island island) {
-        Preconditions.checkNotNull(island, "island parameter cannot be null.");
-        Menus.MENU_COUNTS.refreshViews(island);
     }
 
     @Override
@@ -439,19 +424,6 @@ public class MenusProvider_Default implements MenusProvider {
     }
 
     @Override
-    public void openTopIslands(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, SortingType sortingType) {
-        Preconditions.checkNotNull(targetPlayer, "targetPlayer parameter cannot be null.");
-        Preconditions.checkNotNull(sortingType, "sortingType parameter cannot be null.");
-        Menus.MENU_TOP_ISLANDS.createView(targetPlayer, new MenuTopIslands.Args(sortingType), previousMenu);
-    }
-
-    @Override
-    public void refreshTopIslands(SortingType sortingType) {
-        Preconditions.checkNotNull(sortingType, "sortingType parameter cannot be null.");
-        Menus.MENU_TOP_ISLANDS.refreshViews(sortingType);
-    }
-
-    @Override
     public void openUniqueVisitors(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
         Preconditions.checkNotNull(targetPlayer, "targetPlayer parameter cannot be null.");
         Preconditions.checkNotNull(targetIsland, "targetIsland parameter cannot be null.");
@@ -475,19 +447,6 @@ public class MenusProvider_Default implements MenusProvider {
     public void refreshUpgrades(Island island) {
         Preconditions.checkNotNull(island, "island parameter cannot be null.");
         Menus.MENU_ISLAND_UPGRADES.refreshViews(island);
-    }
-
-    @Override
-    public void openValues(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        Preconditions.checkNotNull(targetPlayer, "targetPlayer parameter cannot be null.");
-        Preconditions.checkNotNull(targetIsland, "targetIsland parameter cannot be null.");
-        Menus.MENU_ISLAND_VALUES.createView(targetPlayer, new IslandViewArgs(targetIsland), previousMenu);
-    }
-
-    @Override
-    public void refreshValues(Island island) {
-        Preconditions.checkNotNull(island, "island parameter cannot be null.");
-        Menus.MENU_ISLAND_VALUES.refreshViews(island);
     }
 
     @Override

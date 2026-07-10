@@ -25,7 +25,6 @@ public class PlayerCommandsMap extends CommandsMap {
             registerCommand(new CmdCoop());
             registerCommand(new CmdCoops());
         }
-        registerCommand(new CmdCounts());
         registerCommand(new CmdCreate());
         registerCommand(new CmdDelWarp());
         registerCommand(new CmdDemote());
