@@ -129,7 +129,7 @@ public class CmdAdminResetWorld implements IAdminIslandCommand {
 
         // Resetting the chunks
         island.resetChunks(dimension, IslandChunkFlags.ONLY_PROTECTED,
-                isDefaultDimension ? null : () -> island.calcIslandWorth(null));
+                isDefaultDimension ? null : () -> {});
 
         if (isDefaultDimension) {
             String islandSchematic = island.getSchematicName();
@@ -156,8 +156,6 @@ public class CmdAdminResetWorld implements IAdminIslandCommand {
             if (dimension.getEnvironment() == World.Environment.THE_END) {
                 dragonBattleService.get().resetEnderDragonBattle(island, dimension);
             }
-
-            island.calcIslandWorth(null);
         }, Throwable::printStackTrace);
     }
 

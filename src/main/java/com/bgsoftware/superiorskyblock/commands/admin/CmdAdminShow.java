@@ -140,22 +140,6 @@ public class CmdAdminShow implements IAdminIslandCommand {
                 infoMessage.append(Message.ISLAND_INFO_BANK.getMessage(locale, island.getIslandBank().getBalance())).append("\n");
         }
 
-        // Island bonus worth
-        if (!Message.ISLAND_INFO_BONUS.isEmpty(locale))
-            infoMessage.append(Message.ISLAND_INFO_BONUS.getMessage(locale, island.getBonusWorth())).append("\n");
-
-        // Island bonus level
-        if (!Message.ISLAND_INFO_BONUS_LEVEL.isEmpty(locale))
-            infoMessage.append(Message.ISLAND_INFO_BONUS_LEVEL.getMessage(locale, island.getBonusLevel())).append("\n");
-
-        // Island worth
-        if (!Message.ISLAND_INFO_WORTH.isEmpty(locale))
-            infoMessage.append(Message.ISLAND_INFO_WORTH.getMessage(locale, island.getWorth())).append("\n");
-
-        // Island level
-        if (!Message.ISLAND_INFO_LEVEL.isEmpty(locale))
-            infoMessage.append(Message.ISLAND_INFO_LEVEL.getMessage(locale, island.getIslandLevel())).append("\n");
-
         // Island discord
         if (!Message.ISLAND_INFO_DISCORD.isEmpty(locale) && !"None".equals(island.getDiscord())) {
             infoMessage.append(Message.ISLAND_INFO_DISCORD.getMessage(locale, island.getDiscord())).append("\n");

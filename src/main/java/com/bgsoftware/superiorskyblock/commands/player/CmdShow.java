@@ -96,10 +96,6 @@ public class CmdShow implements ISuperiorCommand {
             if (!Message.ISLAND_INFO_BANK.isEmpty(locale))
                 infoMessage.append(Message.ISLAND_INFO_BANK.getMessage(locale, island.getIslandBank().getBalance())).append("\n");
         }
-        if (!Message.ISLAND_INFO_WORTH.isEmpty(locale))
-            infoMessage.append(Message.ISLAND_INFO_WORTH.getMessage(locale, island.getWorth())).append("\n");
-        if (!Message.ISLAND_INFO_LEVEL.isEmpty(locale))
-            infoMessage.append(Message.ISLAND_INFO_LEVEL.getMessage(locale, island.getIslandLevel())).append("\n");
         if (!Message.ISLAND_INFO_DISCORD.isEmpty(locale) && !"None".equals(island.getDiscord()) && island.hasPermission(sender, IslandPrivileges.DISCORD_SHOW)) {
             infoMessage.append(Message.ISLAND_INFO_DISCORD.getMessage(locale, island.getDiscord())).append("\n");
         }
