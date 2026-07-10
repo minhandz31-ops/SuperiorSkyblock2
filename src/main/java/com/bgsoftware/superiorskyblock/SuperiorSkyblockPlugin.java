@@ -41,7 +41,6 @@ import com.bgsoftware.superiorskyblock.core.stats.StatsClient;
 import com.bgsoftware.superiorskyblock.core.task.ShutdownTask;
 import com.bgsoftware.superiorskyblock.core.threads.BukkitExecutor;
 import com.bgsoftware.superiorskyblock.core.values.BlockValuesManagerImpl;
-import com.bgsoftware.superiorskyblock.core.values.container.BlockValuesContainer;
 import com.bgsoftware.superiorskyblock.external.ProvidersManagerImpl;
 import com.bgsoftware.superiorskyblock.island.GridManagerImpl;
 import com.bgsoftware.superiorskyblock.island.cache.IslandCacheKeys;
@@ -102,7 +101,7 @@ public class SuperiorSkyblockPlugin extends JavaPlugin implements SuperiorSkyblo
     private final FactoriesManagerImpl factoriesHandler = new FactoriesManagerImpl();
     private final GridManagerImpl gridHandler = new GridManagerImpl(this, new DefaultIslandsPurger(), new DefaultIslandPreviews());
     private final StackedBlocksManagerImpl stackedBlocksHandler = new StackedBlocksManagerImpl(this, new DefaultStackedBlocksContainer());
-    private final BlockValuesManagerImpl blockValuesHandler = new BlockValuesManagerImpl(this, new BlockValuesContainer(), new BlockValuesContainer());
+    private final BlockValuesManagerImpl blockValuesHandler = new BlockValuesManagerImpl(this);
     private final SchematicsManagerImpl schematicsHandler = new SchematicsManagerImpl(this, new DefaultSchematicsContainer());
     private final PlayersManagerImpl playersHandler = new PlayersManagerImpl(this);
     private final RolesManagerImpl rolesHandler = new RolesManagerImpl(this, new DefaultRolesContainer());
@@ -520,7 +519,6 @@ public class SuperiorSkyblockPlugin extends JavaPlugin implements SuperiorSkyblo
         return stackedBlocksHandler;
     }
 
-    @Override
     public BlockValuesManagerImpl getBlockValues() {
         return blockValuesHandler;
     }

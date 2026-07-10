@@ -3,7 +3,6 @@ package com.bgsoftware.superiorskyblock.external.prices;
 import com.bgsoftware.common.annotations.Nullable;
 import com.bgsoftware.common.shopsbridge.IShopsBridge;
 import com.bgsoftware.common.shopsbridge.ShopsProvider;
-import com.bgsoftware.superiorskyblock.SuperiorSkyblockPlugin;
 import com.bgsoftware.superiorskyblock.api.hooks.PricesProvider;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.key.KeyMap;
@@ -21,12 +20,10 @@ import java.util.concurrent.CompletableFuture;
 public class PricesProvider_ShopsBridgeWrapper implements PricesProvider {
 
     private final KeyMap<BigDecimal> cachedPrices = KeyMap.createConcurrentKeyMap();
-    private final SuperiorSkyblockPlugin plugin;
     private final IShopsBridge shopsBridge;
 
-    public PricesProvider_ShopsBridgeWrapper(SuperiorSkyblockPlugin plugin, ShopsProvider shopsProvider, IShopsBridge shopsBridge) {
+    public PricesProvider_ShopsBridgeWrapper(ShopsProvider shopsProvider, IShopsBridge shopsBridge) {
         Log.info("Using " + shopsProvider.getPluginName() + " as a prices provider.");
-        this.plugin = plugin;
         this.shopsBridge = shopsBridge;
     }
 
@@ -67,14 +64,10 @@ public class PricesProvider_ShopsBridgeWrapper implements PricesProvider {
             return BigDecimal.ZERO;
         }
 
-        switch (plugin.getSettings().getSyncWorth()) {
-            case BUY:
-                return this.shopsBridge.getBuyPrice(itemStack);
-            case SELL:
-                return this.shopsBridge.getSellPrice(itemStack);
-            default:
-                return BigDecimal.ZERO;
-        }
+        // The worth/level sync system has been removed; the prices provider no longer
+        // distinguishes between buy/sell prices. Default to the sell price as a sane
+        // fallback for any external consumer that still queries prices.
+        return this.shopsBridge.getSellPrice(itemStack);
     }
 
 }

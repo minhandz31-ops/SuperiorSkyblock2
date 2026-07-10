@@ -4,8 +4,6 @@ import com.bgsoftware.common.config.CommentedConfiguration;
 import com.bgsoftware.superiorskyblock.SuperiorSkyblockPlugin;
 import com.bgsoftware.superiorskyblock.api.config.SettingsManager;
 import com.bgsoftware.superiorskyblock.api.entity.EntityCategory;
-import com.bgsoftware.superiorskyblock.api.enums.TopIslandMembersSorting;
-import com.bgsoftware.superiorskyblock.api.handlers.BlockValuesManager;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.key.KeySet;
 import com.bgsoftware.superiorskyblock.api.objects.Pair;
@@ -35,8 +33,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -99,11 +95,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
     }
 
     @Override
-    public long getCalcInterval() {
-        return this.global.getCalcInterval();
-    }
-
-    @Override
     public Database getDatabase() {
         return this.database;
     }
@@ -136,21 +127,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
     @Override
     public StackedBlocks getStackedBlocks() {
         return this.stackedBlocks;
-    }
-
-    @Override
-    public String getIslandLevelFormula() {
-        return this.global.getBlockLevelFormula();
-    }
-
-    @Override
-    public boolean isRoundedIslandLevels() {
-        return this.global.isRoundedIslandLevels();
-    }
-
-    @Override
-    public RoundingMode getIslandLevelRoundingMode() {
-        return this.global.getIslandLevelRoundingMode();
     }
 
     @Override
@@ -250,11 +226,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
     @Override
     public int getDisbandCount() {
         return this.global.getDisbandCount();
-    }
-
-    @Override
-    public boolean isIslandTopIncludeLeader() {
-        return this.global.isIslandTopIncludeLeader();
     }
 
     @Override
@@ -470,11 +441,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
     }
 
     @Override
-    public boolean isValuesMenu() {
-        return this.global.isValuesMenu();
-    }
-
-    @Override
     public List<String> getCropsToGrow() {
         return this.global.getCropsToGrow();
     }
@@ -530,21 +496,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
     }
 
     @Override
-    public BlockValuesManager.SyncWorthStatus getSyncWorth() {
-        return this.global.getSyncWorth();
-    }
-
-    @Override
-    public boolean isNegativeWorth() {
-        return this.global.isNegativeWorth();
-    }
-
-    @Override
-    public boolean isNegativeLevel() {
-        return this.global.isNegativeLevel();
-    }
-
-    @Override
     public List<String> getDisabledEvents() {
         return this.global.getDisabledEvents();
     }
@@ -572,11 +523,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
     @Override
     public Map<String, List<String>> getCommandAliases() {
         return this.global.getCommandAliases();
-    }
-
-    @Override
-    public Set<Key> getValuableBlocks() {
-        return this.global.getValuableBlocks();
     }
 
     @Override
@@ -637,11 +583,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
     }
 
     @Override
-    public long getRecalcTaskTimeout() {
-        return this.global.getRecalcTaskTimeout();
-    }
-
-    @Override
     public boolean isAutoLanguageDetection() {
         return this.global.isAutoLanguageDetection();
     }
@@ -649,11 +590,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
     @Override
     public boolean isAutoUncoopWhenAlone() {
         return this.global.isAutoUncoopWhenAlone();
-    }
-
-    @Override
-    public TopIslandMembersSorting getTopIslandMembersSorting() {
-        return this.global.getTopIslandMembersSorting();
     }
 
     @Override
@@ -669,11 +605,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
     @Override
     public List<RespawnAction> getPlayerRespawn() {
         return this.global.getPlayerRespawn();
-    }
-
-    @Override
-    public BigInteger getBlockCountsSaveThreshold() {
-        return this.global.getBlockCountsSaveThreshold();
     }
 
     @Override
@@ -772,10 +703,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
             cfg.set("worlds.dimensions.the_end.portals.ENDER", "normal");
             cfg.set("worlds.end", null);
         }
-        if (cfg.get("island-level-formula") != null) {
-            cfg.set("block-level-formula", cfg.getString("island-level-formula"));
-            cfg.set("island-level-formula", null);
-        }
         if (cfg.get("protected-message-delay") instanceof Number) {
             long delay = cfg.getLong("protected-message-delay") * 50;
             cfg.set("message-delays.ISLAND_PROTECTED", delay);
@@ -872,8 +799,6 @@ public class SettingsManagerImpl extends Manager implements SettingsManager {
             cfg.set("void-teleport.members", voidTeleport);
             cfg.set("void-teleport.visitors", voidTeleport);
         }
-        if (cfg.isBoolean("sync-worth"))
-            cfg.set("sync-worth", cfg.getBoolean("sync-worth") ? "BUY" : "NONE");
         if (!cfg.isConfigurationSection("worlds.nether")) {
             cfg.set("worlds.nether.enabled", cfg.getBoolean("worlds.nether-world"));
             cfg.set("worlds.nether.unlock", cfg.getBoolean("worlds.nether-unlock"));

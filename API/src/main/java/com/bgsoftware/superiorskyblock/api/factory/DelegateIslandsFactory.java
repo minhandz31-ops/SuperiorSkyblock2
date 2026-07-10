@@ -2,7 +2,6 @@ package com.bgsoftware.superiorskyblock.api.factory;
 
 import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.persistence.PersistentDataContainer;
 
@@ -21,12 +20,6 @@ public class DelegateIslandsFactory implements IslandsFactory {
 
     @Override
     @Deprecated
-    public IslandCalculationAlgorithm createIslandCalculationAlgorithm(Island island) {
-        return this.handle.createIslandCalculationAlgorithm(island);
-    }
-
-    @Override
-    @Deprecated
     public IslandBlocksTrackerAlgorithm createIslandBlocksTrackerAlgorithm(Island island) {
         return this.handle.createIslandBlocksTrackerAlgorithm(island);
     }
@@ -35,11 +28,6 @@ public class DelegateIslandsFactory implements IslandsFactory {
     @Deprecated
     public IslandEntitiesTrackerAlgorithm createIslandEntitiesTrackerAlgorithm(Island island) {
         return this.handle.createIslandEntitiesTrackerAlgorithm(island);
-    }
-
-    @Override
-    public IslandCalculationAlgorithm createIslandCalculationAlgorithm(Island island, IslandCalculationAlgorithm original) {
-        return this.handle.createIslandCalculationAlgorithm(island, original);
     }
 
     @Override

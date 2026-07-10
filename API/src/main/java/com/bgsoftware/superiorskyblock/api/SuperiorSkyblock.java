@@ -2,7 +2,6 @@ package com.bgsoftware.superiorskyblock.api;
 
 import com.bgsoftware.common.annotations.Nullable;
 import com.bgsoftware.superiorskyblock.api.config.SettingsManager;
-import com.bgsoftware.superiorskyblock.api.handlers.BlockValuesManager;
 import com.bgsoftware.superiorskyblock.api.handlers.CommandsManager;
 import com.bgsoftware.superiorskyblock.api.handlers.FactoriesManager;
 import com.bgsoftware.superiorskyblock.api.handlers.GridManager;
@@ -31,11 +30,6 @@ public interface SuperiorSkyblock extends Plugin {
      * Get the stacked-blocks manager of the core.
      */
     StackedBlocksManager getStackedBlocks();
-
-    /**
-     * Get the blocks manager of the core.
-     */
-    BlockValuesManager getBlockValues();
 
     /**
      * Get the schematics manager of the core.

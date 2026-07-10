@@ -18,7 +18,6 @@ import com.bgsoftware.superiorskyblock.api.events.IslandChangeDiscordEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeEffectLevelEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeEntityLimitEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeGeneratorRateEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeLevelBonusEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeMembersLimitEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeMobDropsEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangePaypalEvent;
@@ -31,7 +30,6 @@ import com.bgsoftware.superiorskyblock.api.events.IslandChangeWarpCategorySlotEv
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeWarpIconEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeWarpLocationEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeWarpsLimitEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeWorthBonusEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChatEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChunkResetEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandClearFlagsEvent;
@@ -86,8 +84,6 @@ import com.bgsoftware.superiorskyblock.api.events.IslandUpgradeEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandVisitorHomeTeleportEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandWarpTeleportEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandWorldResetEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandWorthCalculatedEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandWorthUpdateEvent;
 import com.bgsoftware.superiorskyblock.api.events.MissionCompleteEvent;
 import com.bgsoftware.superiorskyblock.api.events.MissionResetEvent;
 import com.bgsoftware.superiorskyblock.api.events.PlayerChangeBorderColorEvent;
@@ -140,7 +136,6 @@ import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.I
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeEffectLevel;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeEntityLimit;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeGeneratorRate;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeLevelBonus;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeMembersLimit;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeMobDrops;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangePaypal;
@@ -153,7 +148,6 @@ import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.I
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeWarpIcon;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeWarpLocation;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeWarpsLimit;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeWorthBonus;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChat;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChunkReset;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandClearFlags;
@@ -208,8 +202,6 @@ import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.I
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandVisitorHomeTeleport;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandWarpTeleport;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandWorldReset;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandWorthCalculated;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandWorthUpdate;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.MissionComplete;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.MissionReset;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.PlayerChangeBorderColor;
@@ -443,18 +435,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
             pluginEvent.getArgs().generatorRate = ((IslandChangeGeneratorRateEvent) bukkitEvent).getGeneratorRate();
         }
     };
-    public static final PluginEventType<IslandChangeLevelBonus> ISLAND_CHANGE_LEVEL_BONUS_EVENT = new PluginEventType<IslandChangeLevelBonus>(IslandChangeLevelBonusEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandChangeLevelBonus args) {
-            return new IslandChangeLevelBonusEvent(args.superiorPlayer, args.island, args.reason, args.levelBonus);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandChangeLevelBonus> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().levelBonus = ((IslandChangeLevelBonusEvent) bukkitEvent).getLevelBonus();
-        }
-    };
     public static final PluginEventType<IslandChangeMembersLimit> ISLAND_CHANGE_MEMBERS_LIMIT_EVENT = new PluginEventType<IslandChangeMembersLimit>(IslandChangeMembersLimitEvent.class) {
         @Override
         public Event createBukkitEvent(IslandChangeMembersLimit args) {
@@ -585,18 +565,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
         public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandChangeWarpsLimit> pluginEvent) {
             super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
             pluginEvent.getArgs().warpsLimit = ((IslandChangeWarpsLimitEvent) bukkitEvent).getWarpsLimit();
-        }
-    };
-    public static final PluginEventType<IslandChangeWorthBonus> ISLAND_CHANGE_WORTH_BONUS_EVENT = new PluginEventType<IslandChangeWorthBonus>(IslandChangeWorthBonusEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandChangeWorthBonus args) {
-            return new IslandChangeWorthBonusEvent(args.superiorPlayer, args.island, args.reason, args.worthBonus);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandChangeWorthBonus> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().worthBonus = ((IslandChangeWorthBonusEvent) bukkitEvent).getWorthBonus();
         }
     };
     public static final PluginEventType<IslandChat> ISLAND_CHAT_EVENT = new PluginEventType<IslandChat>(IslandChatEvent.class) {
@@ -1023,23 +991,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
         @Override
         public Event createBukkitEvent(IslandWorldReset args) {
             return new IslandWorldResetEvent(args.superiorPlayer, args.island, args.dimension);
-        }
-    };
-    public static final PluginEventType<IslandWorthCalculated> ISLAND_WORTH_CALCULATED_EVENT = new PluginEventType<IslandWorthCalculated>(IslandWorthCalculatedEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandWorthCalculated args) {
-            return new IslandWorthCalculatedEvent(args.island, args.superiorPlayer, args.islandLevel, args.islandWorth);
-        }
-    };
-    public static final PluginEventType<IslandWorthUpdate> ISLAND_WORTH_UPDATE_EVENT = new PluginEventType<IslandWorthUpdate>(IslandWorthUpdateEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandWorthUpdate args) {
-            return new IslandWorthUpdateEvent(args.island, args.oldWorth, args.oldLevel, args.newWorth, args.newLevel);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandWorthUpdate> pluginEvent) {
-            // Do nothing
         }
     };
     public static final PluginEventType<MissionComplete> MISSION_COMPLETE_EVENT = new PluginEventType<MissionComplete>(MissionCompleteEvent.class) {

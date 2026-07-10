@@ -6,14 +6,12 @@ import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTracker
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.key.KeyMap;
 import com.bgsoftware.superiorskyblock.core.ServerVersion;
-import com.bgsoftware.superiorskyblock.core.key.BaseKey;
 import com.bgsoftware.superiorskyblock.core.key.KeyIndicator;
 import com.bgsoftware.superiorskyblock.core.key.map.KeyMaps;
 import com.bgsoftware.superiorskyblock.core.key.MaterialKeySource;
 import com.bgsoftware.superiorskyblock.core.key.types.MaterialKey;
 import com.bgsoftware.superiorskyblock.core.logging.Debug;
 import com.bgsoftware.superiorskyblock.core.logging.Log;
-import com.bgsoftware.superiorskyblock.core.values.BlockValue;
 import com.bgsoftware.superiorskyblock.island.upgrade.IslandUpgradeConstants;
 import com.google.common.base.Preconditions;
 
@@ -46,13 +44,10 @@ public class DefaultIslandBlocksTrackerAlgorithm implements IslandBlocksTrackerA
                 ((MaterialKey) key).getMaterialKeySource() == MaterialKeySource.ITEM)
             key = ((MaterialKey) key).toGlobalKey();
 
-        BlockValue blockValue = plugin.getBlockValues().getBlockValue(key);
-        boolean increaseAmount = blockValue != BlockValue.ZERO;
-
         boolean hasBlockLimit = island.getBlockLimit(key) != IslandUpgradeConstants.NO_LIMIT_VALUE;
         boolean valuesMenu = plugin.getBlockValues().isValuesMenu(key);
 
-        if (increaseAmount || hasBlockLimit || valuesMenu) {
+        if (hasBlockLimit || valuesMenu) {
             Log.debug(Debug.BLOCK_PLACE, island.getOwner().getName(), key, amount);
 
             addCounts(key, amount);
@@ -75,14 +70,10 @@ public class DefaultIslandBlocksTrackerAlgorithm implements IslandBlocksTrackerA
                 ((MaterialKey) key).getMaterialKeySource() == MaterialKeySource.ITEM)
             key = ((MaterialKey) key).toGlobalKey();
 
-        BlockValue blockValue = plugin.getBlockValues().getBlockValue(key);
-
-        boolean decreaseAmount = blockValue != BlockValue.ZERO;
-
         boolean hasBlockLimit = island.getBlockLimit(key) != IslandUpgradeConstants.NO_LIMIT_VALUE;
         boolean valuesMenu = plugin.getBlockValues().isValuesMenu(key);
 
-        if (decreaseAmount || hasBlockLimit || valuesMenu) {
+        if (hasBlockLimit || valuesMenu) {
             Log.debug(Debug.BLOCK_BREAK, island.getOwner().getName(), key, amount);
 
             Key valueKey = plugin.getBlockValues().getBlockKey(key);
@@ -92,7 +83,6 @@ public class DefaultIslandBlocksTrackerAlgorithm implements IslandBlocksTrackerA
                 return true;
 
             Key limitKey = island.getBlockLimitKey(valueKey);
-            Key globalKey = ((BaseKey<?>) valueKey).toGlobalKey();
             boolean limitCount = false;
 
             if (!limitKey.equals(valueKey)) {
@@ -100,10 +90,12 @@ public class DefaultIslandBlocksTrackerAlgorithm implements IslandBlocksTrackerA
                 limitCount = true;
             }
 
-            if (!globalKey.equals(valueKey) && (!limitCount || !globalKey.equals(limitKey))) {
-                blockValue = plugin.getBlockValues().getBlockValue(globalKey);
-                if (blockValue != BlockValue.ZERO)
-                    removeCounts(globalKey, amount);
+            // Fall back: if we counted a specific key under a global limit key, also
+            // decrement the global key entry so the limit totals stay consistent.
+            Key globalKey = ((com.bgsoftware.superiorskyblock.core.key.BaseKey<?>) valueKey).toGlobalKey();
+            if (!globalKey.equals(valueKey) && (!limitCount || !globalKey.equals(limitKey)) &&
+                    blockCounts.containsKey(globalKey)) {
+                removeCounts(globalKey, amount);
             }
 
             return true;
@@ -151,23 +143,11 @@ public class DefaultIslandBlocksTrackerAlgorithm implements IslandBlocksTrackerA
             return;
 
         Key limitKey = island.getBlockLimitKey(valueKey);
-        Key globalKey = ((BaseKey<?>) valueKey).toGlobalKey();
-        boolean limitCount = false;
 
         if (!limitKey.equals(valueKey)) {
             Log.debugResult(Debug.BLOCK_COUNT_INCREASE, "Limit Key", limitKey);
             currentAmount = blockCounts.getRaw(limitKey, BigInteger.ZERO);
             blockCounts.put(limitKey, currentAmount.add(amount));
-            limitCount = true;
-        }
-
-        if (!globalKey.equals(valueKey) && (!limitCount || !globalKey.equals(limitKey))) {
-            BlockValue blockValue = plugin.getBlockValues().getBlockValue(globalKey);
-            if (blockValue != BlockValue.ZERO) {
-                Log.debugResult(Debug.BLOCK_COUNT_INCREASE, "Global Key", globalKey);
-                currentAmount = blockCounts.getRaw(globalKey, BigInteger.ZERO);
-                blockCounts.put(globalKey, currentAmount.add(amount));
-            }
         }
     }
 

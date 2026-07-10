@@ -624,7 +624,7 @@ public class ProvidersManagerImpl extends Manager implements ProvidersManager {
 
     private void registerPricesProvider() {
         ShopsProvider.SHOPGUIPLUS.createInstance(plugin)
-                .map(shopsBridge -> new PricesProvider_ShopsBridgeWrapper(plugin, ShopsProvider.SHOPGUIPLUS, shopsBridge))
+                .map(shopsBridge -> new PricesProvider_ShopsBridgeWrapper(ShopsProvider.SHOPGUIPLUS, shopsBridge))
                 .ifPresent(this::setPricesProvider);
     }
 

@@ -3,7 +3,6 @@ package com.bgsoftware.superiorskyblock.api;
 import com.bgsoftware.common.annotations.Nullable;
 import com.bgsoftware.superiorskyblock.api.commands.SuperiorCommand;
 import com.bgsoftware.superiorskyblock.api.config.SettingsManager;
-import com.bgsoftware.superiorskyblock.api.handlers.BlockValuesManager;
 import com.bgsoftware.superiorskyblock.api.handlers.CommandsManager;
 import com.bgsoftware.superiorskyblock.api.handlers.FactoriesManager;
 import com.bgsoftware.superiorskyblock.api.handlers.GridManager;
@@ -231,13 +230,6 @@ public class SuperiorSkyblockAPI {
      */
     public static StackedBlocksManager getStackedBlocks() {
         return plugin.getStackedBlocks();
-    }
-
-    /**
-     * Get the blocks manager of the core.
-     */
-    public static BlockValuesManager getBlockValues() {
-        return plugin.getBlockValues();
     }
 
     /**

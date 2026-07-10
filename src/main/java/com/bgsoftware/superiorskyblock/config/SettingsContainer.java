@@ -3,7 +3,6 @@ package com.bgsoftware.superiorskyblock.config;
 import com.bgsoftware.common.config.CommentedConfiguration;
 import com.bgsoftware.superiorskyblock.SuperiorSkyblockPlugin;
 import com.bgsoftware.superiorskyblock.api.config.SettingsManager;
-import com.bgsoftware.superiorskyblock.api.enums.TopIslandMembersSorting;
 import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.key.KeyMap;
@@ -15,7 +14,6 @@ import com.bgsoftware.superiorskyblock.api.world.Dimension;
 import com.bgsoftware.superiorskyblock.config.section.EntityCategoriesSection;
 import com.bgsoftware.superiorskyblock.config.section.InteractablesSection;
 import com.bgsoftware.superiorskyblock.config.section.WorldsSection;
-import com.bgsoftware.superiorskyblock.core.EnumHelper;
 import com.bgsoftware.superiorskyblock.core.collections.ArrayMap;
 import com.bgsoftware.superiorskyblock.core.collections.CollectionsFactory;
 import com.bgsoftware.superiorskyblock.core.collections.EnumerateMap;
@@ -33,7 +31,6 @@ import com.bgsoftware.superiorskyblock.core.key.set.KeySets;
 import com.bgsoftware.superiorskyblock.core.logging.Log;
 import com.bgsoftware.superiorskyblock.core.menu.TemplateItem;
 import com.bgsoftware.superiorskyblock.core.serialization.Serializers;
-import com.bgsoftware.superiorskyblock.core.values.BlockValuesManagerImpl;
 import com.bgsoftware.superiorskyblock.island.upgrade.IslandUpgradeConstants;
 import com.bgsoftware.superiorskyblock.tag.CompoundTag;
 import com.bgsoftware.superiorskyblock.tag.ListTag;
@@ -50,8 +47,6 @@ import org.bukkit.potion.PotionEffectType;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -62,7 +57,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
@@ -107,16 +101,12 @@ public class SettingsContainer {
     public final boolean stackedBlocksAutoPickup;
     public final boolean stackedBlocksMenuEnabled;
     public final String stackedBlocksMenuTitle;
-    public final String blockLevelFormula;
-    public final boolean roundedIslandLevel;
-    public final RoundingMode islandLevelRoundingMode;
     public final boolean autoBlocksTracking;
     public final SortingType islandTopOrder;
     public final SortingType globalWarpsOrder;
     public boolean coopMembers;
     public boolean editPlayerPermissions;
     public final ConfigurationSection islandRolesSection;
-    public final long calcInterval;
     public final String signWarpLine;
     public final List<String> signWarp;
     public final boolean visitorsSignRequiredForVisit;
@@ -143,7 +133,6 @@ public class SettingsContainer {
     public final KeySet safeBlocks;
     public final boolean visitorsDamage;
     public final boolean coopDamage;
-    public final boolean islandTopIncludeLeader;
     public final Map<String, String> defaultPlaceholders;
     public final boolean banConfirm;
     public final boolean disbandConfirm;
@@ -193,7 +182,6 @@ public class SettingsContainer {
     public final boolean lightsUpdate;
     public final List<String> pvpWorlds;
     public final boolean stopLeaving;
-    public final boolean valuesMenu;
     public final List<String> cropsToGrow;
     public final int cropsInterval;
     public final boolean onlyBackButton;
@@ -206,9 +194,6 @@ public class SettingsContainer {
     public final boolean defaultIslandFly;
     public final String defaultBorderColor;
     public final boolean obsidianToLava;
-    public final BlockValuesManagerImpl.SyncWorthStatus syncWorth;
-    public final boolean negativeWorth;
-    public final boolean negativeLevel;
     public final List<String> disabledEvents;
     public final List<String> disabledCommands;
     public final List<String> disabledHooks;
@@ -217,7 +202,6 @@ public class SettingsContainer {
     public final int islandChestsDefaultPage;
     public final int islandChestsDefaultSize;
     public final Map<String, List<String>> commandAliases;
-    public final KeySet valuableBlocks;
     public final GameMode islandPreviewsGameMode;
     public final int islandPreviewsMaxDistance;
     public final List<String> islandPreviewsBlockedCommands;
@@ -230,14 +214,11 @@ public class SettingsContainer {
     public final double chargeOnWarp;
     public final boolean publicWarps;
     public final boolean lockedIslands;
-    public final long recalcTaskTimeout;
     public final boolean autoLanguageDetection;
     public final boolean autoUncoopWhenAlone;
-    public final TopIslandMembersSorting islandTopMembersSorting;
     public final int bossBarLimit;
     public final boolean deleteUnsafeWarps;
     public final List<RespawnAction> playerRespawnActions;
-    public final BigInteger blockCountsSaveThreshold;
     public final boolean chatSigningSupport;
     public final int commandsPerPage;
     public final boolean helpOnNoPermission;
@@ -259,7 +240,6 @@ public class SettingsContainer {
         databaseMySQLWaitTimeout = config.getLong("database.waitTimeout");
         databaseMySQLMaxLifetime = config.getLong("database.maxLifetime");
 
-        calcInterval = config.getLong("calc-interval", 6000);
         islandCommand = config.getString("island-command", "island,is,islands");
         maxIslandSize = config.getInt("max-island-size", 200);
         defaultIslandSize = Math.max(config.getInt("default-values.island-size", 20), 1);
@@ -323,26 +303,21 @@ public class SettingsContainer {
         stackedBlocksAutoPickup = config.getBoolean("stacked-blocks.auto-collect", false);
         stackedBlocksMenuEnabled = config.getBoolean("stacked-blocks.deposit-menu.enabled", true);
         stackedBlocksMenuTitle = Formatters.COLOR_FORMATTER.format(config.getString("stacked-blocks.deposit-menu.title", "&lDeposit Blocks"));
-        blockLevelFormula = config.getString("block-level-formula", "{} / 2");
-        roundedIslandLevel = config.getBoolean("rounded-island-level", false);
-        islandLevelRoundingMode = Optional.ofNullable(EnumHelper.getEnum(RoundingMode.class,
-                        config.getString("island-level-rounding-mode").toUpperCase(Locale.ENGLISH)))
-                .orElse(RoundingMode.HALF_UP);
         autoBlocksTracking = config.getBoolean("auto-blocks-tracking", true);
 
-        String rawTop = config.getString("island-top-order", "WORTH");
+        String rawTop = config.getString("island-top-order", "RATING");
         SortingType parsedTop = SortingType.getByName(rawTop.toUpperCase(Locale.ENGLISH));
         if (parsedTop == null) {
-            parsedTop = SortingType.getByName("WORTH");
-            Log.warnFromFile("config.yml", "Invalid island-top-order '" + rawTop + "', using 'WORTH'.");
+            parsedTop = SortingType.getByName("RATING");
+            Log.warnFromFile("config.yml", "Invalid island-top-order '" + rawTop + "', using 'RATING'.");
         }
         this.islandTopOrder = parsedTop;
 
-        String rawGlobalWarps = config.getString("global-warps-order", "WORTH").toUpperCase(Locale.ENGLISH);
+        String rawGlobalWarps = config.getString("global-warps-order", "RATING").toUpperCase(Locale.ENGLISH);
         SortingType foundGlobalWarpsOrder = SortingType.getByName(rawGlobalWarps);
         if (foundGlobalWarpsOrder == null) {
-            foundGlobalWarpsOrder = SortingType.getByName("WORTH");
-            Log.warnFromFile("config.yml", "Invalid global-warps-order '" + rawGlobalWarps + "', using 'WORTH'.");
+            foundGlobalWarpsOrder = SortingType.getByName("RATING");
+            Log.warnFromFile("config.yml", "Invalid global-warps-order '" + rawGlobalWarps + "', using 'RATING'.");
         }
         this.globalWarpsOrder = foundGlobalWarpsOrder;
         coopMembers = config.getBoolean("coop-members", true);
@@ -382,7 +357,6 @@ public class SettingsContainer {
         safeBlocks = loadSafeBlocks(plugin);
         visitorsDamage = config.getBoolean("visitors-damage", false);
         coopDamage = config.getBoolean("coop-damage", true);
-        islandTopIncludeLeader = config.getBoolean("island-top-include-leader", true);
         defaultPlaceholders = Collections.unmodifiableMap(config.getStringList("default-placeholders").stream().collect(Collectors.toMap(
                 line -> line.split(":")[0].replace("superior_", "").toLowerCase(Locale.ENGLISH),
                 line -> line.split(":")[1]
@@ -500,7 +474,6 @@ public class SettingsContainer {
         lightsUpdate = config.getBoolean("lights-update", true);
         pvpWorlds = Collections.unmodifiableList(config.getStringList("pvp-worlds"));
         stopLeaving = config.getBoolean("stop-leaving", false);
-        valuesMenu = config.getBoolean("values-menu", true);
         cropsToGrow = Collections.unmodifiableList(config.getStringList("crops-to-grow"));
         cropsInterval = config.getInt("crops-interval", 5);
         onlyBackButton = config.getBoolean("only-back-button", false);
@@ -513,9 +486,6 @@ public class SettingsContainer {
         defaultIslandFly = config.getBoolean("default-island-fly", false);
         defaultBorderColor = config.getString("default-border-color", "BLUE");
         obsidianToLava = config.getBoolean("obsidian-to-lava", false);
-        syncWorth = BlockValuesManagerImpl.SyncWorthStatus.of(config.getString("sync-worth", "NONE"));
-        negativeWorth = config.getBoolean("negative-worth", true);
-        negativeLevel = config.getBoolean("negative-level", true);
         disabledEvents = Collections.unmodifiableList(config.getStringList("disabled-events")
                 .stream().map(str -> str.toLowerCase(Locale.ENGLISH)).collect(Collectors.toList()));
         disabledCommands = Collections.unmodifiableList(config.getStringList("disabled-commands")
@@ -533,8 +503,6 @@ public class SettingsContainer {
             }
         }
         this.commandAliases = Collections.unmodifiableMap(commandAliases);
-        valuableBlocks = KeySets.unmodifiableKeySet(
-                KeySets.createHashSet(KeyIndicator.MATERIAL, config.getStringList("valuable-blocks")));
         GameMode islandPreviewsGameMode;
         String islandPreviewsGameModeName = config.getString("island-previews.game-mode", "SPECTATOR").toUpperCase(Locale.ENGLISH);
         try {
@@ -572,12 +540,8 @@ public class SettingsContainer {
         chargeOnWarp = config.getDouble("charge-on-warp", 0D);
         publicWarps = config.getBoolean("public-warps");
         lockedIslands = config.getBoolean("locked-islands", false);
-        recalcTaskTimeout = config.getLong("recalc-task-timeout");
         autoLanguageDetection = config.getBoolean("auto-language-detection", true);
         autoUncoopWhenAlone = config.getBoolean("auto-uncoop-when-alone", false);
-        islandTopMembersSorting = Optional.ofNullable(EnumHelper.getEnum(TopIslandMembersSorting.class,
-                        config.getString("island-top-members-sorting").toUpperCase(Locale.ENGLISH)))
-                .orElse(TopIslandMembersSorting.NAMES);
         bossBarLimit = config.getInt("bossbar-limit", 1);
         deleteUnsafeWarps = config.getBoolean("delete-unsafe-warps", true);
         List<RespawnAction> playerRespawnActions = new LinkedList<>();
@@ -589,7 +553,6 @@ public class SettingsContainer {
             }
         });
         this.playerRespawnActions = Collections.unmodifiableList(playerRespawnActions);
-        blockCountsSaveThreshold = BigInteger.valueOf(config.getInt("block-counts-save-threshold", 100));
         chatSigningSupport = config.getBoolean("chat-signing-support", true);
         commandsPerPage = config.getInt("commands-per-page", 7);
         helpOnInvalidCommand = config.getBoolean("help-on-invalid-command", true);

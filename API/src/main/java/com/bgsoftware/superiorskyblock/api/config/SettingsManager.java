@@ -2,8 +2,6 @@ package com.bgsoftware.superiorskyblock.api.config;
 
 import com.bgsoftware.common.annotations.Nullable;
 import com.bgsoftware.superiorskyblock.api.entity.EntityCategory;
-import com.bgsoftware.superiorskyblock.api.enums.TopIslandMembersSorting;
-import com.bgsoftware.superiorskyblock.api.handlers.BlockValuesManager;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.key.KeySet;
@@ -20,21 +18,12 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.potion.PotionEffectType;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public interface SettingsManager {
-
-    /**
-     * The amount of time between auto-calculations that the plugin runs.
-     * If set to 0, it means the task is disabled.
-     * Config path: calc-interval
-     */
-    long getCalcInterval();
 
     /**
      * All settings related to the database of the plugin.
@@ -78,25 +67,6 @@ public interface SettingsManager {
      * Config path: stacked-blocks
      */
     StackedBlocks getStackedBlocks();
-
-    /**
-     * The formula used to calculate a block's level when it has a worth defined but no level specified.
-     * The formula can contain a placeholder: `{}`, which is replaced with the block worth.
-     * Config path: block-level-formula
-     */
-    String getIslandLevelFormula();
-
-    /**
-     * Whether island levels should be rounded or not.
-     * Config path: rounded-island-level
-     */
-    boolean isRoundedIslandLevels();
-
-    /**
-     * The rounding mode used for the island level when rounded-island-level feature is enabled.
-     * Config path: island-level-rounding-mode
-     */
-    RoundingMode getIslandLevelRoundingMode();
 
     /**
      * Whether to automatic track block counts when players place and break blocks.
@@ -212,12 +182,6 @@ public interface SettingsManager {
      * Config-path: default-disband-count
      */
     int getDisbandCount();
-
-    /**
-     * Whether the members list shown in island top should include the leader or not.
-     * Config-path: island-top-include-leader
-     */
-    boolean isIslandTopIncludeLeader();
 
     /**
      * Default placeholders to be returned when no island exists.
@@ -491,12 +455,6 @@ public interface SettingsManager {
     boolean isStopLeaving();
 
     /**
-     * Whether players can open the values-menu by right-clicking on islands in the islands top menu or not.
-     * Config-path: values-menu
-     */
-    boolean isValuesMenu();
-
-    /**
      * List of crops that can get affected by the crops-growth multiplier.
      * Config-path: crops-to-grow
      */
@@ -565,24 +523,6 @@ public interface SettingsManager {
     boolean isObsidianToLava();
 
     /**
-     * The sync-worth status of the plugin.
-     * Config-path: sync-worth
-     */
-    BlockValuesManager.SyncWorthStatus getSyncWorth();
-
-    /**
-     * Whether island-worth can be negative or not.
-     * Config-path: negative-worth
-     */
-    boolean isNegativeWorth();
-
-    /**
-     * Whether island-level can be negative or not.
-     * Config-path: negative-level
-     */
-    boolean isNegativeLevel();
-
-    /**
      * List of plugin-events that should not be fired.
      * Config-path: disabled-events
      */
@@ -618,12 +558,6 @@ public interface SettingsManager {
      * Config-path: command-aliases
      */
     Map<String, List<String>> getCommandAliases();
-
-    /**
-     * List of valuable-blocks.
-     * Config-path: valuable-blocks
-     */
-    Set<Key> getValuableBlocks();
 
     /**
      * List of preview-island locations.
@@ -700,13 +634,6 @@ public interface SettingsManager {
     boolean isLockedIslands();
 
     /**
-     * Cooldown between recalculations of an island, in seconds.
-     * If set to 0, no cooldown is set.
-     * Config-path: recalc-task-timeout
-     */
-    long getRecalcTaskTimeout();
-
-    /**
      * Whether to detect the player's language automatically when he first joins the server.
      * Config-path: auto-language-detection
      */
@@ -717,12 +644,6 @@ public interface SettingsManager {
      * Config-path: auto-uncoop-when-alone
      */
     boolean isAutoUncoopWhenAlone();
-
-    /**
-     * Get the way to sort members in the top islands menu.
-     * Config-path: island-top-members-sorting
-     */
-    TopIslandMembersSorting getTopIslandMembersSorting();
 
     /**
      * Limit of the amount of bossbar tasks each player can have at the same time.
@@ -741,12 +662,6 @@ public interface SettingsManager {
      * Config-path: player-respawn
      */
     List<RespawnAction> getPlayerRespawn();
-
-    /**
-     * Get the threshold between saves for block counts.
-     * Config-path: block-counts-save-threshold
-     */
-    BigInteger getBlockCountsSaveThreshold();
 
     /**
      * Support for chat-signing in 1.19+.

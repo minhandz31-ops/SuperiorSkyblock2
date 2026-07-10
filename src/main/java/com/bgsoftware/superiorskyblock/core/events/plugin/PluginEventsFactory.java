@@ -4,8 +4,6 @@ import com.bgsoftware.common.annotations.Nullable;
 import com.bgsoftware.superiorskyblock.SuperiorSkyblockPlugin;
 import com.bgsoftware.superiorskyblock.api.enums.BorderColor;
 import com.bgsoftware.superiorskyblock.api.enums.Rating;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeLevelBonusEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeWorthBonusEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandEnterEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandJoinEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandLeaveEvent;
@@ -258,21 +256,6 @@ public class PluginEventsFactory {
         return fireEvent(ISLAND_CHANGE_GENERATOR_RATE_EVENT, islandChangeGeneratorRate);
     }
 
-    public static PluginEvent<IslandChangeLevelBonus> callIslandChangeLevelBonusEvent(Island island, CommandSender commandSender,
-                                                                                      IslandChangeLevelBonusEvent.Reason reason, BigDecimal levelBonus) {
-        return callIslandChangeLevelBonusEvent(island, commandSenderToSuperiorPlayer(commandSender), reason, levelBonus);
-    }
-
-    public static PluginEvent<IslandChangeLevelBonus> callIslandChangeLevelBonusEvent(Island island, @Nullable SuperiorPlayer superiorPlayer,
-                                                                                      IslandChangeLevelBonusEvent.Reason reason, BigDecimal levelBonus) {
-        IslandChangeLevelBonus islandChangeLevelBonus = new IslandChangeLevelBonus();
-        islandChangeLevelBonus.island = island;
-        islandChangeLevelBonus.superiorPlayer = superiorPlayer;
-        islandChangeLevelBonus.reason = reason;
-        islandChangeLevelBonus.levelBonus = levelBonus;
-        return fireEvent(ISLAND_CHANGE_LEVEL_BONUS_EVENT, islandChangeLevelBonus);
-    }
-
     public static PluginEvent<IslandChangeMembersLimit> callIslandChangeMembersLimitEvent(Island island, CommandSender commandSender, int membersLimit) {
         return callIslandChangeMembersLimitEvent(island, commandSenderToSuperiorPlayer(commandSender), membersLimit);
     }
@@ -398,21 +381,6 @@ public class PluginEventsFactory {
         islandChangeWarpsLimit.superiorPlayer = superiorPlayer;
         islandChangeWarpsLimit.warpsLimit = warpsLimit;
         return fireEvent(ISLAND_CHANGE_WARPS_LIMIT_EVENT, islandChangeWarpsLimit);
-    }
-
-    public static PluginEvent<IslandChangeWorthBonus> callIslandChangeWorthBonusEvent(Island island, CommandSender commandSender,
-                                                                                      IslandChangeWorthBonusEvent.Reason reason, BigDecimal worthBonus) {
-        return callIslandChangeWorthBonusEvent(island, commandSenderToSuperiorPlayer(commandSender), reason, worthBonus);
-    }
-
-    public static PluginEvent<IslandChangeWorthBonus> callIslandChangeWorthBonusEvent(Island island, @Nullable SuperiorPlayer superiorPlayer,
-                                                                                      IslandChangeWorthBonusEvent.Reason reason, BigDecimal worthBonus) {
-        IslandChangeWorthBonus islandChangeWorthBonus = new IslandChangeWorthBonus();
-        islandChangeWorthBonus.island = island;
-        islandChangeWorthBonus.superiorPlayer = superiorPlayer;
-        islandChangeWorthBonus.reason = reason;
-        islandChangeWorthBonus.worthBonus = worthBonus;
-        return fireEvent(ISLAND_CHANGE_WORTH_BONUS_EVENT, islandChangeWorthBonus);
     }
 
     public static boolean callIslandChangeRolePrivilegeEvent(Island island, CommandSender commandSender, PlayerRole playerRole) {
@@ -986,25 +954,6 @@ public class PluginEventsFactory {
         islandWorldReset.superiorPlayer = superiorPlayer;
         islandWorldReset.dimension = dimension;
         return !fireEvent(ISLAND_WORLD_RESET_EVENT, islandWorldReset).isCancelled();
-    }
-
-    public static void callIslandWorthCalculatedEvent(Island island, SuperiorPlayer asker, BigDecimal islandLevel, BigDecimal islandWorth) {
-        IslandWorthCalculated islandWorthCalculated = new IslandWorthCalculated();
-        islandWorthCalculated.island = island;
-        islandWorthCalculated.superiorPlayer = asker;
-        islandWorthCalculated.islandLevel = islandLevel;
-        islandWorthCalculated.islandWorth = islandWorth;
-        fireEvent(ISLAND_WORTH_CALCULATED_EVENT, islandWorthCalculated);
-    }
-
-    public static void callIslandWorthUpdateEvent(Island island, BigDecimal oldWorth, BigDecimal oldLevel, BigDecimal newWorth, BigDecimal newLevel) {
-        IslandWorthUpdate islandWorthUpdate = new IslandWorthUpdate();
-        islandWorthUpdate.island = island;
-        islandWorthUpdate.oldWorth = oldWorth;
-        islandWorthUpdate.oldLevel = oldLevel;
-        islandWorthUpdate.newWorth = newWorth;
-        islandWorthUpdate.newLevel = newLevel;
-        fireEvent(ISLAND_WORTH_UPDATE_EVENT, islandWorthUpdate);
     }
 
     public static PluginEvent<MissionComplete> callMissionCompleteEvent(SuperiorPlayer superiorPlayer, IMissionsHolder missionsHolder,

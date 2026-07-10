@@ -3,8 +3,6 @@ package com.bgsoftware.superiorskyblock.core.events.args;
 import com.bgsoftware.superiorskyblock.api.SuperiorSkyblock;
 import com.bgsoftware.superiorskyblock.api.enums.BorderColor;
 import com.bgsoftware.superiorskyblock.api.enums.Rating;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeLevelBonusEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeWorthBonusEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandEnterEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandJoinEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandLeaveEvent;
@@ -162,13 +160,6 @@ public class PluginEventArgs {
 
     }
 
-    public static class IslandChangeLevelBonus extends IslandDoActionArgs {
-
-        public IslandChangeLevelBonusEvent.Reason reason;
-        public BigDecimal levelBonus;
-
-    }
-
     public static class IslandChangeMembersLimit extends IslandDoActionArgs {
 
         public int membersLimit;
@@ -241,13 +232,6 @@ public class PluginEventArgs {
     public static class IslandChangeWarpsLimit extends IslandDoActionArgs {
 
         public int warpsLimit;
-
-    }
-
-    public static class IslandChangeWorthBonus extends IslandDoActionArgs {
-
-        public IslandChangeWorthBonusEvent.Reason reason;
-        public BigDecimal worthBonus;
 
     }
 
@@ -565,23 +549,6 @@ public class PluginEventArgs {
     public static class IslandWorldReset extends IslandDoActionArgs {
 
         public Dimension dimension;
-
-    }
-
-    public static class IslandWorthCalculated extends IslandDoActionArgs {
-
-        public BigDecimal islandLevel;
-        public BigDecimal islandWorth;
-
-    }
-
-    public static class IslandWorthUpdate extends PluginEventArgs {
-
-        public Island island;
-        public BigDecimal oldWorth;
-        public BigDecimal oldLevel;
-        public BigDecimal newWorth;
-        public BigDecimal newLevel;
 
     }
 

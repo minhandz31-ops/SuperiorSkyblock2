@@ -2,7 +2,6 @@ package com.bgsoftware.superiorskyblock.api.factory;
 
 import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandCalculationAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.persistence.PersistentDataContainer;
 
@@ -14,17 +13,6 @@ public interface IslandsFactory {
      * @param original The original island that was created.
      */
     Island createIsland(Island original);
-
-    /**
-     * Create a calculation algorithm for an island.
-     *
-     * @param island The island to set the algorithm to.
-     * @deprecated Use {@link #createIslandCalculationAlgorithm(Island, IslandCalculationAlgorithm)}
-     */
-    @Deprecated
-    default IslandCalculationAlgorithm createIslandCalculationAlgorithm(Island island) {
-        throw new UnsupportedOperationException("Unsupported operation.");
-    }
 
     /**
      * Create a blocks-tracking algorithm for an island.
@@ -47,14 +35,6 @@ public interface IslandsFactory {
     default IslandEntitiesTrackerAlgorithm createIslandEntitiesTrackerAlgorithm(Island island) {
         throw new UnsupportedOperationException("Unsupported operation.");
     }
-
-    /**
-     * Create a calculation algorithm for an island.
-     *
-     * @param island   The island to set the algorithm to.
-     * @param original The original calculation algorithm.
-     */
-    IslandCalculationAlgorithm createIslandCalculationAlgorithm(Island island, IslandCalculationAlgorithm original);
 
     /**
      * Create a blocks-tracking algorithm for an island.

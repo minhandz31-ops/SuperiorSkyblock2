@@ -79,7 +79,6 @@ import com.bgsoftware.superiorskyblock.core.threads.SynchronizedTasks;
 import com.bgsoftware.superiorskyblock.core.value.DoubleValue;
 import com.bgsoftware.superiorskyblock.core.value.IntValue;
 import com.bgsoftware.superiorskyblock.core.value.Value;
-import com.bgsoftware.superiorskyblock.core.values.BlockValue;
 import com.bgsoftware.superiorskyblock.island.builder.IslandBuilderImpl;
 import com.bgsoftware.superiorskyblock.island.cache.IslandCacheImpl;
 import com.bgsoftware.superiorskyblock.island.chunk.DirtyChunksContainer;
@@ -4412,13 +4411,15 @@ public class SIsland implements Island {
         saveBlockCounts(currentTotalBlocksCount, false, true);
     }
 
+    private static final BigInteger BLOCK_COUNTS_SAVE_THRESHOLD = BigInteger.valueOf(100);
+
     private void saveBlockCounts(BigInteger currentTotalBlocksCount,
                                  boolean forceBlocksCountSave, boolean sortIslands) {
         BigInteger deltaBlockCounts = this.lastSavedBlockCounts.subtract(currentTotalBlocksCount);
         if (deltaBlockCounts.compareTo(BigInteger.ZERO) < 0)
             deltaBlockCounts = deltaBlockCounts.negate();
 
-        if (forceBlocksCountSave || deltaBlockCounts.compareTo(plugin.getSettings().getBlockCountsSaveThreshold()) >= 0) {
+        if (forceBlocksCountSave || deltaBlockCounts.compareTo(BLOCK_COUNTS_SAVE_THRESHOLD) >= 0) {
             this.lastSavedBlockCounts = currentTotalBlocksCount;
             IslandsDatabaseBridge.saveBlockCounts(this);
         } else {

@@ -1,28 +1,18 @@
 package com.bgsoftware.superiorskyblock.config.section;
 
 import com.bgsoftware.superiorskyblock.api.config.SettingsManager;
-import com.bgsoftware.superiorskyblock.api.enums.TopIslandMembersSorting;
-import com.bgsoftware.superiorskyblock.api.handlers.BlockValuesManager;
 import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.key.Key;
-import com.bgsoftware.superiorskyblock.api.key.KeySet;
 import com.bgsoftware.superiorskyblock.api.objects.Pair;
 import com.bgsoftware.superiorskyblock.api.player.inventory.ClearAction;
 import com.bgsoftware.superiorskyblock.api.player.respawn.RespawnAction;
 import com.bgsoftware.superiorskyblock.config.SettingsContainerHolder;
 
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class GlobalSection extends SettingsContainerHolder {
-
-    public long getCalcInterval() {
-        return getContainer().calcInterval;
-    }
 
     public String getIslandCommand() {
         return getContainer().islandCommand;
@@ -42,18 +32,6 @@ public class GlobalSection extends SettingsContainerHolder {
 
     public boolean isWorldBorders() {
         return getContainer().worldBordersEnabled;
-    }
-
-    public String getBlockLevelFormula() {
-        return getContainer().blockLevelFormula;
-    }
-
-    public boolean isRoundedIslandLevels() {
-        return getContainer().roundedIslandLevel;
-    }
-
-    public RoundingMode getIslandLevelRoundingMode() {
-        return getContainer().islandLevelRoundingMode;
     }
 
     public boolean isAutoBlocksTracking() {
@@ -106,10 +84,6 @@ public class GlobalSection extends SettingsContainerHolder {
 
     public int getDisbandCount() {
         return getContainer().defaultDisbandCount;
-    }
-
-    public boolean isIslandTopIncludeLeader() {
-        return getContainer().islandTopIncludeLeader;
     }
 
     public Map<String, String> getDefaultPlaceholders() {
@@ -260,10 +234,6 @@ public class GlobalSection extends SettingsContainerHolder {
         return getContainer().stopLeaving;
     }
 
-    public boolean isValuesMenu() {
-        return getContainer().valuesMenu;
-    }
-
     public List<String> getCropsToGrow() {
         return getContainer().cropsToGrow;
     }
@@ -308,18 +278,6 @@ public class GlobalSection extends SettingsContainerHolder {
         return getContainer().obsidianToLava;
     }
 
-    public BlockValuesManager.SyncWorthStatus getSyncWorth() {
-        return getContainer().syncWorth;
-    }
-
-    public boolean isNegativeWorth() {
-        return getContainer().negativeWorth;
-    }
-
-    public boolean isNegativeLevel() {
-        return getContainer().negativeLevel;
-    }
-
     public List<String> getDisabledEvents() {
         return getContainer().disabledEvents;
     }
@@ -338,10 +296,6 @@ public class GlobalSection extends SettingsContainerHolder {
 
     public Map<String, List<String>> getCommandAliases() {
         return getContainer().commandAliases;
-    }
-
-    public Set<Key> getValuableBlocks() {
-        return getContainer().valuableBlocks;
     }
 
     public boolean isTabCompleteHideVanished() {
@@ -376,20 +330,12 @@ public class GlobalSection extends SettingsContainerHolder {
         return getContainer().lockedIslands;
     }
 
-    public long getRecalcTaskTimeout() {
-        return getContainer().recalcTaskTimeout;
-    }
-
     public boolean isAutoLanguageDetection() {
         return getContainer().autoLanguageDetection;
     }
 
     public boolean isAutoUncoopWhenAlone() {
         return getContainer().autoUncoopWhenAlone;
-    }
-
-    public TopIslandMembersSorting getTopIslandMembersSorting() {
-        return getContainer().islandTopMembersSorting;
     }
 
     public int getBossbarLimit() {
@@ -402,10 +348,6 @@ public class GlobalSection extends SettingsContainerHolder {
 
     public List<RespawnAction> getPlayerRespawn() {
         return getContainer().playerRespawnActions;
-    }
-
-    public BigInteger getBlockCountsSaveThreshold() {
-        return getContainer().blockCountsSaveThreshold;
     }
 
     public boolean getChatSigningSupport() {
