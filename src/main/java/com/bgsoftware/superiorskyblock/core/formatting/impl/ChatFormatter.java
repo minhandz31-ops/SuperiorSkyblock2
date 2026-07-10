@@ -30,16 +30,8 @@ public class ChatFormatter implements IFormatter<ChatFormatter.ChatFormatArgs> {
                 args.island == null ? "" : args.island.getName());
 
         return args.format
-                .replace("{island-level}", String.valueOf(args.island == null ? 0 : args.island.getIslandLevel()))
-                .replace("{island-level-format}", String.valueOf(args.island == null ? 0 :
-                        Formatters.FANCY_NUMBER_FORMATTER.format(args.island.getIslandLevel(), args.superiorPlayer.getUserLocale())))
-                .replace("{island-worth}", String.valueOf(args.island == null ? 0 : args.island.getWorth()))
-                .replace("{island-worth-format}", String.valueOf(args.island == null ? 0 :
-                        Formatters.FANCY_NUMBER_FORMATTER.format(args.island.getWorth(), args.superiorPlayer.getUserLocale())))
                 .replace("{island-name}", islandNameFormat == null ? "" : islandNameFormat)
                 .replace("{island-role}", args.superiorPlayer.getPlayerRole().getDisplayName())
-                .replace("{island-position-worth}", args.island == null ? "" : (plugin.getGrid().getIslandPosition(args.island, SortingTypes.BY_WORTH) + 1) + "")
-                .replace("{island-position-level}", args.island == null ? "" : (plugin.getGrid().getIslandPosition(args.island, SortingTypes.BY_LEVEL) + 1) + "")
                 .replace("{island-position-rating}", args.island == null ? "" : (plugin.getGrid().getIslandPosition(args.island, SortingTypes.BY_RATING) + 1) + "")
                 .replace("{island-position-players}", args.island == null ? "" : (plugin.getGrid().getIslandPosition(args.island, SortingTypes.BY_PLAYERS) + 1) + "");
     }

@@ -26,7 +26,6 @@ import com.bgsoftware.superiorskyblock.island.top.SortingTypes;
 import com.bgsoftware.superiorskyblock.island.top.metadata.IslandSortMetadata;
 import com.bgsoftware.superiorskyblock.island.top.metadata.IslandSortPlayerMetadata;
 import com.bgsoftware.superiorskyblock.island.top.metadata.IslandSortRatingMetadata;
-import com.bgsoftware.superiorskyblock.island.top.metadata.IslandSortValueMetadata;
 import com.google.common.base.Preconditions;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -233,8 +232,7 @@ public class DefaultIslandsContainer implements IslandsContainer {
         if (existingIslands.size() <= 1) {
             sortedIslands = existingIslands;
         } else try {
-            if (sortingType == SortingTypes.BY_LEVEL || sortingType == SortingTypes.BY_WORTH ||
-                    sortingType == SortingTypes.BY_PLAYERS || sortingType == SortingTypes.BY_RATING) {
+            if (sortingType == SortingTypes.BY_PLAYERS || sortingType == SortingTypes.BY_RATING) {
                 sortedIslands = sortIslandsBuiltinSortingType(existingIslands, sortingType);
             } else {
                 sortedIslands = existingIslands;
@@ -254,11 +252,7 @@ public class DefaultIslandsContainer implements IslandsContainer {
     private List<Island> sortIslandsBuiltinSortingType(List<Island> existingIslands, SortingType sortingType) {
         List<IslandSortMetadata<?>> islandMetadatas = new LinkedList<>();
 
-        if (sortingType == SortingTypes.BY_WORTH)
-            existingIslands.forEach(island -> islandMetadatas.add(new IslandSortValueMetadata(island, island.getWorth())));
-        else if (sortingType == SortingTypes.BY_LEVEL)
-            existingIslands.forEach(island -> islandMetadatas.add(new IslandSortValueMetadata(island, island.getIslandLevel())));
-        else if (sortingType == SortingTypes.BY_RATING)
+        if (sortingType == SortingTypes.BY_RATING)
             existingIslands.forEach(island -> islandMetadatas.add(new IslandSortRatingMetadata(island)));
         else /* BY_PLAYERS */
             existingIslands.forEach(island -> islandMetadatas.add(new IslandSortPlayerMetadata(island)));

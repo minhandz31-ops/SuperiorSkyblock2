@@ -21,14 +21,6 @@ public class SortingComparators {
         String secondName = o2.getStrippedName().isEmpty() ? o2.getOwner().getName() : o2.getStrippedName();
         return firstName.compareTo(secondName);
     };
-    public final static Comparator<Island> WORTH_COMPARATOR = (o1, o2) -> {
-        int compare = o2.getWorth().compareTo(o1.getWorth());
-        return compare == 0 ? ISLAND_NAMES_COMPARATOR.compare(o1, o2) : compare;
-    };
-    public final static Comparator<Island> LEVEL_COMPARATOR = (o1, o2) -> {
-        int compare = o2.getIslandLevel().compareTo(o1.getIslandLevel());
-        return compare == 0 ? ISLAND_NAMES_COMPARATOR.compare(o1, o2) : compare;
-    };
     public final static Comparator<Island> RATING_COMPARATOR = (o1, o2) -> {
         int totalRatingsCompare = Double.compare(o2.getTotalRating() * o2.getRatingAmount(), o1.getTotalRating() * o1.getRatingAmount());
 

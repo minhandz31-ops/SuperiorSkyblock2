@@ -2462,33 +2462,14 @@ public class SIsland implements Island {
 
         BigInteger newTotalBlocksCount = this.currentTotalBlockCounts.updateAndGet(count -> count.add(amount));
 
-        BigDecimal oldWorth = getWorth();
-        BigDecimal oldLevel = getIslandLevel();
-
-        BlockValue blockValue = plugin.getBlockValues().getBlockValue(key);
-        BigDecimal blockWorth = blockValue.getWorth();
-        BigDecimal blockLevel = blockValue.getLevel();
-
         boolean saveBlockCounts = (flags & IslandBlockFlags.SAVE_BLOCK_COUNTS) != 0;
         boolean updateLastTimeStatus = (flags & IslandBlockFlags.UPDATE_LAST_TIME_STATUS) != 0;
-
-        if (blockWorth.compareTo(BigDecimal.ZERO) != 0) {
-            islandWorth.updateAndGet(islandWorth -> islandWorth.add(blockWorth.multiply(new BigDecimal(amount))));
-            if (saveBlockCounts)
-                plugin.getGrid().getIslandsContainer().notifyChange(SortingTypes.BY_WORTH, this);
-        }
-
-        if (blockLevel.compareTo(BigDecimal.ZERO) != 0) {
-            islandLevel.updateAndGet(islandLevel -> islandLevel.add(blockLevel.multiply(new BigDecimal(amount))));
-            if (saveBlockCounts)
-                plugin.getGrid().getIslandsContainer().notifyChange(SortingTypes.BY_LEVEL, this);
-        }
 
         if (updateLastTimeStatus)
             updateLastTime();
 
         if (saveBlockCounts)
-            saveBlockCounts(newTotalBlocksCount, oldWorth, oldLevel);
+            saveBlockCounts(newTotalBlocksCount);
 
         return BlockChangeResult.SUCCESS;
     }
@@ -2587,7 +2568,7 @@ public class SIsland implements Island {
         boolean updateLastTimeStatus = (flags & IslandBlockFlags.UPDATE_LAST_TIME_STATUS) != 0;
 
         if (saveBlockCounts)
-            saveBlockCounts(this.currentTotalBlockCounts.get(), oldWorth, oldLevel);
+            saveBlockCounts(this.currentTotalBlockCounts.get());
 
         if (updateLastTimeStatus)
             updateLastTime();
@@ -2673,32 +2654,14 @@ public class SIsland implements Island {
 
         BigInteger newTotalBlocksCount = this.currentTotalBlockCounts.updateAndGet(count -> count.subtract(amountBig));
 
-        BigDecimal oldWorth = getWorth(), oldLevel = getIslandLevel();
-
-        BlockValue blockValue = plugin.getBlockValues().getBlockValue(key);
-        BigDecimal blockWorth = blockValue.getWorth();
-        BigDecimal blockLevel = blockValue.getLevel();
-
         boolean saveBlockCounts = (flags & IslandBlockFlags.SAVE_BLOCK_COUNTS) != 0;
         boolean updateLastTimeStatus = (flags & IslandBlockFlags.UPDATE_LAST_TIME_STATUS) != 0;
-
-        if (blockWorth.compareTo(BigDecimal.ZERO) != 0) {
-            this.islandWorth.updateAndGet(islandWorth -> islandWorth.subtract(blockWorth.multiply(new BigDecimal(amount))));
-            if (saveBlockCounts)
-                plugin.getGrid().getIslandsContainer().notifyChange(SortingTypes.BY_WORTH, this);
-        }
-
-        if (blockLevel.compareTo(BigDecimal.ZERO) != 0) {
-            this.islandLevel.updateAndGet(islandLevel -> islandLevel.subtract(blockLevel.multiply(new BigDecimal(amount))));
-            if (saveBlockCounts)
-                plugin.getGrid().getIslandsContainer().notifyChange(SortingTypes.BY_LEVEL, this);
-        }
 
         if (updateLastTimeStatus)
             updateLastTime();
 
         if (saveBlockCounts)
-            saveBlockCounts(newTotalBlocksCount, oldWorth, oldLevel);
+            saveBlockCounts(newTotalBlocksCount);
 
         return BlockChangeResult.SUCCESS;
     }
@@ -2780,7 +2743,7 @@ public class SIsland implements Island {
         boolean updateLastTimeStatus = (flags & IslandBlockFlags.UPDATE_LAST_TIME_STATUS) != 0;
 
         if (saveBlockCounts)
-            saveBlockCounts(this.currentTotalBlockCounts.get(), oldWorth, oldLevel);
+            saveBlockCounts(this.currentTotalBlockCounts.get());
 
         if (updateLastTimeStatus)
             updateLastTime();
@@ -2858,12 +2821,6 @@ public class SIsland implements Island {
     public void clearBlockCounts() {
         blocksTracker.clearBlockCounts();
         this.currentTotalBlockCounts.set(BigInteger.ZERO);
-
-        islandWorth.set(BigDecimal.ZERO);
-        islandLevel.set(BigDecimal.ZERO);
-
-        plugin.getGrid().getIslandsContainer().notifyChange(SortingTypes.BY_WORTH, this);
-        plugin.getGrid().getIslandsContainer().notifyChange(SortingTypes.BY_LEVEL, this);
     }
 
     @Override
@@ -2908,9 +2865,6 @@ public class SIsland implements Island {
         if (Objects.equals(oldBonusWorth, bonusWorth))
             return;
 
-        plugin.getGrid().getIslandsContainer().notifyChange(SortingTypes.BY_WORTH, this);
-        plugin.getGrid().sortIslands(SortingTypes.BY_WORTH);
-
         IslandsDatabaseBridge.saveBonusWorth(this);
     }
 
@@ -2929,9 +2883,6 @@ public class SIsland implements Island {
 
         if (Objects.equals(oldBonusLevel, bonusLevel))
             return;
-
-        plugin.getGrid().getIslandsContainer().notifyChange(SortingTypes.BY_LEVEL, this);
-        plugin.getGrid().sortIslands(SortingTypes.BY_LEVEL);
 
         IslandsDatabaseBridge.saveBonusLevel(this);
     }
@@ -4541,7 +4492,7 @@ public class SIsland implements Island {
 
             finishCalcIsland(asker, callback, newIslandLevel, newIslandWorth);
 
-            saveBlockCounts(this.currentTotalBlockCounts.get(), oldWorth, oldLevel, true, isLastActiveTask);
+            saveBlockCounts(this.currentTotalBlockCounts.get(), true, isLastActiveTask);
             updateLastTime();
         });
     }
@@ -4652,20 +4603,12 @@ public class SIsland implements Island {
         }
     }
 
-    private void saveBlockCounts(BigInteger currentTotalBlocksCount, BigDecimal oldWorth, BigDecimal oldLevel) {
-        saveBlockCounts(currentTotalBlocksCount, oldWorth, oldLevel, false, true);
+    private void saveBlockCounts(BigInteger currentTotalBlocksCount) {
+        saveBlockCounts(currentTotalBlocksCount, false, true);
     }
 
-    private void saveBlockCounts(BigInteger currentTotalBlocksCount, BigDecimal oldWorth, BigDecimal oldLevel,
+    private void saveBlockCounts(BigInteger currentTotalBlocksCount,
                                  boolean forceBlocksCountSave, boolean sortIslands) {
-        BigDecimal newWorth = getWorth();
-        BigDecimal newLevel = getIslandLevel();
-
-        if (oldLevel.compareTo(newLevel) != 0 || oldWorth.compareTo(newWorth) != 0) {
-            registerTask(BukkitExecutor.async(() ->
-                    PluginEventsFactory.callIslandWorthUpdateEvent(this, oldWorth, oldLevel, newWorth, newLevel), 0L));
-        }
-
         BigInteger deltaBlockCounts = this.lastSavedBlockCounts.subtract(currentTotalBlocksCount);
         if (deltaBlockCounts.compareTo(BigInteger.ZERO) < 0)
             deltaBlockCounts = deltaBlockCounts.negate();
@@ -4673,10 +4616,6 @@ public class SIsland implements Island {
         if (forceBlocksCountSave || deltaBlockCounts.compareTo(plugin.getSettings().getBlockCountsSaveThreshold()) >= 0) {
             this.lastSavedBlockCounts = currentTotalBlocksCount;
             IslandsDatabaseBridge.saveBlockCounts(this);
-            if (sortIslands) {
-                plugin.getGrid().sortIslands(SortingTypes.BY_WORTH);
-                plugin.getGrid().sortIslands(SortingTypes.BY_LEVEL);
-            }
         } else {
             IslandsDatabaseBridge.markBlockCountsToBeSaved(this);
         }
