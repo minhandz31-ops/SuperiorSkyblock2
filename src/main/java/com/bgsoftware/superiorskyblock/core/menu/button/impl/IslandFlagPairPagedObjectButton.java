@@ -77,9 +77,19 @@ public class IslandFlagPairPagedObjectButton extends AbstractPagedMenuButton<Men
         SuperiorPlayer inventoryViewer = menuView.getInventoryViewer();
         Island island = menuView.getIsland();
 
-        IslandFlag islandFlag = pagedObject.getIslandFlag();
+        // Check if ANY flag in the pair is enabled
+        String flagName = pagedObject.getIslandFlagName();
+        String[] flags = flagName.split("\\|");
+        boolean anyEnabled = false;
+        for (String f : flags) {
+            IslandFlag flag = IslandFlag.getByName(f);
+            if (flag != null && island.hasSettingsEnabled(flag)) {
+                anyEnabled = true;
+                break;
+            }
+        }
 
-        return islandFlag != null && island.hasSettingsEnabled(islandFlag) ?
+        return anyEnabled ?
                 pagedObject.getEnabledIslandFlagItem().build(inventoryViewer) :
                 pagedObject.getDisabledIslandFlagItem().build(inventoryViewer);
     }

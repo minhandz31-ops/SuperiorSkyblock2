@@ -17,22 +17,10 @@ pattern:
   - '$ $ ! $ @ $ $ $ $'
   - '$ $ $ $ $ $ $ $ $'
 
-items:
-  '$':
-    type: BLACK_STAINED_GLASS_PANE
-    name: '&f'
+# Button slot mappings - used by PermissionBookButton
+physical-book: '!'
+commands-book: '@'
 
-sounds:
-  '!':
-    type: BLOCK_NOTE_BLOCK_PLING
-    volume: 0.2
-    pitch: 0.2
-  '@':
-    type: BLOCK_NOTE_BLOCK_PLING
-    volume: 0.2
-    pitch: 0.2
-
-# Book 1: Physical permissions (Break, Build, Chest, etc.)
 items:
   '$':
     type: BLACK_STAINED_GLASS_PANE
@@ -51,8 +39,6 @@ items:
       - '&7- Drop/Pickup items'
       - ''
       - '&aClick to open!'
-
-# Book 2: Command & Management permissions
   '@':
     type: ENCHANTED_BOOK
     name: '&6&lCommand & Management'
@@ -68,8 +54,12 @@ items:
       - '&cNote: Minimum role is Member.'
       - '&aClick to open!'
 
-commands:
+sounds:
   '!':
-    - '[player] is permissions physical'
+    type: BLOCK_NOTE_BLOCK_PLING
+    volume: 0.2
+    pitch: 0.2
   '@':
-    - '[player] is permissions commands'
+    type: BLOCK_NOTE_BLOCK_PLING
+    volume: 0.2
+    pitch: 0.2
