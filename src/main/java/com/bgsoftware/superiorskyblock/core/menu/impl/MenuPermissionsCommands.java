@@ -246,7 +246,7 @@ public class MenuPermissionsCommands extends AbstractMenu<MenuPermissionsCommand
 
         @Override
         public String replaceTitle(String title) {
-            return title.replace("{}", permissiblePlayer.getName());
+            return permissiblePlayer != null ? title.replace("{}", permissiblePlayer.getName()) : title;
         }
 
     }
