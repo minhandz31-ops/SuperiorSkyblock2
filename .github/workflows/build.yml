@@ -65,7 +65,7 @@ jobs:
           cat gradle.properties
 
       - name: Build with Gradle
-        run: ./gradlew build -x checkDebug --no-daemon --stacktrace --info 2>&1 | tee build.log
+        run: ./gradlew build collectArtifacts -x checkDebug --no-daemon --stacktrace 2>&1 | tee build.log
 
       - name: Show errors if build failed
         if: failure()
@@ -73,12 +73,27 @@ jobs:
           echo "=== Build failed. Searching for errors... ==="
           grep -E "error:|FAILURE|Exception" build.log | head -50 || true
 
-      - name: Upload build artifacts
+      - name: List built jars
+        if: always()
+        run: |
+          echo "=== target/ contents ==="
+          ls -lh target/ 2>/dev/null || echo "target/ not found"
+          echo "=== build/libs/ contents ==="
+          ls -lh build/libs/ 2>/dev/null || true
+          echo "=== API build/libs/ contents ==="
+          ls -lh API/build/libs/ 2>/dev/null || true
+          echo "=== All jars ==="
+          find . -name "*.jar" -not -path "*/build/tmp/*" -not -path "*/.gradle/*" 2>/dev/null | head -20
+
+      - name: Upload plugin jar
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: build-jars
-          path: target/
+          name: SuperiorSkyblock2-plugin
+          path: |
+            target/
+            build/libs/
+            API/build/libs/
           if-no-files-found: warn
 
       - name: Upload build log
