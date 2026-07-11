@@ -516,38 +516,6 @@ permissions:
         volume: 0.2
         pitch: 0.2
 
-  delete_warp:
-    display-menu: true
-    permission-enabled:
-      type: ENDER_PEARL
-      name: '&6Delete Warp'
-      lore:
-        - '&7Access to delete island warps.'
-        - '&7Currently &aENABLED&7.'
-    permission-disabled:
-      type: ENDER_PEARL
-      name: '&6Delete Warp'
-      lore:
-        - '&7Access to delete island warps.'
-        - '&7Currently &cDISABLED&7.'
-    role-permission:
-      type: ENDER_PEARL
-      name: '&6Delete Warp'
-      lore:
-        - '&7Access to delete island warps.'
-        - '&7Role: &e{}&7.'
-        - ''
-        - '{0}'
-    has-access:
-      sound:
-        type: ENTITY_EXPERIENCE_ORB_PICKUP
-        volume: 0.2
-        pitch: 0.2
-    no-access:
-      sound:
-        type: BLOCK_ANVIL_PLACE
-        volume: 0.2
-        pitch: 0.2
 
   demote_members:
     display-menu: true
@@ -582,38 +550,6 @@ permissions:
         volume: 0.2
         pitch: 0.2
 
-  deposit_money:
-    display-menu: true
-    permission-enabled:
-      type: MAP
-      name: '&6Deposit Money'
-      lore:
-        - '&7Access to deposit money into the island''s bank.'
-        - '&7Currently &aENABLED&7.'
-    permission-disabled:
-      type: MAP
-      name: '&6Deposit Money'
-      lore:
-        - '&7Access to deposit money into the island''s bank.'
-        - '&7Currently &cDISABLED&7.'
-    role-permission:
-      type: MAP
-      name: '&6Deposit Money'
-      lore:
-        - '&7Access to deposit money into the island''s bank.'
-        - '&7Role: &e{}&7.'
-        - ''
-        - '{0}'
-    has-access:
-      sound:
-        type: ENTITY_EXPERIENCE_ORB_PICKUP
-        volume: 0.2
-        pitch: 0.2
-    no-access:
-      sound:
-        type: BLOCK_ANVIL_PLACE
-        volume: 0.2
-        pitch: 0.2
 
   disband_island:
     display-menu: true
@@ -1903,38 +1839,6 @@ permissions:
         volume: 0.2
         pitch: 0.2
 
-  set_biome:
-    display-menu: true
-    permission-enabled:
-      type: GRASS_BLOCK
-      name: '&6Set Biome'
-      lore:
-        - '&7Access to change the island''s biome.'
-        - '&7Currently &aENABLED&7.'
-    permission-disabled:
-      type: GRASS_BLOCK
-      name: '&6Set Biome'
-      lore:
-        - '&7Access to change the island''s biome.'
-        - '&7Currently &cDISABLED&7.'
-    role-permission:
-      type: GRASS_BLOCK
-      name: '&6Set Biome'
-      lore:
-        - '&7Access to change the island''s biome.'
-        - '&7Role: &e{}&7.'
-        - ''
-        - '{0}'
-    has-access:
-      sound:
-        type: ENTITY_EXPERIENCE_ORB_PICKUP
-        volume: 0.2
-        pitch: 0.2
-    no-access:
-      sound:
-        type: BLOCK_ANVIL_PLACE
-        volume: 0.2
-        pitch: 0.2
 
   set_discord:
     display-menu: true
@@ -2140,38 +2044,6 @@ permissions:
         volume: 0.2
         pitch: 0.2
 
-  set_warp:
-    display-menu: true
-    permission-enabled:
-      type: ENDER_EYE
-      name: '&6Set Warp'
-      lore:
-        - '&7Access to set new warps for the island.'
-        - '&7Currently &aENABLED&7.'
-    permission-disabled:
-      type: ENDER_EYE
-      name: '&6Set Warp'
-      lore:
-        - '&7Access to set new warps for the island.'
-        - '&7Currently &cDISABLED&7.'
-    role-permission:
-      type: ENDER_EYE
-      name: '&6Set Warp'
-      lore:
-        - '&7Access to set new warps for the island.'
-        - '&7Role: &e{}&7.'
-        - ''
-        - '{0}'
-    has-access:
-      sound:
-        type: ENTITY_EXPERIENCE_ORB_PICKUP
-        volume: 0.2
-        pitch: 0.2
-    no-access:
-      sound:
-        type: BLOCK_ANVIL_PLACE
-        volume: 0.2
-        pitch: 0.2
 
   sign_interact:
     display-menu: true
@@ -2440,35 +2312,4 @@ permissions:
         volume: 0.2
         pitch: 0.2
 
-  withdraw_money:
-    display-menu: true
-    permission-enabled:
-      type: EMERALD
-      name: '&6Withdraw Money'
-      lore:
-        - '&7Access to withdraw money from the island''s bank.'
-        - '&7Currently &aENABLED&7.'
-    permission-disabled:
-      type: EMERALD
-      name: '&6Withdraw Money'
-      lore:
-        - '&7Access to withdraw money from the island''s bank.'
-        - '&7Currently &cDISABLED&7.'
-    role-permission:
-      type: EMERALD
-      name: '&6Withdraw Money'
-      lore:
-        - '&7Access to withdraw money from the island''s bank.'
-        - '&7Role: &e{}&7.'
-        - ''
-        - '{0}'
-    has-access:
-      sound:
-        type: ENTITY_EXPERIENCE_ORB_PICKUP
-        volume: 0.2
-        pitch: 0.2
-    no-access:
-      sound:
-        type: BLOCK_ANVIL_PLACE
-        volume: 0.2
         pitch: 0.2
