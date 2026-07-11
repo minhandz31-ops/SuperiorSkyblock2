@@ -63,9 +63,6 @@ default-values:
   entity-limits:
     MINECART: 4
 
-  # Set the default warps limit of all islands.
-  warps-limit: 3
-
   # Set the default team limit of all islands.
   team-limit: 4
 
@@ -80,9 +77,6 @@ default-values:
 
   # Set the default mob-drops multiplier of all islands.
   mob-drops: 1
-
-  # Set the default bank limit of all islands.
-  bank-limit: -1
 
   # Set the default generator percentages of all islands.
   # The following example will set 0.5% chance for diamond block in the normal world, and 50% for gold block in nether:
@@ -241,7 +235,6 @@ island-roles:
       permissions:
         - ANIMAL_SPAWN
         - CHEST_ACCESS
-        - DEPOSIT_MONEY
         - FLY
         - ISLAND_CHEST
         - MONSTER_SPAWN
@@ -255,15 +248,12 @@ island-roles:
       permissions:
         - BAN_MEMBER
         - CLOSE_ISLAND
-        - DELETE_WARP
         - EXPEL_PLAYERS
         - INVITE_MEMBER
         - KICK_MEMBER
         - OPEN_ISLAND
         - RATINGS_SHOW
-        - SET_WARP
         - VALUABLE_BREAK
-        - WITHDRAW_MONEY
     admin:
       id: 2
       name: 'Admin'
@@ -274,7 +264,6 @@ island-roles:
         - DISCORD_SHOW
         - PAYPAL_SHOW
         - PROMOTE_MEMBERS
-        - SET_BIOME
         - SET_DISCORD
         - SET_HOME
         - SET_PAYPAL
@@ -289,31 +278,6 @@ island-roles:
       permissions:
         - ALL
 
-# Set the line to create the warp sign.
-sign-warp-line: '[IslandWarp]'
-
-# Set the lines of the island warp.
-sign-warp:
-  - '&a[Island Warp]'
-  - ''
-  - ''
-  - ''
-
-# All settings related to the visitors sign.
-visitors-sign:
-  # Whether a visitors sign is required for others to visit islands.
-  # If set to false, visitors will be teleported to the regular island home when using `/is visit`
-  required-for-visit: true
-  # Set the line to create the visitors sign.
-  line: '[Welcome]'
-  # The line that will be displayed when the sign is active.
-  active: '&a[Welcome]'
-  # The line that will be displayed when the sign is inactive.
-  inactive: '&c[Welcome]'
-  # The format in which the island description lines will be saved, players can set the island description
-  # by entering it in the next lines of the Visitors Sign. Useful if you want to display a description
-  # in the global-warps menu and want to give it a default color. {0} represents the text on that line.
-  description-line-format: '{0}'
 
 # Settings related to the island worlds.
 worlds:
