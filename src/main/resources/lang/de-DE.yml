@@ -40,13 +40,6 @@ BLOCK_COUNTS_CHECK: |-
   &7{0}
 BLOCK_COUNTS_CHECK_EMPTY: '&e&lInsel | &7Diese Insel hat keine verfolgten Blöcke.'
 BLOCK_COUNTS_CHECK_MATERIAL: x{0} {1}
-BLOCK_LEVEL: '&e&lLevel | &7Die Ebene des Blocks {0} ist {1}.'
-BLOCK_LEVEL_WORTHLESS: '&e&lLevel | &7Der Block {0} ist wertlos.'
-BLOCK_VALUE: '&e&lWert | &7Der Block {0} im Wert von {1}.'
-BLOCK_VALUE_WORTHLESS: '&e&lWert | &7Der Block {0} ist wertlos.'
-BONUS_SYNC_ALL: '&e&lIsland | &7Successfully synced the island bonus to all the islands'
-BONUS_SYNC_NAME: '&e&lIsland | &7Successfully synced the island bonus to {0}.'
-BONUS_SYNC: '&e&lIsland | &7Successfully synced the island bonus to {0}''s island.'
 BORDER_PLAYER_COLOR_NAME_BLUE: Blau
 BORDER_PLAYER_COLOR_NAME_RED: Rot
 BORDER_PLAYER_COLOR_NAME_GREEN: Grün
@@ -76,12 +69,6 @@ CHANGED_BLOCK_LIMIT_ALL: '&e&lUpgrades | &7Das {0} Blocklimit aller Inseln wurde
   aktualisiert.'
 CHANGED_BLOCK_LIMIT_NAME: '&e&lUpgrades | &7Das {0} Blocklimit von {1} wurde erfolgreich
   aktualisiert.'
-CHANGED_BONUS_LEVEL: '&e&lIsland | &7Successfully updated the level bonus of {0}''s island.'
-CHANGED_BONUS_LEVEL_ALL: '&e&lIsland | &7Successfully updated the level bonus of all the islands.'
-CHANGED_BONUS_LEVEL_NAME: '&e&lIsland | &7Successfully updated the level bonus of {0}.'
-CHANGED_BONUS_WORTH: '&e&lIsland | &7Successfully updated the worth bonus of {0}''s island.'
-CHANGED_BONUS_WORTH_ALL: '&e&lIsland | &7Successfully updated the worth bonus of all the islands.'
-CHANGED_BONUS_WORTH_NAME: '&e&lIsland | &7Successfully updated the worth bonus of {0}.'
 CHANGED_CHEST_SIZE: '&e&lChest | &7Die Zeilen von Seite #{0} wurden erfolgreich auf
   {1} für die Insel von {2} aktualisiert.'
 CHANGED_CHEST_SIZE_ALL: '&e&lChest | &7Die Zeilen der Seite #{0} wurden für alle Inseln
@@ -266,7 +253,6 @@ COMMAND_DESCRIPTION_ADMIN_PROMOTE: Ein Mitglied auf der Insel eines anderen Spie
   befördern.
 COMMAND_DESCRIPTION_ADMIN_PURGE: Inseln säubern.
 COMMAND_DESCRIPTION_ADMIN_RANKUP: Rang ein Upgrade für eine Insel auf.
-COMMAND_DESCRIPTION_ADMIN_RECALC: Berechnet den Wert einer Insel neu.
 COMMAND_DESCRIPTION_ADMIN_RELOAD: Alle Konfigurationen und Aufgaben des Plugins neu
   laden.
 COMMAND_DESCRIPTION_ADMIN_REMOVE_BLOCK_LIMIT: Entferne ein Blocklimit von einer Insel.
@@ -339,7 +325,6 @@ COMMAND_DESCRIPTION_CHEST: Öffne die Truhe der Insel.
 COMMAND_DESCRIPTION_CLOSE: Schließe die Insel für die Öffentlichkeit.
 COMMAND_DESCRIPTION_COOP: Füge einen Spieler als Coop zu deiner Insel hinzu.
 COMMAND_DESCRIPTION_COOPS: Öffne das Coop-Menü.
-COMMAND_DESCRIPTION_COUNTS: Siehe Blockanzahlen auf deiner Insel.
 COMMAND_DESCRIPTION_CREATE: Erstelle eine neue Insel.
 COMMAND_DESCRIPTION_DEL_WARP: Einen Insel-Warp löschen.
 COMMAND_DESCRIPTION_DEMOTE: Ein Mitglied auf deiner Insel degradieren.
@@ -367,7 +352,6 @@ COMMAND_DESCRIPTION_RANKUP: Ein Upgrade aufleveln.
 COMMAND_DESCRIPTION_RATE: Bewerte eine Insel.
 COMMAND_DESCRIPTION_RATINGS: Alle Inselbewertungen anzeigen.
 COMMAND_DESCRIPTION_SETTINGS: Öffne das Einstellungsmenü.
-COMMAND_DESCRIPTION_RECALC: Berechnet den Inselwert neu.
 COMMAND_DESCRIPTION_SET_DISCORD: Lege den Discord der Insel für Inselauszahlungen
   fest.
 COMMAND_DESCRIPTION_SET_PAYPAL: Lege die Paypal-E-Mail der Insel für Inselauszahlungen
@@ -380,12 +364,9 @@ COMMAND_DESCRIPTION_TEAM: Erhalte Informationen über den Status der Inselmitgli
 COMMAND_DESCRIPTION_TEAM_CHAT: Team-Chat-Modus umschalten.
 COMMAND_DESCRIPTION_TELEPORT: Teleportiere dich zu deiner Insel.
 COMMAND_DESCRIPTION_TOGGLE: Inselgrenzen und Platzierung von gestapelten Blöcken umschalten.
-COMMAND_DESCRIPTION_TOP: Oberes Inselfenster öffnen.
 COMMAND_DESCRIPTION_TRANSFER: Übertrage die Führung deiner Insel.
 COMMAND_DESCRIPTION_UNCOOP: Entferne einen Spieler aus dem Koop auf deiner Insel.
 COMMAND_DESCRIPTION_UPGRADE: Upgrade-Panel öffnen.
-COMMAND_DESCRIPTION_VALUE: Erhalte den Wert eines Blocks.
-COMMAND_DESCRIPTION_VALUES: Öffne das Wertemenü.
 COMMAND_DESCRIPTION_VISIT: Teleport zum Besucherstandort einer Insel.
 COMMAND_DESCRIPTION_VISITORS: Öffne das Besuchermenü.
 COMMAND_DESCRIPTION_WARP: Warp zu einem Insel-Warp.
@@ -505,7 +486,6 @@ INVALID_ISLAND_OTHER_NAME: '&c&lFehler | &7Es gibt keine Insel mit dem Namen {0}
 INVALID_ISLAND_PERMISSION: |-
   &c&lFehler | &7Die Inselberechtigung {0} konnte nicht gefunden werden.
   &c&lFehler | &7Inselberechtigungen: {1}
-INVALID_LEVEL: '&c&lError | &7Ungültige Ebene {0}.'
 INVALID_LIMIT: '&c&lError | &7Ungültiges Limit {0}.'
 INVALID_MATERIAL: '&c&lError | &7Ungültiges Material {0}.'
 INVALID_MATERIAL_DATA: '&c&lError | &7Ungültige Materialdaten {0}.'
@@ -553,7 +533,6 @@ ISLAND_BANK_EMPTY: '&e&lBank | &7Inselbank ist leer.'
 ISLAND_BANK_SHOW: '&e&lBank | &7Deine Insel hat ${0}.'
 ISLAND_BANK_SHOW_OTHER: '&e&lBank | Die Insel von &7{0} hat ${1}.'
 ISLAND_BANK_SHOW_OTHER_NAME: '&e&lBank | &7Die Insel {0} hat ${1}.'
-ISLAND_BEING_CALCULATED: '&c&lError | &7Du kannst nicht mit Blöcken interagieren,
   wenn die Insel neu berechnet wird!'
 ISLAND_CLOSED: '&e&lInsel | &7Die Insel wurde erfolgreich für die Öffentlichkeit geschlossen.'
 ISLAND_CREATE_PROCESS_FAIL: '&c&lError | &7Du hast eine bereits laufende Inselerstellungsaufgabe.'
@@ -603,8 +582,6 @@ ISLAND_INFO_ADMIN_UPGRADE_LINE: '&e&lInsel | &7 {0}: {1}'
 ISLAND_INFO_ADMIN_VALUE_SYNCED: '&a∞'
 ISLAND_INFO_ADMIN_WARPS_LIMIT: '&e&lInsel | &7Warps-Limit: {0}'
 ISLAND_INFO_BANK: '&e&lInsel | &7Bank: {0}'
-ISLAND_INFO_BONUS: '&e&lInsel | &7Wert-Bonus: {0}'
-ISLAND_INFO_BONUS_LEVEL: '&e&lInsel | &7Level Bonus: {0}'
 ISLAND_INFO_CREATION_TIME: '&e&lInsel | &7Erstellungszeit: {0}'
 ISLAND_INFO_DISCORD: '&e&lInsel | &7Discord: {0}'
 ISLAND_INFO_FOOTER: Citycrafting
@@ -612,7 +589,6 @@ ISLAND_INFO_HEADER: Servernetzwerk seit 2020
 ISLAND_INFO_LAST_TIME_UPDATED: '&e&lInsel | &7Letzte Aktualisierung: vor {0}'
 ISLAND_INFO_LAST_TIME_UPDATED_CURRENTLY_ACTIVE: '&e&lInsel | &7Letzte Aktualisierung:
   &aDerzeit aktiv'
-ISLAND_INFO_LEVEL: '&e&lIsland | &7Level: {0}'
 ISLAND_INFO_LOCATION: '&e&lInsel | &7Heimat: {0}'
 ISLAND_INFO_NAME: '&e&lInsel | &7Name: {0}'
 ISLAND_INFO_OWNER: '&e&lIsland | &7Besitzer: {0}'
@@ -630,7 +606,6 @@ ISLAND_INFO_ROLES: |-
   &e&lInsel | &7{0}s:
   {1}
 ISLAND_INFO_VISITORS_COUNT: '&e&lInsel | &7Besucheranzahl: {0} ({1} unique visitors)'
-ISLAND_INFO_WORTH: '&e&lInsel | &7Wert: {0}'
 ISLAND_NAME_NONE: None
 ISLAND_OPENED: '&e&lIsland | &7Die Insel wurde erfolgreich der Öffentlichkeit zugänglich
   gemacht.'
@@ -653,17 +628,12 @@ ISLAND_TEAM_STATUS_HEADER: '&e&lInsel | &7Mitglieder von {0}´s Insel &8[&e{1}&8
 ISLAND_TEAM_STATUS_OFFLINE: '&c(Offline)'
 ISLAND_TEAM_STATUS_ONLINE: '&a(Online)'
 ISLAND_TEAM_STATUS_ROLES: '&e&lInsel | &7 * [{0}] {1} {2} &7({3})'
-ISLAND_TOP_STATUS_OFFLINE: '&c(Offline)'
-ISLAND_TOP_STATUS_ONLINE: '&a(Online)'
 ISLAND_WARP_PUBLIC: ''
 ISLAND_WARP_PRIVATE: '&c[Privat]'
 ISLAND_WAS_CLOSED: '&e&lInsel | &7&oDie Insel, auf der du warst, wurde geschlossen
   und du wurdest zurück zum Spawnen teleportiert...'
-ISLAND_WORTH_ERROR: '&c&lError | &7Bei der Berechnung Ihrer Insel ist ein unerwarteter
   Fehler aufgetreten. Wende dich an die Administratoren, wenn das Problem weiterhin
   besteht.'
-ISLAND_WORTH_RESULT: '&e&lInsel | &7Dein Inselwert ist {0} [Level {1}]'
-ISLAND_WORTH_TIME_OUT: '&c&lFehler | &7Die Berechnungstask ist abgelaufen. Versuche
   es später noch einmal...'
 JOIN_ADMIN_ANNOUNCEMENT: '&e&lInsel | &7{0} ist deiner Insel beigetreten.'
 JOIN_ANNOUNCEMENT: '&e&lInsel | &7{0} ist deiner Insel beigetreten.'
@@ -866,8 +836,6 @@ REACHED_BLOCK_LIMIT: '&e&lUpgrades | &7Du hast das Limit der Insel für {0} Bloc
 REACHED_ENTITY_LIMIT: '&e&lUpgrades | &7You have reached the island''s limit for the entity {0}.'
 RECALC_ALREADY_RUNNING: '&c&lError | &7Deine Insel wird bereits neu berechnet.'
 RECALC_ALREADY_RUNNING_OTHER: '&c&lFehler | &7Diese Insel wird bereits neu berechnet.'
-RECALC_ALL_ISLANDS: '&e&lInsel | &7Alle Inseln neu berechnen...'
-RECALC_ALL_ISLANDS_DONE: '&e&lInsel | &7Neuberechnung aller Inseln erfolgreich abgeschlossen.'
 RECALC_PROCCESS_REQUEST: '&e&lInsel | &7Deine Anfrage wird bearbeitet...'
 RELOAD_COMPLETED: '&e&lInsel | &7Neuladen ist beendet!'
 RELOAD_PROCCESS_REQUEST: '&e&lInsel | &7Starte das Neuladen von Konfigurationen...'

@@ -39,13 +39,6 @@ BLOCK_COUNTS_CHECK: |-
   &7{0}
 BLOCK_COUNTS_CHECK_EMPTY: '&e&lĐảo | &7Đảo này không có khối được theo dõi.'
 BLOCK_COUNTS_CHECK_MATERIAL: 'x{0} {1}'
-BLOCK_LEVEL: '&e&lCấp Độ | &7Khối {0} có giá trị cấp độ là {1}.'
-BLOCK_LEVEL_WORTHLESS: '&e&lCấp Độ | &7Khối {0} vô giá trị.'
-BLOCK_VALUE: '&e&lĐáng giá | &7Khối {0} được đánh giá với {1}.'
-BLOCK_VALUE_WORTHLESS: '&e&lĐáng giá | &7Khối {0} vô giá trị.'
-BONUS_SYNC_ALL: '&e&lĐảo | &7Đồng bộ thành công phần thưởng đảo đến tất cả các đảo.'
-BONUS_SYNC_NAME: '&e&lĐảo | &7Đồng bộ thành công phần thưởng đảo đến {0}.'
-BONUS_SYNC: '&e&lĐảo | &7Đồng bộ thành công phần thưởng đảo của {0}.'
 BORDER_PLAYER_COLOR_NAME_BLUE: 'Xanh dương'
 BORDER_PLAYER_COLOR_NAME_RED: 'Đỏ'
 BORDER_PLAYER_COLOR_NAME_GREEN: 'Xanh lá'
@@ -70,12 +63,6 @@ CHANGED_BLOCK_LIMIT: '&e&lNâng Cấp | &7Thay đổi thành công giới hạn 
 CHANGED_BLOCK_LIMIT_ALL: '&e&lNâng Cấp | &7Thành công nâng cấp {0} giới hạn khối của tất cả các đảo.'
 CHANGED_BLOCK_LIMIT_NAME: '&e&lNâng Cấp | &7Thay đổi thành công giới hạn khối {0}
   đảo của {1}.'
-CHANGED_BONUS_LEVEL: '&e&lIsland | &7Successfully updated the level bonus of {0}''s island.'
-CHANGED_BONUS_LEVEL_ALL: '&e&lIsland | &7Successfully updated the level bonus of all the islands.'
-CHANGED_BONUS_LEVEL_NAME: '&e&lIsland | &7Successfully updated the level bonus of {0}.'
-CHANGED_BONUS_WORTH: '&e&lIsland | &7Successfully updated the worth bonus of {0}''s island.'
-CHANGED_BONUS_WORTH_ALL: '&e&lIsland | &7Successfully updated the worth bonus of all the islands.'
-CHANGED_BONUS_WORTH_NAME: '&e&lIsland | &7Successfully updated the worth bonus of {0}.'
 CHANGED_CHEST_SIZE: '&e&lRương | &7Thành công nâng cấp số dòng của trang #{0} thành {1} cho đảo của {2}.'
 CHANGED_CHEST_SIZE_ALL: '&e&lRương | &7Thành công nâng cấp số dòng của trang #{0} thành {1} cho tất cả các đảo.'
 CHANGED_CHEST_SIZE_NAME: '&e&lRương | &7Thành công nâng cấp số dòng của trang #{0} thành {1} cho đảo {2}.'
@@ -227,7 +214,6 @@ COMMAND_DESCRIPTION_ADMIN_OPEN_MENU: 'Mở một giao diện tùy chọn cho ng�
 COMMAND_DESCRIPTION_ADMIN_PROMOTE: Thăng chức thành viên ở đảo của người chơi khác.
 COMMAND_DESCRIPTION_ADMIN_PURGE: Lọc bỏ số lượng lớn đảo.
 COMMAND_DESCRIPTION_ADMIN_RANKUP: Cập nhật mức độ nâng cấp cho hòn đảo.
-COMMAND_DESCRIPTION_ADMIN_RECALC: Tính lại giá trị của một hòn đảo.
 COMMAND_DESCRIPTION_ADMIN_RELOAD: Tải lại tất cả các config và tác vụ của plugin.
 COMMAND_DESCRIPTION_ADMIN_REMOVE_BLOCK_LIMIT: 'Xóa giới hạn khối khỏi một hòn đảo.'
 COMMAND_DESCRIPTION_ADMIN_REMOVE_ENTITY_LIMIT: 'Remove an entity limit from an island.'
@@ -292,7 +278,6 @@ COMMAND_DESCRIPTION_CHEST: 'Mở rương đảo.'
 COMMAND_DESCRIPTION_CLOSE: Đóng đảo thành công cộng.
 COMMAND_DESCRIPTION_COOP: Thêm thành viên co-op cho đảo bạn.
 COMMAND_DESCRIPTION_COOPS: Mở menu co-op.
-COMMAND_DESCRIPTION_COUNTS: Xem số khối trong đảo của bạn.
 COMMAND_DESCRIPTION_CREATE: Tạo một hòn đảo mới.
 COMMAND_DESCRIPTION_DEL_WARP: Xóa một khu vực của đảo.
 COMMAND_DESCRIPTION_DEMOTE: Hạ cấp một thành viên trong hòn đảo của bạn.
@@ -320,7 +305,6 @@ COMMAND_DESCRIPTION_RANKUP: Tăng cấp một bản nâng cấp.
 COMMAND_DESCRIPTION_RATE: Đánh giá một hòn đảo.
 COMMAND_DESCRIPTION_RATINGS: Hiện thị tất cả đánh giá đảo.
 COMMAND_DESCRIPTION_SETTINGS: Mở menu cài đặt đảo.
-COMMAND_DESCRIPTION_RECALC: Tính lại giá trị đảo.
 COMMAND_DESCRIPTION_SET_DISCORD: Đặt discord của đảo đối với các khoản thanh toán
   trên đảo.
 COMMAND_DESCRIPTION_SET_PAYPAL: Đặt email paypal của đảo cho các khoản thanh toán
@@ -335,12 +319,9 @@ COMMAND_DESCRIPTION_TEAM_CHAT: Chuyển đổi chế độ trò chuyện nhóm.
 COMMAND_DESCRIPTION_TELEPORT: Dịch chuyển đến đảo của bạn.
 COMMAND_DESCRIPTION_TOGGLE: Chuyển đổi biên giới đảo và vị trí khối xếp chồng lên
   nhau.
-COMMAND_DESCRIPTION_TOP: Mở bảng đảo hàng đầu.
 COMMAND_DESCRIPTION_TRANSFER: Chuyển lãnh đạo đảo của bạn.
 COMMAND_DESCRIPTION_UNCOOP: Loại bỏ người chơi thành viên co-op trong đảo bạn.
 COMMAND_DESCRIPTION_UPGRADE: Mở bảng nâng cấp.
-COMMAND_DESCRIPTION_VALUE: Xem giá trị giá trị của một khối.
-COMMAND_DESCRIPTION_VALUES: Mở menu giá trị.
 COMMAND_DESCRIPTION_VISIT: Dịch chuyển đến vị trí của du khách trên đảo.
 COMMAND_DESCRIPTION_VISITORS: Mở menu khách.
 COMMAND_DESCRIPTION_WARP: Dịch chuyển đến một khu vực đảo.
@@ -447,7 +428,6 @@ INVALID_ISLAND_OTHER_NAME: '&c&lLỗi | &7Không có đảo nào với tên {0}.
 INVALID_ISLAND_PERMISSION: |-
   &c&lLỗi | &7Không thể tìm thấy quyền của đảo {0}.
   &c&lLỗi | &7Quyền của đảo: {1}
-INVALID_LEVEL: '&c&lLỗi | &7Cấp độ không hợp lệ {0}.'
 INVALID_LIMIT: '&c&lLỗi | &7Giới hạn không hợp lệ {0}.'
 INVALID_MATERIAL: '&c&lLỗi | &7Vật liệu không hợp lệ {0}.'
 INVALID_MATERIAL_DATA: '&c&lLỗi | &7Dữ liệu-vật liệu không hợp lệ {0}.'
@@ -493,7 +473,6 @@ ISLAND_BANK_EMPTY: '&e&lNgân Hàng | &7Đảo ngân hàng trống rỗng.'
 ISLAND_BANK_SHOW: '&e&lNgân Hàng | &7Đảo bạn có ${0}.'
 ISLAND_BANK_SHOW_OTHER: '&e&lNgân Hàng | &7Đảo của {0} có ${1}.'
 ISLAND_BANK_SHOW_OTHER_NAME: '&e&lNgân Hàng | &7Hòn đảo {0} có ${1}.'
-ISLAND_BEING_CALCULATED: '&c&lLỗi | &7Bạn không thể tương tác với các khối khi đảo đang tính toán lại!'
 ISLAND_CLOSED: '&e&lĐảo | &7Thành công đóng cửa đảo cho công cộng.'
 ISLAND_CREATE_PROCESS_FAIL: '&c&lLỗi | &7Bạn đã có một nhiệm vụ tạo đảo đang diễn ra.'
 ISLAND_CREATE_PROCCESS_REQUEST: '&e&lĐảo | &7Đang xử lý yêu cầu của bạn...'
@@ -542,15 +521,12 @@ ISLAND_INFO_ADMIN_UPGRADE_LINE: '&e&lĐảo | &7  {0}: {1}'
 ISLAND_INFO_ADMIN_VALUE_SYNCED: '&a∞'
 ISLAND_INFO_ADMIN_WARPS_LIMIT: '&e&lĐảo | &7Giới hạn khu vực: {0}'
 ISLAND_INFO_BANK: '&e&lĐảo | &7Ngân hàng: {0}'
-ISLAND_INFO_BONUS: '&e&lĐảo | &7Giá trị đi kèm: {0}'
-ISLAND_INFO_BONUS_LEVEL: '&e&lĐảo | &7Cấp độ đi kèm: {0}'
 ISLAND_INFO_CREATION_TIME: '&e&lĐảo | &7Thời gian tạo đảo: {0}'
 ISLAND_INFO_DISCORD: '&e&lĐảo | &7Discord: {0}'
 ISLAND_INFO_FOOTER: ''
 ISLAND_INFO_HEADER: ''
 ISLAND_INFO_LAST_TIME_UPDATED: '&e&lĐảo | Cập nhật lần cuối: {0} trước'
 ISLAND_INFO_LAST_TIME_UPDATED_CURRENTLY_ACTIVE: '&e&lĐảo | &7Cập nhật lần cuối: &aHiện đang hoạt động'
-ISLAND_INFO_LEVEL: '&e&lĐảo | &7Cấp độ: {0}'
 ISLAND_INFO_LOCATION: '&e&lĐảo | &7Nhà: {0}'
 ISLAND_INFO_NAME: '&e&lĐảo | &7Tên: {0}'
 ISLAND_INFO_OWNER: '&e&lĐảo | &7Lãnh đạo: {0}'
@@ -568,7 +544,6 @@ ISLAND_INFO_ROLES: |-
   &e&lĐảo | &7{0}s:
   {1}
 ISLAND_INFO_VISITORS_COUNT: '&e&lĐảo | &7Số lượt khách: {0} ({1} unique visitors)'
-ISLAND_INFO_WORTH: '&e&lĐảo | &7Đáng giá: {0}'
 ISLAND_NAME_NONE: None
 ISLAND_OPENED: '&e&lĐảo | &7Mở đảo thành công cho công cộng.'
 ISLAND_OWNER_NONE: None
@@ -589,15 +564,10 @@ ISLAND_TEAM_STATUS_HEADER: '&e&lĐảo | &7Thành viên đảo của {0} &8[&e{1
 ISLAND_TEAM_STATUS_OFFLINE: '&c(Ngoại tuyến)'
 ISLAND_TEAM_STATUS_ONLINE: '&a(Trực tuyến)'
 ISLAND_TEAM_STATUS_ROLES: '&e&lĐảo | &7 * [{0}] {1} {2} &7({3})'
-ISLAND_TOP_STATUS_OFFLINE: '&c(Ngoại Tuyến)'
-ISLAND_TOP_STATUS_ONLINE: '&a(Trực Tuyến)'
 ISLAND_WARP_PUBLIC: ''
 ISLAND_WARP_PRIVATE: '&c[Riêng Tư]'
 ISLAND_WAS_CLOSED: '&e&lĐảo | &7&oHòn đảo bạn đang ở đã bị đóng cửa và bạn sẽ
   dịch chuyển trở lại spawn...'
-ISLAND_WORTH_ERROR: '&c&lLỗi | &7Đã xảy ra lỗi không mong muốn khi tính toán đảo của bạn. Liên hệ quản trị viên nếu vấn đề vẫn tiếp diễn.'
-ISLAND_WORTH_RESULT: '&e&lĐảo | &7Giá trị đảo của bạn là {0} [Cấp độ {1}]'
-ISLAND_WORTH_TIME_OUT: '&c&lLỗi | &7Quá trình tính toán đã hết thời gian. Vui lòng thử lại sau...'
 JOIN_ADMIN_ANNOUNCEMENT: '&e&lĐảo | &7{0} đã gia nhập đảo của bạn.'
 JOIN_ANNOUNCEMENT: '&e&lĐảo | &7{0} đã gia nhập đảo của bạn.'
 JOIN_FULL_ISLAND: '&c&lLỗi | &7Hòn đảo này đạt số lượng thành viên tối đa được phép.'
@@ -769,8 +739,6 @@ REACHED_BLOCK_LIMIT: '&e&lNâng Cấp | &7Bạn đã đạt giới hạn {0} kh�
 REACHED_ENTITY_LIMIT: '&e&lUpgrades | &7You have reached the island''s limit for the entity {0}.'
 RECALC_ALREADY_RUNNING: '&c&lLỗi | &7Đảo của bạn đang được tính toán lại, vui lòng chờ.'
 RECALC_ALREADY_RUNNING_OTHER: '&c&lLỗi | &7Hòn đảo này đang được tính toán lại, vui lòng chờ.'
-RECALC_ALL_ISLANDS: '&e&lĐảo | &7Recalculating all islands...'
-RECALC_ALL_ISLANDS_DONE: '&e&lĐảo | &7Thành công tính toán lại tất cả các đảo.'
 RECALC_PROCCESS_REQUEST: '&e&lĐảo | &7Đang xử lý yêu cầu của bạn...'
 RELOAD_COMPLETED: '&e&lĐảo | &7Tải lại xong!'
 RELOAD_PROCCESS_REQUEST: '&e&lĐảo | &7Bắt đầu tải lại config...'

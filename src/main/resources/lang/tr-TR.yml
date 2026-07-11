@@ -37,13 +37,6 @@ BLOCK_COUNTS_CHECK: |-
   &7{0}
 BLOCK_COUNTS_CHECK_EMPTY: '&e&lAda | &7Bu adada takip edilen blok bulunmuyor.'
 BLOCK_COUNTS_CHECK_MATERIAL: x{0} {1}
-BLOCK_LEVEL: '&e&lSeviye | &7{0} bloğunun seviyesi {1}.'
-BLOCK_LEVEL_WORTHLESS: '&e&lSeviye | &7{0} bloğu değersiz.'
-BLOCK_VALUE: '&e&lDeğer | &7{0} bloğunun değeri {1}.'
-BLOCK_VALUE_WORTHLESS: '&e&lDeğer | &7{0} bloğu değersiz.'
-BONUS_SYNC_ALL: '&e&lAda | &7Ada bonusu tüm adalarla başarıyla senkronize edildi.'
-BONUS_SYNC_NAME: '&e&lAda | &7Ada bonusu {0} ile başarıyla senkronize edildi.'
-BONUS_SYNC: '&e&lAda | &7Ada bonusu {0}''ın adasıyla başarıyla senkronize edildi.'
 BORDER_PLAYER_COLOR_NAME_BLUE: Mavi
 BORDER_PLAYER_COLOR_NAME_RED: Kırmızı
 BORDER_PLAYER_COLOR_NAME_GREEN: Yeşil
@@ -72,12 +65,6 @@ CHANGED_BLOCK_LIMIT_ALL: '&e&lYükseltmeler | &7{0} Bloğunun tüm adalar için 
   başarıyla güncellendi.'
 CHANGED_BLOCK_LIMIT_NAME: '&e&lYükseltmeler | &7{0} Bloğunun {1} adası için limiti
   başarıyla güncellendi.'
-CHANGED_BONUS_LEVEL: '&e&lIsland | &7Successfully updated the level bonus of {0}''s island.'
-CHANGED_BONUS_LEVEL_ALL: '&e&lIsland | &7Successfully updated the level bonus of all the islands.'
-CHANGED_BONUS_LEVEL_NAME: '&e&lIsland | &7Successfully updated the level bonus of {0}.'
-CHANGED_BONUS_WORTH: '&e&lIsland | &7Successfully updated the worth bonus of {0}''s island.'
-CHANGED_BONUS_WORTH_ALL: '&e&lIsland | &7Successfully updated the worth bonus of all the islands.'
-CHANGED_BONUS_WORTH_NAME: '&e&lIsland | &7Successfully updated the worth bonus of {0}.'
 CHANGED_CHEST_SIZE: '&e&lSandık | &7{2}''in adası için #{0} sayfasının satırları başarıyla
   {1} olarak güncellendi.'
 CHANGED_CHEST_SIZE_ALL: '&e&lSandık | &7Tüm adalar için #{0} sayfasının satırları
@@ -255,7 +242,6 @@ COMMAND_DESCRIPTION_ADMIN_PROMOTE: Başka bir oyuncunun adasındaki bir üyeyi r
   yükselt.
 COMMAND_DESCRIPTION_ADMIN_PURGE: Adaları temizle.
 COMMAND_DESCRIPTION_ADMIN_RANKUP: Bir ada için bir yükseltmeyi seviye atlat.
-COMMAND_DESCRIPTION_ADMIN_RECALC: Bir adanın değerini yeniden hesapla.
 COMMAND_DESCRIPTION_ADMIN_RELOAD: Eklentinin tüm yapılandırmalarını ve görevlerini
   yeniden yükle.
 COMMAND_DESCRIPTION_ADMIN_REMOVE_BLOCK_LIMIT: Bir adadan blok limitini kaldır.
@@ -327,7 +313,6 @@ COMMAND_DESCRIPTION_CHEST: Adanın sandığını aç.
 COMMAND_DESCRIPTION_CLOSE: Adanı halka kapat.
 COMMAND_DESCRIPTION_COOP: Adana bir oyuncuyu co-op olarak ekle.
 COMMAND_DESCRIPTION_COOPS: co-oplar menüsünü aç.
-COMMAND_DESCRIPTION_COUNTS: Adandaki blok sayılarını gör.
 COMMAND_DESCRIPTION_CREATE: Yeni bir ada oluştur.
 COMMAND_DESCRIPTION_DEL_WARP: Bir ada ışınlanmasını sil.
 COMMAND_DESCRIPTION_DEMOTE: Adandaki bir üyeyi rütbe düşür.
@@ -354,7 +339,6 @@ COMMAND_DESCRIPTION_RANKUP: Bir yükseltmeyi seviye atlat.
 COMMAND_DESCRIPTION_RATE: Bir adayı değerlendir.
 COMMAND_DESCRIPTION_RATINGS: Tüm ada değerlendirmelerini göster.
 COMMAND_DESCRIPTION_SETTINGS: Ayarlar menüsünü aç.
-COMMAND_DESCRIPTION_RECALC: Ada değerini yeniden hesapla.
 COMMAND_DESCRIPTION_SET_DISCORD: Ada ödemeleri için adanın discordunu ayarla.
 COMMAND_DESCRIPTION_SET_PAYPAL: Ada ödemeleri için adanın paypal e-postasını ayarla.
 COMMAND_DESCRIPTION_SET_ROLE: Adandaki bir oyuncunun rolünü değiştir.
@@ -365,12 +349,9 @@ COMMAND_DESCRIPTION_TEAM: Ada üyelerinin durumu hakkında bilgi al.
 COMMAND_DESCRIPTION_TEAM_CHAT: Takım sohbet modunu aç/kapat.
 COMMAND_DESCRIPTION_TELEPORT: Adana ışınlan.
 COMMAND_DESCRIPTION_TOGGLE: Ada sınırlarını ve istiflenmiş blok yerleşimlerini aç/kapat.
-COMMAND_DESCRIPTION_TOP: En iyi adalar panelini aç.
 COMMAND_DESCRIPTION_TRANSFER: Adanın liderliğini devret.
 COMMAND_DESCRIPTION_UNCOOP: Adandan bir oyuncuyu co-op üyeliğinden çıkar.
 COMMAND_DESCRIPTION_UPGRADE: Yükseltmeler panelini aç.
-COMMAND_DESCRIPTION_VALUE: Bir bloğun değerini al.
-COMMAND_DESCRIPTION_VALUES: Değerler menüsünü aç.
 COMMAND_DESCRIPTION_VISIT: Bir adanın ziyaretçi konumuna ışınlan.
 COMMAND_DESCRIPTION_VISITORS: Ziyaretçiler menüsünü aç.
 COMMAND_DESCRIPTION_WARP: Bir ada ışınlanmasına ışınlan.
@@ -479,7 +460,6 @@ INVALID_ISLAND_OTHER_NAME: '&c&lHata | &7{0} adında bir ada bulunmuyor.'
 INVALID_ISLAND_PERMISSION: |-
   &c&lHata | &7Ada izni {0} bulunamadı.
   &c&lHata | &7Ada İzinleri: {1}
-INVALID_LEVEL: '&c&lHata | &7Geçersiz seviye {0}.'
 INVALID_LIMIT: '&c&lHata | &7Geçersiz limit {0}.'
 INVALID_MATERIAL: '&c&lHata | &7Geçersiz materyal {0}.'
 INVALID_MATERIAL_DATA: '&c&lHata | &7Geçersiz materyal-veri {0}.'
@@ -523,7 +503,6 @@ ISLAND_BANK_EMPTY: '&e&lBanka | &7Ada bankası boş.'
 ISLAND_BANK_SHOW: '&e&lBanka | &7Adanda ${0} var.'
 ISLAND_BANK_SHOW_OTHER: '&e&lBanka | &7{0}''ın adasında ${1} var.'
 ISLAND_BANK_SHOW_OTHER_NAME: '&e&lBanka | &7{0} adasında ${1} var.'
-ISLAND_BEING_CALCULATED: '&c&lHata | &7Ada yeniden hesaplanırken bloklarla etkileşime
   geçemezsin!'
 ISLAND_CLOSED: '&e&lAda | &7Ada başarıyla halka kapatıldı.'
 ISLAND_CREATE_PROCESS_FAIL: '&c&lHata | &7Zaten devam eden bir ada oluşturma görevin
@@ -574,8 +553,6 @@ ISLAND_INFO_ADMIN_UPGRADE_LINE: '&e&lAda | &7  {0}: {1}'
 ISLAND_INFO_ADMIN_VALUE_SYNCED: '&a∞'
 ISLAND_INFO_ADMIN_WARPS_LIMIT: '&e&lAda | &7Işınlanma Limiti: {0}'
 ISLAND_INFO_BANK: '&e&lAda | &7Banka: {0}'
-ISLAND_INFO_BONUS: '&e&lAda | &7Değer Bonusu: {0}'
-ISLAND_INFO_BONUS_LEVEL: '&e&lAda | &7Seviye Bonusu: {0}'
 ISLAND_INFO_CREATION_TIME: '&e&lAda | &7Oluşturma Süresi: {0}'
 ISLAND_INFO_DISCORD: '&e&lAda | &7Discord: {0}'
 ISLAND_INFO_FOOTER: ''
@@ -583,7 +560,6 @@ ISLAND_INFO_HEADER: ''
 ISLAND_INFO_LAST_TIME_UPDATED: '&e&lAda | &7Son Güncelleme: {0} önce'
 ISLAND_INFO_LAST_TIME_UPDATED_CURRENTLY_ACTIVE: '&e&lAda | &7Son Güncelleme: &aŞu
   Anda Aktif'
-ISLAND_INFO_LEVEL: '&e&lAda | &7Seviye: {0}'
 ISLAND_INFO_LOCATION: '&e&lAda | &7Ev: {0}'
 ISLAND_INFO_NAME: '&e&lAda | &7Adı: {0}'
 ISLAND_INFO_OWNER: '&e&lAda | &7Lider: {0}'
@@ -601,7 +577,6 @@ ISLAND_INFO_ROLES: |-
   &e&lAda | &7{0}lar:
   {1}
 ISLAND_INFO_VISITORS_COUNT: '&e&lAda | &7Ziyaretçi Sayısı: {0} ({1} unique visitors)'
-ISLAND_INFO_WORTH: '&e&lAda | &7Değer: {0}'
 ISLAND_NAME_NONE: None
 ISLAND_OPENED: '&e&lAda | &7Ada başarıyla halka açıldı.'
 ISLAND_OWNER_NONE: None
@@ -624,15 +599,10 @@ ISLAND_TEAM_STATUS_HEADER: '&e&lAda | &7{0}''ın Adası Üyeleri &8[&e{1}&8/&e{2
 ISLAND_TEAM_STATUS_OFFLINE: '&c(Çevrimdışı)'
 ISLAND_TEAM_STATUS_ONLINE: '&a(Çevrimiçi)'
 ISLAND_TEAM_STATUS_ROLES: '&e&lAda | &7 * [{0}] {1} {2} &7({3})'
-ISLAND_TOP_STATUS_OFFLINE: '&c(Çevrimdışı)'
-ISLAND_TOP_STATUS_ONLINE: '&a(Çevrimiçi)'
 ISLAND_WARP_PUBLIC: ''
 ISLAND_WARP_PRIVATE: '&c[Özel]'
 ISLAND_WAS_CLOSED: '&e&lAda | &7&oİçinde bulunduğun ada kapatıldı ve doğuşa ışınlandın...'
-ISLAND_WORTH_ERROR: '&c&lHata | &7Adanı hesaplarken beklenmedik bir hata oluştu. Sorun
   devam ederse yöneticilerle iletişime geç.'
-ISLAND_WORTH_RESULT: '&e&lAda | &7Adanın değeri {0} [Seviye {1}]'
-ISLAND_WORTH_TIME_OUT: '&c&lHata | &7Hesaplama görevi zaman aşımına uğradı. Daha sonra
   tekrar dene...'
 JOIN_ADMIN_ANNOUNCEMENT: '&e&lAda | &7{0} adana katıldı.'
 JOIN_ANNOUNCEMENT: '&e&lAda | &7{0} adana katıldı.'
@@ -814,8 +784,6 @@ REACHED_BLOCK_LIMIT: '&e&lYükseltmeler | &7Ada için {0} Bloğu limitine ulaşt
 REACHED_ENTITY_LIMIT: '&e&lYükseltmeler | &7Varlık {0} için adanın limitine ulaştın.'
 RECALC_ALREADY_RUNNING: '&c&lHata | &7Adan zaten yeniden hesaplanıyor.'
 RECALC_ALREADY_RUNNING_OTHER: '&c&lHata | &7Bu ada zaten yeniden hesaplanıyor.'
-RECALC_ALL_ISLANDS: '&e&lAda | &7Tüm adalar yeniden hesaplanıyor...'
-RECALC_ALL_ISLANDS_DONE: '&e&lAda | &7Tüm adaların yeniden hesaplanması başarıyla
   tamamlandı.'
 RECALC_PROCCESS_REQUEST: '&e&lAda | &7İsteğiniz işleniyor...'
 RELOAD_COMPLETED: '&e&lAda | &7Yeniden yükleme tamamlandı!'

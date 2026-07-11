@@ -75,8 +75,6 @@ permissions:
             description: Add a player as a co-op to your island.
           superior.island.coops:
             description: Open the coops menu.
-          superior.island.counts:
-            description: See block counts in your island.
           superior.island.create:
             description: Create a new island.
           superior.island.delwarp:
@@ -130,8 +128,6 @@ permissions:
             description: Rate an island.
           superior.island.ratings:
             description: Show all island ratings.
-          superior.island.recalc:
-            description: Re-calculates the island worth.
           superior.island.setdiscord:
             description: Set the discord of the island for island payouts.
           superior.island.setpaypal:
@@ -161,18 +157,12 @@ permissions:
                 description: Toggle island borders.
               superior.island.toggle.blocks:
                 description: Toggle stacked blocks placements.
-          superior.island.top:
-            description: Open top islands panel.
           superior.island.transfer:
             description: Transfer your island's leadership.
           superior.island.uncoop:
             description: Remove a player from being a co-op in your island.
           superior.island.upgrade:
             description: Open upgrades panel.
-          superior.island.value:
-            description: Get the worth value of a block.
-          superior.island.values:
-            description: Open the values menu.
           superior.island.visit:
             description: Teleport to the visitors location of an island.
           superior.island.warp:
@@ -193,8 +183,6 @@ permissions:
             description: Increase the bank limit for another player's island.
           superior.admin.addblocklimit:
             description: Increase block limit for another player's island.
-          superior.admin.addbonus:
-            description: Add a bonus to a player.
           superior.admin.addcooplimit:
             description: Increase coop players limit for another player's island.
           superior.admin.addcropgrowth:
@@ -217,8 +205,6 @@ permissions:
             description: Increase the warps limit of an island.
           superior.admin.ban.bypass:
             description: Bypass island ban when entering an island.
-          superior.admin.bonus:
-            description: Grant a bonus to a player.
           superior.admin.bypass:
             description: Toggle bypass mode.
           superior.admin.bypass.cooldowns:
@@ -233,8 +219,6 @@ permissions:
             description: Close an island to the public.
           superior.admin.cmdall:
             description: Force all players or island members to execute a command.
-          superior.admin.count:
-            description: Check a block count on a specific island.
           superior.admin.data:
             description: Get, set or remove custom data for a player or island.
           superior.admin.debug:
@@ -277,8 +261,6 @@ permissions:
             description: Purge islands from database.
           superior.admin.rankup:
             description: Rankup an upgrade for an island.
-          superior.admin.recalc:
-            description: Re-calculates the worth of an island.
           superior.admin.reload:
             description: Reload all configurations and tasks of the plugin.
           superior.admin.removeblocklimit:
@@ -353,8 +335,6 @@ permissions:
             description: Toggle chat spy mode.
           superior.admin.stats:
             description: Show stats about the plugin.
-          superior.admin.syncbonus:
-            description: Sync the bonus worth and level of an island.
           superior.admin.syncupgrades:
             description: Sync upgrade values for an island.
           superior.admin.teleport:

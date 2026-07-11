@@ -151,31 +151,17 @@ stacked-blocks:
     # The title of the menu.
     title: '&lDeposit Blocks'
 
-# The formula used to calculate a block's level when it has a worth defined but no level specified.
-# Use {} as a placeholder for worth. Make sure you only use digits and mathematical operations!
-block-level-formula: '{} / 2'
 
 # Should the island levels be a rounded integer?
 rounded-island-level: false
 
-# How should the island level be rounded when rounded-island-level feature is enabled?
-# Use UP, DOWN, CEILING, FLOOR, HALF_UP, HALF_DOWN or HALF_EVEN
-# You can see more information about it here:
-# https://docs.oracle.com/javase/8/docs/api/java/math/RoundingMode.html
-island-level-rounding-mode: 'HALF_UP'
 
 # Whether to automatic track block counts when players place and break blocks.
 # If set to true, block counts, worth and levels will automatically be updated upon
 # placement and breaking of blocks.
 auto-blocks-tracking: true
 
-# How should the island top be ordered by default?
-# Use WORTH, LEVEL, RATING or PLAYERS.
-island-top-order: 'WORTH'
 
-# How should the global warps be ordered by default?
-# Use WORTH, LEVEL, RATING or PLAYERS.
-global-warps-order: 'WORTH'
 
 # Whether coop members should be enabled or not.
 coop-members: true
@@ -460,8 +446,6 @@ visitors-damage: false
 # When disabled, coop won't get damaged in islands they are coop with.
 coop-damage: true
 
-# Should the list of members in island top also include the island leader?
-island-top-include-leader: true
 
 # Set default placeholders that will be returned if the island is null.
 # Please use the <placeholder>:<default> format.
@@ -802,16 +786,8 @@ default-border-color: BLUE
 # Should obsidian get turned into a lava bucket when clicking it with a bucket in hand?
 obsidian-to-lava: false
 
-# Should the worth values be synced with other prices providers?
-# You can set the following values: NONE (disabled), BUY (buy prices), SELL (sell prices)
-# Supported Providers: ShopGUIPlus
-sync-worth: NONE
 
-# Can the worth value of the island be negative?
-negative-worth: true
 
-# Can the level of the island be negative?
-negative-level: true
 
 # A list of events that will not be fired. This can increase performance.
 # You can find a list of events at @ https://bg-software.com/superiorskyblock/api/
@@ -847,9 +823,6 @@ command-aliases:
     - 'Aliase1'
     - 'Aliase2'
 
-# A list of valuable blocks.
-# These blocks require the "VALUABLE_BREAK" permission in order to break them.
-valuable-blocks: [ ]
 
 # Settings related to the island previews.
 island-previews:
@@ -945,11 +918,6 @@ player-respawn:
   - ISLAND_TELEPORT
   - SPAWN_TELEPORT
 
-# The amount of blocks that are required to be updated on the island before updating the block counts in the database.
-# This means that if the threshold is at 100, it will require 100 blocks to be added/removed before updating the
-# database with the new block counts. If the server stops and there was a change to the block counts, the block counts
-# will be saved to the database despite the threshold.
-block-counts-save-threshold: 100
 
 # Support for chat-signing in 1.19 or above.
 # When set to true, the plugin will properly handle messages to not interface

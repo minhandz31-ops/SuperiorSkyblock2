@@ -36,13 +36,6 @@ BLOCK_COUNTS_CHECK: |-
   &7{0}
 BLOCK_COUNTS_CHECK_EMPTY: '&e&lIsland | &7This island has no tracked blocks.'
 BLOCK_COUNTS_CHECK_MATERIAL: 'x{0} {1}'
-BLOCK_LEVEL: '&e&lתודוקנ | &7{1} אוה {0} קולבה לש תודוקנה רפסמ.'
-BLOCK_LEVEL_WORTHLESS: '&e&lתודוקנ | &7םולכ הווש אל {0} קולבה.'
-BLOCK_VALUE: '&e&lיווש | &7{1} אוה {0} קולבה לש יוושה.'
-BLOCK_VALUE_WORTHLESS: '&e&lיווש | &7םולכ הווש אל {0} קולבה.'
-BONUS_SYNC_ALL: '&e&lIsland | &7Successfully synced the island bonus to all the islands'
-BONUS_SYNC_NAME: '&e&lIsland | &7Successfully synced the island bonus to {0}.'
-BONUS_SYNC: '&e&lIsland | &7Successfully synced the island bonus to {0}''s island.'
 BORDER_PLAYER_COLOR_NAME_BLUE: 'Blue'
 BORDER_PLAYER_COLOR_NAME_RED: 'Red'
 BORDER_PLAYER_COLOR_NAME_GREEN: 'Green'
@@ -63,12 +56,6 @@ CHANGED_BLOCK_AMOUNT: '&e&lBlocks | &7Successfully changed the block amount at {
 CHANGED_BLOCK_LIMIT: '&e&lםיגורדש | &7{1} לש יאל החלצהב הנכדוע {0} קולבה תלבגה.'
 CHANGED_BLOCK_LIMIT_ALL: '&e&lםיגורדש | &7םייאה לכל החלצהב הנכדוע {0} קולבה תלבגה.'
 CHANGED_BLOCK_LIMIT_NAME: '&e&lםיגורדש | &7{1} יאל החלצהב הנכדוע {0} קולבה תלבגה.'
-CHANGED_BONUS_LEVEL: '&e&lIsland | &7Successfully updated the level bonus of {0}''s island.'
-CHANGED_BONUS_LEVEL_ALL: '&e&lIsland | &7Successfully updated the level bonus of all the islands.'
-CHANGED_BONUS_LEVEL_NAME: '&e&lIsland | &7Successfully updated the level bonus of {0}.'
-CHANGED_BONUS_WORTH: '&e&lIsland | &7Successfully updated the worth bonus of {0}''s island.'
-CHANGED_BONUS_WORTH_ALL: '&e&lIsland | &7Successfully updated the worth bonus of all the islands.'
-CHANGED_BONUS_WORTH_NAME: '&e&lIsland | &7Successfully updated the worth bonus of {0}.'
 CHANGED_CHEST_SIZE: '&e&lChest | &7Successfully updated the rows of page #{0} to {1} for {2}''s island.'
 CHANGED_CHEST_SIZE_ALL: '&e&lChest | &7Successfully updated the rows of page #{0} to {1} for all the islands.'
 CHANGED_CHEST_SIZE_NAME: '&e&lChest | &7Successfully updated the rows of page #{0} to {1} for {2}.'
@@ -207,7 +194,6 @@ COMMAND_DESCRIPTION_ADMIN_OPEN_MENU: 'Open a custom menu for a player.'
 COMMAND_DESCRIPTION_ADMIN_PROMOTE: רחא יאב ןקחש הגרדב תולעהל.
 COMMAND_DESCRIPTION_ADMIN_PURGE: .םייא תוקנל
 COMMAND_DESCRIPTION_ADMIN_RANKUP: 'Rankup an upgrade for an island.'
-COMMAND_DESCRIPTION_ADMIN_RECALC: יא לש יווש שדחמ בשחל.
 COMMAND_DESCRIPTION_ADMIN_RELOAD: ןיגאלפה לש םיצבקה לכ תא שדחמ ןועטל.
 COMMAND_DESCRIPTION_ADMIN_REMOVE_BLOCK_LIMIT: 'Remove a block limit from an island.'
 COMMAND_DESCRIPTION_ADMIN_REMOVE_ENTITY_LIMIT: 'Remove an entity limit from an island.'
@@ -266,7 +252,6 @@ COMMAND_DESCRIPTION_CHEST: 'Open the island''s chest.'
 COMMAND_DESCRIPTION_CLOSE: רוביצל יאה תא רוגסל.
 COMMAND_DESCRIPTION_COOP: יאה לש הלועפ ףתשמכ ןקחש ףיסוהל.
 COMMAND_DESCRIPTION_COOPS: 'Open the coops menu.'
-COMMAND_DESCRIPTION_COUNTS: 'See block counts in your island.'
 COMMAND_DESCRIPTION_CREATE: שדח יא רוציל.
 COMMAND_DESCRIPTION_DEL_WARP: יאב םוקימ קוחמל.
 COMMAND_DESCRIPTION_DEMOTE: יאב ןקחש הגרדב דירוהל.
@@ -293,7 +278,6 @@ COMMAND_DESCRIPTION_RANKUP: גורדש המרב תולעהל.
 COMMAND_DESCRIPTION_RATE: יא גרדל.
 COMMAND_DESCRIPTION_RATINGS: יאה לש םיגורידה לכב תופצל.
 COMMAND_DESCRIPTION_SETTINGS: יאה לש תורדגהה טירפת תא חותפל.
-COMMAND_DESCRIPTION_RECALC: יאה יווש תא שדחמ בשחל.
 COMMAND_DESCRIPTION_SET_DISCORD: יאה לש דרוקסידה תא תונשל.
 COMMAND_DESCRIPTION_SET_PAYPAL: יאה לש לאפייפה תא תונשל.
 COMMAND_DESCRIPTION_SET_ROLE: יאב ןקחש לש הגרד תונשל.
@@ -304,12 +288,9 @@ COMMAND_DESCRIPTION_TEAM: יאה לש םינקחשה לש עדימ גיצהל.
 COMMAND_DESCRIPTION_TEAM_CHAT: יתצובק טא'צ בצמ ףילחהל.
 COMMAND_DESCRIPTION_TELEPORT: יאה לא רגתשהל.
 COMMAND_DESCRIPTION_TOGGLE: םייא תולובגו םיקולב גוזימ יבצמ ףילחהל.
-COMMAND_DESCRIPTION_TOP: םיבוטה םייאה תמישר טירפת תא חותפל.
 COMMAND_DESCRIPTION_TRANSFER: יאה תוגיהנמ תא ריבעהל.
 COMMAND_DESCRIPTION_UNCOOP: יאה לש הלועפ ףתשמ תויהלמ ןקחש דירוהל.
 COMMAND_DESCRIPTION_UPGRADE: םיגורדשה טירפת תא חותפל.
-COMMAND_DESCRIPTION_VALUE: קולב לש יווש גיצהל.
-COMMAND_DESCRIPTION_VALUES: 'Open the values menu.'
 COMMAND_DESCRIPTION_VISIT: יאה לש םירקבמה תדוקנל רגתשהל.
 COMMAND_DESCRIPTION_VISITORS: םירקבמה טירפת תא חותפל.
 COMMAND_DESCRIPTION_WARP: יאב םוקימל רגתשהל.
@@ -411,7 +392,6 @@ INVALID_ISLAND_OTHER_NAME: '&c&lהאיגש | &7{0} םשה םע יא ןיא.'
 INVALID_ISLAND_PERMISSION: |-
   &c&lהאיגש | &7{0} האשרהה תא אוצמל היה ןתינ אל.
   &c&lהאיגש | &7{1} :יאה תואשרה
-INVALID_LEVEL: '&c&lהאיגש | &7{0} תיקוח אל המר.'
 INVALID_LIMIT: '&c&lהאיגש | &7{0} תיקוח אל הלבגמ.'
 INVALID_MATERIAL: '&c&lהאיגש | &7{0} תיקוח אל רמוח.'
 INVALID_MATERIAL_DATA: '&c&lError | &7Invalid material-data {0}.'
@@ -455,7 +435,6 @@ ISLAND_BANK_EMPTY: '&e&lקנב | &7קיר יאה קנב.'
 ISLAND_BANK_SHOW: '&e&lBank | &7Your island has ${0}.'
 ISLAND_BANK_SHOW_OTHER: '&e&lBank | &7{0}''s island has ${1}.'
 ISLAND_BANK_SHOW_OTHER_NAME: '&e&lBank | &7The island {0} has ${1}.'
-ISLAND_BEING_CALCULATED: '&c&lהאיגש | &7שדחמ בשוחמ יאהש ןמזב םיקולב תונשל לוכי אל התא!'
 ISLAND_CLOSED: '&e&lיא | &7החלצהב רוביצל רגסנ יאה.'
 ISLAND_CREATE_PROCESS_FAIL: '&c&lError | &7You have an already ongoing island creation task.'
 ISLAND_CREATE_PROCCESS_REQUEST: '&e&lיא | &7ךתשקב תא דבעמ...'
@@ -504,15 +483,12 @@ ISLAND_INFO_ADMIN_UPGRADE_LINE: '&e&lיא | &7  {0}: {1}'
 ISLAND_INFO_ADMIN_VALUE_SYNCED: '&a∞'
 ISLAND_INFO_ADMIN_WARPS_LIMIT: '&e&lIsland | &7Warps Limit: {0}'
 ISLAND_INFO_BANK: '&e&lיא | &7קנב: {0}'
-ISLAND_INFO_BONUS: '&e&lIsland | &7Worth Bonus: {0}'
-ISLAND_INFO_BONUS_LEVEL: '&e&lIsland | &7Level Bonus: {0}'
 ISLAND_INFO_CREATION_TIME: '&e&lIsland | &7Creation Time: {0}'
 ISLAND_INFO_DISCORD: '&e&lיא | &7דרוקסיד: {0}'
 ISLAND_INFO_FOOTER: ''
 ISLAND_INFO_HEADER: ''
 ISLAND_INFO_LAST_TIME_UPDATED: '&e&lיא | &7ןכדועש הנורחא םעפ: {0} ינפל'
 ISLAND_INFO_LAST_TIME_UPDATED_CURRENTLY_ACTIVE: '&e&lיא | &7ןכדועש הנורחא םעפ: &aליעפ עגרכ'
-ISLAND_INFO_LEVEL: '&e&lIsland | &7Level: {0}'
 ISLAND_INFO_LOCATION: '&e&lיא | &7תיב: {0}'
 ISLAND_INFO_NAME: '&e&lיא | &7םש: {0}'
 ISLAND_INFO_OWNER: '&e&lיא | &7גיהנמ: {0}'
@@ -530,7 +506,6 @@ ISLAND_INFO_ROLES: |-
   &e&lיא | &7{0}s:
   {1}
 ISLAND_INFO_VISITORS_COUNT: '&e&lIsland | &7Visitors Count: {0} ({1} unique visitors)'
-ISLAND_INFO_WORTH: '&e&lיא | &7יווש: {0}'
 ISLAND_NAME_NONE: None
 ISLAND_OPENED: '&e&lיא | &7החלצהב רוביצל חתפנ יאה.'
 ISLAND_OWNER_NONE: None
@@ -551,14 +526,9 @@ ISLAND_TEAM_STATUS_HEADER: '&e&lיא | &7 לש יאה לש םינקחשה {0} &8
 ISLAND_TEAM_STATUS_OFFLINE: '&c(קתונמ)'
 ISLAND_TEAM_STATUS_ONLINE: '&a(רבוחמ)'
 ISLAND_TEAM_STATUS_ROLES: '&e&lיא | &7 * [{0}] {1} {2} &7({3})'
-ISLAND_TOP_STATUS_OFFLINE: '&c(קתונמ)'
-ISLAND_TOP_STATUS_ONLINE: '&a(רבוחמ)'
 ISLAND_WARP_PUBLIC: ''
 ISLAND_WARP_PRIVATE: '&c[יטרפ]'
 ISLAND_WAS_CLOSED: '&e&lיא | &7&oןואפסל תרגוש ןכלו ,רוביצל רגסנ וב תייהש יאה...'
-ISLAND_WORTH_ERROR: '&c&lError | &7An unexpected error occurred while calculating your island. Contact administrators if the issue persists.'
-ISLAND_WORTH_RESULT: '&e&lיא | &7אוה ךלש יאה יווש {0} [המר {1}]'
-ISLAND_WORTH_TIME_OUT: '&c&lError | &7The calculation task has timed out. Try again later...'
 JOIN_ADMIN_ANNOUNCEMENT: '&e&lיא | &7ךלש יאה לא סנכנ {0}.'
 JOIN_ANNOUNCEMENT: '&e&lיא | &7ךלש יאה לא סנכנ {0}.'
 JOIN_FULL_ISLAND: '&c&lהאיגש | &7תרתומה םינקחשה תומכ תלבגמל עיגה יאה.'
@@ -709,8 +679,6 @@ REACHED_BLOCK_LIMIT: '&e&lםיגורדש | &7{0} קולבה לש יאב םיקו
 REACHED_ENTITY_LIMIT: '&e&lUpgrades | &7You have reached the island''s limit for the entity {0}.'
 RECALC_ALREADY_RUNNING: '&c&lError | &7Your island is already being recalculated.'
 RECALC_ALREADY_RUNNING_OTHER: '&c&lError | &7This island is already being recalculated.'
-RECALC_ALL_ISLANDS: '&e&lיא | &7םייאה לכ לש יוושה תא שדחמ בשחמ...'
-RECALC_ALL_ISLANDS_DONE: '&e&lיא | &7החלצהב שדחמ ובשוח םייאה לכ.'
 RECALC_PROCCESS_REQUEST: '&e&lיא | &7ךתשקב תא דבעמ...'
 RELOAD_COMPLETED: '&e&lSuperiorSkyblock | &7החלצהב העצוב שדחמ הניעט!'
 RELOAD_PROCCESS_REQUEST: '&e&lSuperiorSkyblock | &7םיצבקה לכ תא שדחמ ןעוט...'

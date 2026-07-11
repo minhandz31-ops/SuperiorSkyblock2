@@ -35,13 +35,6 @@ BLOCK_COUNTS_CHECK: |-
   &7{0}
 BLOCK_COUNTS_CHECK_EMPTY: '&e&lIle | &7Cette île ne possède aucun bloc comptant dans les statistiques.'
 BLOCK_COUNTS_CHECK_MATERIAL: x{0} {1}
-BLOCK_LEVEL: '&e&lNiveau | &7Le le niveau du bloc {0} est de {1}.'
-BLOCK_LEVEL_WORTHLESS: '&e&lNiveau | &7Le bloc {0} n''a pas de valeur.'
-BLOCK_VALUE: '&e&lValeur | &7La valeur du bloc {0} est de {1}.'
-BLOCK_VALUE_WORTHLESS: '&e&lValeur | &7Le bloc {0} n''a pas de valeur.'
-BONUS_SYNC_ALL: '&e&lIsland | &7Successfully synced the island bonus to all the islands'
-BONUS_SYNC_NAME: '&e&lIsland | &7Successfully synced the island bonus to {0}.'
-BONUS_SYNC: '&e&lIsland | &7Successfully synced the island bonus to {0}''s island.'
 BORDER_PLAYER_COLOR_NAME_BLUE: 'Bleue'
 BORDER_PLAYER_COLOR_NAME_RED: 'Rouge'
 BORDER_PLAYER_COLOR_NAME_GREEN: 'Verte'
@@ -60,12 +53,6 @@ CHANGED_BLOCK_AMOUNT: '&e&lBlocs | &7La quantité de blocs aux coordonnées {0} 
 CHANGED_BLOCK_LIMIT: '&e&lAméliorations | &7Vous avez changé la limite de blocs de {0} pour l''île de {1}.'
 CHANGED_BLOCK_LIMIT_ALL: '&e&lAméliorations | &7Vous avez changé la limite de blocs de {0} pour toutes les îles.'
 CHANGED_BLOCK_LIMIT_NAME: '&e&lAméliorations | &7Vous avez changé la limite de blocs de {0} pour {1}.'
-CHANGED_BONUS_LEVEL: '&e&lIsland | &7Successfully updated the level bonus of {0}''s island.'
-CHANGED_BONUS_LEVEL_ALL: '&e&lIsland | &7Successfully updated the level bonus of all the islands.'
-CHANGED_BONUS_LEVEL_NAME: '&e&lIsland | &7Successfully updated the level bonus of {0}.'
-CHANGED_BONUS_WORTH: '&e&lIsland | &7Successfully updated the worth bonus of {0}''s island.'
-CHANGED_BONUS_WORTH_ALL: '&e&lIsland | &7Successfully updated the worth bonus of all the islands.'
-CHANGED_BONUS_WORTH_NAME: '&e&lIsland | &7Successfully updated the worth bonus of {0}.'
 CHANGED_CHEST_SIZE: '&e&lStockage | &7Mise à jour des lignes de la page #{0} sur {1} pour l''île de {2}.'
 CHANGED_CHEST_SIZE_ALL: '&e&lStockage | &7Mise à jour des lignes de la page #{0} sur {1} pour toutes les îles.'
 CHANGED_CHEST_SIZE_NAME: '&e&lStockage | &7Mise à jour des lignes de la page #{0} sur {1} pour {2}.'
@@ -202,7 +189,6 @@ COMMAND_DESCRIPTION_ADMIN_NAME: Changer le nom d'une île.
 COMMAND_DESCRIPTION_ADMIN_OPEN: Ouvrir une île au public.
 COMMAND_DESCRIPTION_ADMIN_OPEN_MENU: Ouvrir un menu personnalisé au joueur spécifié.
 COMMAND_DESCRIPTION_ADMIN_PROMOTE: Promouvoir un membre d'une île.
-COMMAND_DESCRIPTION_ADMIN_RECALC: Re-calculer la valeur d'une île.
 COMMAND_DESCRIPTION_ADMIN_RELOAD: Recharger toutes les configurations du plugin.
 COMMAND_DESCRIPTION_ADMIN_REMOVE_BLOCK_LIMIT: Retirer la limite de bloc d'une île.
 COMMAND_DESCRIPTION_ADMIN_REMOVE_ENTITY_LIMIT: 'Remove an entity limit from an island.'
@@ -255,7 +241,6 @@ COMMAND_DESCRIPTION_CHEST: Ouvrir le stockage communautaire de l'île.
 COMMAND_DESCRIPTION_CLOSE: Fermer l'île au public.
 COMMAND_DESCRIPTION_COOP: Ajouter un joueur en tant que coopérateur de votre île.
 COMMAND_DESCRIPTION_COOPS: Ouvrir le menu des coopérateurs.
-COMMAND_DESCRIPTION_COUNTS: Afficher le compteur de blocs de votre île.
 COMMAND_DESCRIPTION_CREATE: Créer une nouvelle île.
 COMMAND_DESCRIPTION_DEL_WARP: Supprimer un warp de son île.
 COMMAND_DESCRIPTION_DEMOTE: Rétrograder un membre de votre île.
@@ -282,7 +267,6 @@ COMMAND_DESCRIPTION_RANKUP: Augmenter une amélioration.
 COMMAND_DESCRIPTION_RATE: Noter une île.
 COMMAND_DESCRIPTION_RATINGS: Afficher toutes les notes d'une île.
 COMMAND_DESCRIPTION_SETTINGS: Ouvrir le menu des paramètres.
-COMMAND_DESCRIPTION_RECALC: Re-calculer la valeur d'une île.
 COMMAND_DESCRIPTION_SET_DISCORD: Définir le discord d'une île.
 COMMAND_DESCRIPTION_SET_PAYPAL: Définir le paypal d'une île.
 COMMAND_DESCRIPTION_SET_ROLE: Changer le rôle d'un membre de votre île.
@@ -293,12 +277,9 @@ COMMAND_DESCRIPTION_TEAM: Obtenir des informations sur le status des membres de 
 COMMAND_DESCRIPTION_TEAM_CHAT: Activer/Désactiver le mode de chat d'île.
 COMMAND_DESCRIPTION_TELEPORT: Se téléporter sur votre île.
 COMMAND_DESCRIPTION_TOGGLE: Activer/Désactiver les bordures d'île et les stack de blocs.
-COMMAND_DESCRIPTION_TOP: Ouvrir l'interface de top des îles.
 COMMAND_DESCRIPTION_TRANSFER: Transferer la direction de votre île.
 COMMAND_DESCRIPTION_UNCOOP: Supprimer un joueur coopérateur de votre île.
 COMMAND_DESCRIPTION_UPGRADE: Ouvrir le menu des améliorations.
-COMMAND_DESCRIPTION_VALUE: Obtenir la valeur d'une bloc.
-COMMAND_DESCRIPTION_VALUES: Ouvrir le menu des valeurs.
 COMMAND_DESCRIPTION_VISIT: Se téléporter sur la zone visiteurs d'une île.
 COMMAND_DESCRIPTION_VISITORS: Ouvrir le menu des visiteurs.
 COMMAND_DESCRIPTION_WARP: Se téléporter au warp d'une île.
@@ -396,7 +377,6 @@ INVALID_ISLAND_OTHER_NAME: '&c&lErreur | &7Il n''y a pas d''île portant le nom 
 INVALID_ISLAND_PERMISSION: |-
   &c&lErreur | &7La permission {0} nexiste pas.
   &c&lErreur | &7Permissions d'île: {1}
-INVALID_LEVEL: '&c&lErreur | &7Niveau invalide: {0}.'
 INVALID_LIMIT: '&c&lErreur | &7Limite invalide: {0}.'
 INVALID_MATERIAL: '&c&lErreur | &7Matériau invalide: {0}.'
 INVALID_MATERIAL_DATA: '&c&lErreur | &7Donnée de matériau {0} invalide.'
@@ -439,7 +419,6 @@ ISLAND_BANK_EMPTY: '&e&lBanque | &7La banque de l''île est vide.'
 ISLAND_BANK_SHOW: '&e&lBanque | &7Votre île possède {0} crystaux !'
 ISLAND_BANK_SHOW_OTHER: '&e&lBanque | &7L''île de {0} possède {1} crystaux !'
 ISLAND_BANK_SHOW_OTHER_NAME: '&e&lBanque | &7L''île {0} possède {1} crystaux !'
-ISLAND_BEING_CALCULATED: '&c&lErreur | &7Vous ne pouvez pas interagir avec des blocs lorsque l''île est en train d''être recalculée !'
 ISLAND_CLOSED: '&e&lIle | &7L''île est désormais fermée au public.'
 ISLAND_CREATE_PROCESS_FAIL: '&c&lErreur | &7Votre île est déjà en cours de création.'
 ISLAND_CREATE_PROCCESS_REQUEST: '&e&lIle | &7Requête en cours de traitement...'
@@ -488,15 +467,12 @@ ISLAND_INFO_ADMIN_UPGRADE_LINE: '&e&lIle | &7  {0}: {1}'
 ISLAND_INFO_ADMIN_VALUE_SYNCED: '&a∞'
 ISLAND_INFO_ADMIN_WARPS_LIMIT: '&e&lIle | &7Limite de Warps: {0}'
 ISLAND_INFO_BANK: '&e&lIle | &7Banque: {0}'
-ISLAND_INFO_BONUS: '&e&lIle | &7Bonus de Valeur: {0}'
-ISLAND_INFO_BONUS_LEVEL: '&e&lIle | &7Bonus de Niveau: {0}'
 ISLAND_INFO_DISCORD: '&e&lIle | &7Discord: {0}'
 ISLAND_INFO_FOOTER: ''
 ISLAND_INFO_HEADER: ''
 ISLAND_INFO_LOCATION: '&e&lIle | &7Accueil: {0}'
 ISLAND_INFO_LAST_TIME_UPDATED: '&e&lIle | &7Dernière mise à jour: Il y à {0}'
 ISLAND_INFO_LAST_TIME_UPDATED_CURRENTLY_ACTIVE: '&e&lIle | &7Dernière mise à jour: &aActuellement Active'
-ISLAND_INFO_LEVEL: '&e&lIle | &7Niveau: {0}'
 ISLAND_INFO_CREATION_TIME: '&e&lIle | &7Date de Création: {0}'
 ISLAND_INFO_NAME: '&e&lIle | &7Nom: {0}'
 ISLAND_INFO_OWNER: '&e&lIle | &7Chef: {0}'
@@ -514,7 +490,6 @@ ISLAND_INFO_ROLES: |-
   &e&lIle | &7{0}s:
   {1}
 ISLAND_INFO_VISITORS_COUNT: '&e&lIle | &7Nombre de visiteurs: {0} ({1} unique visitors)'
-ISLAND_INFO_WORTH: '&e&lIle | &7Valeur: {0}'
 ISLAND_NAME_NONE: None
 ISLAND_OPENED: '&e&lIle | &7L''île est désormais ouverte au public.'
 ISLAND_OWNER_NONE: None
@@ -535,14 +510,9 @@ ISLAND_TEAM_STATUS_HEADER: '&e&lIle | &7Membres de l''île de {0} &8[&e{1}&8/&e{
 ISLAND_TEAM_STATUS_OFFLINE: '&c(Hors Ligne)'
 ISLAND_TEAM_STATUS_ONLINE: '&a(En Ligne)'
 ISLAND_TEAM_STATUS_ROLES: '&e&lIle | &7 * [{0}] {1} {2} &7({3})'
-ISLAND_TOP_STATUS_OFFLINE: '&c(Hors Ligne)'
-ISLAND_TOP_STATUS_ONLINE: '&a(En Ligne)'
 ISLAND_WARP_PUBLIC: ''
 ISLAND_WARP_PRIVATE: '&c[Privé]'
 ISLAND_WAS_CLOSED: '&e&lIle | &7&oL''île sur laquelle vous étiez a été fermée, vous avez donc été téléporté au spawn...'
-ISLAND_WORTH_ERROR: '&c&lErreur | &7Une erreur inattendue est survenue lors du calcul de votre île. Veuillez contacter un administrateur sur le problème persiste.'
-ISLAND_WORTH_RESULT: '&e&lIle | &7La valeur de votre île est {0} [Niveau {1}]'
-ISLAND_WORTH_TIME_OUT: '&c&lErreur | &7La tâche de calcul des îles a expiré. Veuillez réessayer ultérieurement...'
 JOIN_ADMIN_ANNOUNCEMENT: '&e&lIle | &7{0} a rejoint votre île.'
 JOIN_ANNOUNCEMENT: '&e&lIle | &7{0} a rejoint votre île.'
 JOIN_FULL_ISLAND: '&c&lErreur | &7Cette île a déjà le nombre maximal de membres.'
@@ -689,8 +659,6 @@ REACHED_BLOCK_LIMIT: '&e&lAméliorations | &7Vous avez atteint la limite de bloc
 REACHED_ENTITY_LIMIT: '&e&lUpgrades | &7You have reached the island''s limit for the entity {0}.'
 RECALC_ALREADY_RUNNING: '&c&lErreur | &7Votre île est déjà en cours de calcul.'
 RECALC_ALREADY_RUNNING_OTHER: '&c&lErreur | &7Cette île est déjà en cours de calcul.'
-RECALC_ALL_ISLANDS: '&e&lIle | &7Recalcul de toutes les îles...'
-RECALC_ALL_ISLANDS_DONE: '&e&lIle | &7Recalcul des îles effectué avec succès.'
 RECALC_PROCCESS_REQUEST: '&e&lIle | &7Début du recalcul des îles...'
 RELOAD_COMPLETED: '&e&lIle | &7Rechargement effectué !'
 RELOAD_PROCCESS_REQUEST: '&e&lIle | &7Début du rechargement des configurations...'
