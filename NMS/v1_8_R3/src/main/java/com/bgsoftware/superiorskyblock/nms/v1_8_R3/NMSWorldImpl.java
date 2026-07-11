@@ -11,7 +11,6 @@ import com.bgsoftware.superiorskyblock.core.formatting.Formatters;
 import com.bgsoftware.superiorskyblock.core.key.ConstantKeys;
 import com.bgsoftware.superiorskyblock.core.key.Keys;
 import com.bgsoftware.superiorskyblock.core.logging.Log;
-import com.bgsoftware.superiorskyblock.island.signs.IslandSigns;
 import com.bgsoftware.superiorskyblock.nms.ICachedBlock;
 import com.bgsoftware.superiorskyblock.nms.NMSWorld;
 import com.bgsoftware.superiorskyblock.nms.bridge.PistonPushReaction;
@@ -281,14 +280,7 @@ public class NMSWorldImpl implements NMSWorld {
             strippedLines[i] = Formatters.STRIP_COLOR_FORMATTER.format(lines[i]);
 
         IChatBaseComponent[] newLines;
-
-        IslandSigns.Result result = IslandSigns.handleSignPlace(island.getOwner(), location, strippedLines, false);
-        if (result.isCancelEvent()) {
-            newLines = CraftSign.sanitizeLines(strippedLines);
-        } else {
-            newLines = CraftSign.sanitizeLines(lines);
-        }
-
+        newLines = CraftSign.sanitizeLines(lines);
         System.arraycopy(newLines, 0, tileEntitySign.lines, 0, 4);
     }
 
