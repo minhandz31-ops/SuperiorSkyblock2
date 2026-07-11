@@ -135,7 +135,13 @@ public class MenuIslandFlags extends AbstractPagedMenu<MenuIslandFlags.View, Isl
             @Override
             protected IslandFlag create() {
                 try {
-                    return IslandFlag.getByName(IslandFlagInfo.this.islandFlagName);
+                    // Support pair flags: "LEFT_FLAG|RIGHT_FLAG"
+                    // Return the first flag for display purposes (checking if enabled)
+                    String flagName = IslandFlagInfo.this.islandFlagName;
+                    if (flagName.contains("|")) {
+                        flagName = flagName.split("\\|")[0];
+                    }
+                    return IslandFlag.getByName(flagName);
                 } catch (Exception error) {
                     return null;
                 }

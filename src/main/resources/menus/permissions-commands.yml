@@ -9,7 +9,7 @@ title: '&lCommand & Management'
 previous-menu: true
 
 # 27-slot chest (3 rows x 9 cols)
-# Border = '$', 3 Paper category items = slots 11-13
+# Border = '$', 3 Paper category items = ! @ #
 pattern:
   - '$ $ $ $ $ $ $ $ $'
   - '$ ! @ # $ $ $ $ $'
@@ -22,8 +22,7 @@ red-flag: '#'
 
 items:
   '$':
-    type: STAINED_GLASS_PANE
-    data: 15
+    type: BLACK_STAINED_GLASS_PANE
     name: '&f'
   '!':
     type: PAPER
@@ -56,14 +55,14 @@ items:
 
 sounds:
   '!':
-    type: ORB_PICKUP
+    type: BLOCK_NOTE_BLOCK_PLING
     volume: 0.2
     pitch: 0.2
   '@':
-    type: ORB_PICKUP
+    type: BLOCK_NOTE_BLOCK_PLING
     volume: 0.2
     pitch: 0.2
   '#':
-    type: ORB_PICKUP
+    type: BLOCK_NOTE_BLOCK_PLING
     volume: 0.2
     pitch: 0.2

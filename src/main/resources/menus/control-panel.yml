@@ -67,8 +67,8 @@ items:
     lore:
       - '&7Manage the members of the island.'
   '2':
-    type: STAINED_GLASS_PANE
-    data: 15
+    type: BLACK_STAINED_GLASS_PANE
+    
     name: '&f'
 
 sounds:

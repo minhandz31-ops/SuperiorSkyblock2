@@ -9,22 +9,21 @@ title: '&lPhysical Permissions'
 previous-menu: true
 
 # 27-slot chest (3 rows x 9 cols)
-# Border = '$', 4 Paper items = slots 11-14
+# Border = '$', 4 Paper items = ! @ # %
 pattern:
   - '$ $ $ $ $ $ $ $ $'
-  - '$ ! @ # $ $ $ $ $'
+  - '$ ! @ # % $ $ $ $'
   - '$ $ $ $ $ $ $ $ $'
 
 # Button slot mappings
 break: '!'
 build: '@'
 chest: '#'
-drop-pickup: '$'
+drop-pickup: '%'
 
 items:
   '$':
-    type: STAINED_GLASS_PANE
-    data: 15
+    type: BLACK_STAINED_GLASS_PANE
     name: '&f'
   '!':
     type: PAPER
@@ -49,17 +48,29 @@ items:
       - '&7Right-click: &eISLAND_CHEST'
       - ''
       - '&7Click to toggle permission.'
+  '%':
+    type: PAPER
+    name: '&6Drop / Pickup'
+    lore:
+      - '&7Left-click: &bDROP_ITEMS'
+      - '&7Right-click: &ePICKUP_DROPS'
+      - ''
+      - '&7Click to toggle permission.'
 
 sounds:
   '!':
-    type: ORB_PICKUP
+    type: BLOCK_NOTE_BLOCK_PLING
     volume: 0.2
     pitch: 0.2
   '@':
-    type: ORB_PICKUP
+    type: BLOCK_NOTE_BLOCK_PLING
     volume: 0.2
     pitch: 0.2
   '#':
-    type: ORB_PICKUP
+    type: BLOCK_NOTE_BLOCK_PLING
+    volume: 0.2
+    pitch: 0.2
+  '%':
+    type: BLOCK_NOTE_BLOCK_PLING
     volume: 0.2
     pitch: 0.2

@@ -35,7 +35,7 @@ public class IslandPlayerMenuView extends AbstractMenuView<IslandPlayerMenuView,
 
     @Override
     public String replaceTitle(String title) {
-        return title.replace("{}", permissiblePlayer.getName());
+        return permissiblePlayer != null ? title.replace("{}", permissiblePlayer.getName()) : title;
     }
 
 }
