@@ -8,321 +8,202 @@
 title: '&lIsland Settings'
 previous-menu: true
 
+# 27-slot chest (3 rows x 9 cols)
+# Border = '$', 7 pair-items = '@' in slots 11-17
 pattern:
   - '$ $ $ $ $ $ $ $ $'
   - '$ @ @ @ @ @ @ @ $'
-  - '$ @ @ @ @ @ @ @ $'
-  - '$ @ @ @ @ @ @ @ $'
-  - '$ $ % $ * $ ^ $ $'
+  - '$ $ $ $ $ $ $ $ $'
 
 slots: '@'
-previous-page: '%'
-current-page: '*'
-next-page: '^'
 
 items:
   '$':
     type: STAINED_GLASS_PANE
-    data: 3
+    data: 15
     name: '&f'
-  '%':
-    type: PAPER
-    name: '{0}Previous Page'
-  '*':
-    type: DOUBLE_PLANT
-    name: '&aCurrent Page'
-    lore:
-      - '&7Page {0}'
-  '^':
-    type: PAPER
-    name: '{0}Next Page'
 
+# Each setting is a PAIR: "leftFlag|rightFlag"
+# Left-click toggles leftFlag, Right-click toggles rightFlag
 settings:
-  always_day:
+  # Row 1: Time (Night/Day)
+  ALWAYS_NIGHT|ALWAYS_DAY:
     display-menu: true
     settings-enabled:
       type: STAINED_CLAY
-      data: 4
-      name: '&6Always Day'
+      data: 11
+      name: '&6Time: Night / Day'
       lore:
-        - '&7Set a day time on your island.'
-        - '&7Currently &aENABLED&7.'
+        - '&7Left-click: &bAlways Night'
+        - '&7Right-click: &eAlways Day'
+        - ''
+        - '&7Click again to disable.'
     settings-disabled:
       type: STAINED_CLAY
-      data: 4
-      name: '&6Always Day'
+      data: 0
+      name: '&6Time: Night / Day'
       lore:
-        - '&7Set a day time on your island.'
-        - '&7Currently &cDISABLED&7.'
+        - '&7Left-click: &bAlways Night'
+        - '&7Right-click: &eAlways Day'
+        - ''
+        - '&7Currently &cDISABLED&7 (natural cycle).'
     sound:
       type: ORB_PICKUP
       volume: 0.2
       pitch: 0.2
 
-
-  always_night:
+  # Row 2: Weather (Rain/Shiny)
+  ALWAYS_RAIN|ALWAYS_SHINY:
     display-menu: true
     settings-enabled:
-      type: STAINED_CLAY
-      data: 3
-      name: '&6Always Night'
-      lore:
-        - '&7Set a night time on your island.'
-        - '&7Currently &aENABLED&7.'
-    settings-disabled:
       type: STAINED_CLAY
       data: 3
-      name: '&6Always Night'
+      name: '&6Weather: Rain / Clear'
       lore:
-        - '&7Set a night time on your island.'
-        - '&7Currently &cDISABLED&7.'
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
-
-  always_rain:
-    display-menu: true
-    settings-enabled:
-      type: WATER_LILY
-      name: '&6Always Rain'
-      lore:
-        - '&7Set a rainy weather on your island.'
-        - '&7Currently &aENABLED&7.'
+        - '&7Left-click: &bAlways Rain'
+        - '&7Right-click: &eAlways Clear'
+        - ''
+        - '&7Click again to disable.'
     settings-disabled:
-      type: WATER_LILY
-      name: '&6Always Rain'
+      type: STAINED_CLAY
+      data: 0
+      name: '&6Weather: Rain / Clear'
       lore:
-        - '&7Set a rainy weather on your island.'
-        - '&7Currently &cDISABLED&7.'
+        - '&7Left-click: &bAlways Rain'
+        - '&7Right-click: &eAlways Clear'
+        - ''
+        - '&7Currently &cDISABLED&7 (natural weather).'
     sound:
       type: ORB_PICKUP
       volume: 0.2
       pitch: 0.2
 
-  always_shiny:
+  # Row 3: Explosions (Creeper/TNT)
+  CREEPER_EXPLOSION|TNT_EXPLOSION:
     display-menu: true
     settings-enabled:
-      type: DEAD_BUSH
-      name: '&6Always Shiny'
+      type: STAINED_CLAY
+      data: 14
+      name: '&6Explosions: Creeper / TNT'
       lore:
-        - '&7Set a shiny weather on your island.'
-        - '&7Currently &aENABLED&7.'
+        - '&7Left-click: &bCreeper Explosion'
+        - '&7Right-click: &eTNT Explosion'
+        - ''
+        - '&7Click again to disable.'
     settings-disabled:
-      type: DEAD_BUSH
-      name: '&6Always Shiny'
+      type: STAINED_CLAY
+      data: 0
+      name: '&6Explosions: Creeper / TNT'
       lore:
-        - '&7Set a shiny weather on your island.'
-        - '&7Currently &cDISABLED&7.'
+        - '&7Left-click: &bCreeper Explosion'
+        - '&7Right-click: &eTNT Explosion'
+        - ''
+        - '&7Currently &cDISABLED&7 (explosions blocked).'
     sound:
       type: ORB_PICKUP
       volume: 0.2
       pitch: 0.2
 
-  creeper_explosion:
+  # Row 4: Liquid flow (Lava/Water)
+  LAVA_FLOW|WATER_FLOW:
     display-menu: true
     settings-enabled:
-      type: SKULL_ITEM
+      type: STAINED_CLAY
+      data: 1
+      name: '&6Liquid: Lava / Water Flow'
+      lore:
+        - '&7Left-click: &bLava Flow'
+        - '&7Right-click: &eWater Flow'
+        - ''
+        - '&7Click again to disable.'
+    settings-disabled:
+      type: STAINED_CLAY
+      data: 0
+      name: '&6Liquid: Lava / Water Flow'
+      lore:
+        - '&7Left-click: &bLava Flow'
+        - '&7Right-click: &eWater Flow'
+        - ''
+        - '&7Currently &cDISABLED&7 (no flow).'
+    sound:
+      type: ORB_PICKUP
+      volume: 0.2
+      pitch: 0.2
+
+  # Row 5: Natural mob spawn (Monster/Animals)
+  NATURAL_MONSTER_SPAWN|NATURAL_ANIMALS_SPAWN:
+    display-menu: true
+    settings-enabled:
+      type: STAINED_CLAY
+      data: 13
+      name: '&6Natural Spawn: Monster / Animal'
+      lore:
+        - '&7Left-click: &bNatural Monster Spawn'
+        - '&7Right-click: &eNatural Animal Spawn'
+        - ''
+        - '&7Click again to disable.'
+    settings-disabled:
+      type: STAINED_CLAY
+      data: 0
+      name: '&6Natural Spawn: Monster / Animal'
+      lore:
+        - '&7Left-click: &bNatural Monster Spawn'
+        - '&7Right-click: &eNatural Animal Spawn'
+        - ''
+        - '&7Currently &cDISABLED&7 (no natural spawn).'
+    sound:
+      type: ORB_PICKUP
+      volume: 0.2
+      pitch: 0.2
+
+  # Row 6: Spawner spawn (Monster/Animals)
+  SPAWNER_MONSTER_SPAWN|SPAWNER_ANIMALS_SPAWN:
+    display-menu: true
+    settings-enabled:
+      type: STAINED_CLAY
+      data: 5
+      name: '&6Spawner: Monster / Animal'
+      lore:
+        - '&7Left-click: &bSpawner Monster Spawn'
+        - '&7Right-click: &eSpawner Animal Spawn'
+        - ''
+        - '&7Click again to disable.'
+    settings-disabled:
+      type: STAINED_CLAY
+      data: 0
+      name: '&6Spawner: Monster / Animal'
+      lore:
+        - '&7Left-click: &bSpawner Monster Spawn'
+        - '&7Right-click: &eSpawner Animal Spawn'
+        - ''
+        - '&7Currently &cDISABLED&7 (no spawner spawn).'
+    sound:
+      type: ORB_PICKUP
+      volume: 0.2
+      pitch: 0.2
+
+  # Row 7: PvP / Fire Spread
+  PVP|FIRE_SPREAD:
+    display-menu: true
+    settings-enabled:
+      type: STAINED_CLAY
       data: 4
-      name: '&6Creeper Explosion'
+      name: '&6PvP / Fire Spread'
       lore:
-        - '&7Allow creepers to explode blocks inside your island.'
-        - '&7Currently &aENABLED&7.'
+        - '&7Left-click: &bPvP'
+        - '&7Right-click: &eFire Spread'
+        - ''
+        - '&7Click again to disable.'
     settings-disabled:
-      type: SKULL_ITEM
-      data: 4
-      name: '&6Creeper Explosion'
+      type: STAINED_CLAY
+      data: 0
+      name: '&6PvP / Fire Spread'
       lore:
-        - '&7Allow creepers to explode blocks inside your island.'
+        - '&7Left-click: &bPvP'
+        - '&7Right-click: &eFire Spread'
+        - ''
         - '&7Currently &cDISABLED&7.'
     sound:
       type: ORB_PICKUP
       volume: 0.2
-      pitch: 0.2
-
-
-
-
-  fire_spread:
-    display-menu: true
-    settings-enabled:
-      type: FLINT_AND_STEEL
-      name: '&6Fire Spread'
-      lore:
-        - '&7Allow fire to spread inside your island.'
-        - '&7Currently &aENABLED&7.'
-    settings-disabled:
-      type: FLINT_AND_STEEL
-      name: '&6Fire Spread'
-      lore:
-        - '&7Allow fire to spread inside your island.'
-        - '&7Currently &cDISABLED&7.'
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
-
-  lava_flow:
-    display-menu: true
-    settings-enabled:
-      type: LAVA_BUCKET
-      name: '&6Lava Flow'
-      lore:
-        - '&7Allow lava to flow inside your island.'
-        - '&7Currently &aENABLED&7.'
-    settings-disabled:
-      type: LAVA_BUCKET
-      name: '&6Lava Flow'
-      lore:
-        - '&7Allow lava to flow inside your island.'
-        - '&7Currently &cDISABLED&7.'
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
-  natural_animals_spawn:
-    display-menu: true
-    settings-enabled:
-      type: MONSTER_EGG
-      data: 90
-      name: '&6Natural Animals Spawn'
-      lore:
-        - '&7Allow natural spawning of animals inside the island.'
-        - '&7Currently &aENABLED&7.'
-    settings-disabled:
-      type: MONSTER_EGG
-      data: 90
-      name: '&6Natural Animals Spawn'
-      lore:
-        - '&7Allow natural spawning of animals inside the island.'
-        - '&7Currently &cDISABLED&7.'
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
-  natural_monster_spawn:
-    display-menu: true
-    settings-enabled:
-      type: MONSTER_EGG
-      data: 54
-      name: '&6Natural Monster Spawn'
-      lore:
-        - '&7Allow natural spawning of monsters inside the island.'
-        - '&7Currently &aENABLED&7.'
-    settings-disabled:
-      type: MONSTER_EGG
-      data: 54
-      name: '&6Natural Monster Spawn'
-      lore:
-        - '&7Allow natural spawning of monsters inside the island.'
-        - '&7Currently &cDISABLED&7.'
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
-  pvp:
-    display-menu: true
-    settings-enabled:
-      type: DIAMOND_SWORD
-      name: '&6PvP'
-      lore:
-        - '&7Allow players to pvp inside the island.'
-        - '&7Currently &aENABLED&7.'
-      flags:
-        - HIDE_ATTRIBUTES
-    settings-disabled:
-      type: DIAMOND_SWORD
-      name: '&6PvP'
-      lore:
-        - '&7Allow players to pvp inside the island.'
-        - '&7Currently &cDISABLED&7.'
-      flags:
-        - HIDE_ATTRIBUTES
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
-  spawner_animals_spawn:
-    display-menu: true
-    settings-enabled:
-      type: MOB_SPAWNER
-      name: '&6Spawner Animals Spawn'
-      lore:
-        - '&7Allow spawner spawning of animals inside the island.'
-        - '&7Currently &aENABLED&7.'
-    settings-disabled:
-      type: MOB_SPAWNER
-      name: '&6Spawner Animals Spawn'
-      lore:
-        - '&7Allow spawner spawning of animals inside the island.'
-        - '&7Currently &cDISABLED&7.'
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
-  spawner_monster_spawn:
-    display-menu: true
-    settings-enabled:
-      type: MOB_SPAWNER
-      name: '&6Spawner Monster Spawn'
-      lore:
-        - '&7Allow spawner spawning of monsters inside the island.'
-        - '&7Currently &aENABLED&7.'
-    settings-disabled:
-      type: MOB_SPAWNER
-      name: '&6Spawner Monster Spawn'
-      lore:
-        - '&7Allow spawner spawning of monsters inside the island.'
-        - '&7Currently &cDISABLED&7.'
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
-  tnt_explosion:
-    display-menu: true
-    settings-enabled:
-      type: TNT
-      name: '&6TNT Explosion'
-      lore:
-        - '&7Allow TNT to explode blocks inside your island.'
-        - '&7Currently &aENABLED&7.'
-    settings-disabled:
-      type: TNT
-      name: '&6TNT Explosion'
-      lore:
-        - '&7Allow TNT to explode blocks inside your island.'
-        - '&7Currently &cDISABLED&7.'
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
-
-  water_flow:
-    display-menu: true
-    settings-enabled:
-      type: WATER_BUCKET
-      name: '&6Water Flow'
-      lore:
-        - '&7Allow water to flow inside your island.'
-        - '&7Currently &aENABLED&7.'
-    settings-disabled:
-      type: WATER_BUCKET
-      name: '&6Water Flow'
-      lore:
-        - '&7Allow water to flow inside your island.'
-        - '&7Currently &cDISABLED&7.'
-    sound:
-      type: ORB_PICKUP
-      volume: 0.2
-      pitch: 0.2
-
       pitch: 0.2

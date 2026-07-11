@@ -17,7 +17,7 @@ import com.bgsoftware.superiorskyblock.core.menu.AbstractPagedMenu;
 import com.bgsoftware.superiorskyblock.core.menu.MenuIdentifiers;
 import com.bgsoftware.superiorskyblock.core.menu.MenuParseResult;
 import com.bgsoftware.superiorskyblock.core.menu.TemplateItem;
-import com.bgsoftware.superiorskyblock.core.menu.button.impl.IslandFlagPagedObjectButton;
+import com.bgsoftware.superiorskyblock.core.menu.button.impl.IslandFlagPairPagedObjectButton;
 import com.bgsoftware.superiorskyblock.core.menu.converter.MenuConverter;
 import com.bgsoftware.superiorskyblock.core.menu.layout.AbstractMenuLayout;
 import com.bgsoftware.superiorskyblock.core.menu.view.AbstractPagedMenuView;
@@ -58,7 +58,7 @@ public class MenuIslandFlags extends AbstractPagedMenu<MenuIslandFlags.View, Isl
     @Nullable
     public static MenuIslandFlags createInstance() {
         MenuParseResult<View> menuParseResult = MenuParserImpl.getInstance().loadMenu("settings.yml",
-                MenuIslandFlags::convertOldGUI, new IslandFlagPagedObjectButton.Builder());
+                MenuIslandFlags::convertOldGUI, new IslandFlagPairPagedObjectButton.Builder());
 
         if (menuParseResult == null) {
             return null;
@@ -161,6 +161,10 @@ public class MenuIslandFlags extends AbstractPagedMenu<MenuIslandFlags.View, Isl
         @Nullable
         public IslandFlag getIslandFlag() {
             return islandFlag.get();
+        }
+
+        public String getIslandFlagName() {
+            return islandFlagName;
         }
 
         public ItemBuilder getEnabledIslandFlagItem() {
