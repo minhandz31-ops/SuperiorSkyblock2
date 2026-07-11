@@ -65,7 +65,7 @@ jobs:
           cat gradle.properties
 
       - name: Build with Gradle
-        run: ./gradlew build collectArtifacts -x checkDebug --no-daemon --stacktrace 2>&1 | tee build.log
+        run: ./gradlew build collectArtifacts -x checkDebug --no-daemon --stacktrace
 
       - name: Show errors if build failed
         if: failure()

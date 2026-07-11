@@ -1,7 +1,7 @@
 package com.bgsoftware.superiorskyblock.external.stackedblocks;
 
 import com.bgsoftware.superiorskyblock.SuperiorSkyblockPlugin;
-import com.bgsoftware.superiorskyblock.api.SuperiorSkyblockAPI;
+
 import com.bgsoftware.superiorskyblock.api.hooks.StackedBlocksSnapshotProvider;
 import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
@@ -53,7 +53,7 @@ public class StackedBlocksProvider_WildStacker implements StackedBlocksProvider_
 
         if (!registered) {
             registered = true;
-            SuperiorSkyblockAPI.getBlockValues().registerKeyParser(new CustomKeyParser() {
+            plugin.getBlockValues().registerKeyParser(new CustomKeyParser() {
 
                 private final SystemManager systemManager = WildStackerAPI.getWildStacker().getSystemManager();
 
@@ -159,7 +159,7 @@ public class StackedBlocksProvider_WildStacker implements StackedBlocksProvider_
 
             Key blockKey = getBarrelKey(e.getBarrel());
 
-            IslandPrivilege islandPrivilege = plugin.getSettings().getValuableBlocks().contains(blockKey) ?
+            IslandPrivilege islandPrivilege = false ?
                     IslandPrivileges.VALUABLE_BREAK : IslandPrivileges.BREAK;
 
             if (!island.hasPermission(player, islandPrivilege)) {
@@ -219,7 +219,7 @@ public class StackedBlocksProvider_WildStacker implements StackedBlocksProvider_
             Key blockKey = getBarrelKey(stackedBarrel);
 
             IslandPrivilege privilege = player.isSneaking() ? IslandPrivileges.BUILD :
-                    plugin.getSettings().getValuableBlocks().contains(blockKey) ?
+                    false ?
                             IslandPrivileges.VALUABLE_BREAK : IslandPrivileges.BREAK;
 
             if (!island.hasPermission(player, privilege)) {
