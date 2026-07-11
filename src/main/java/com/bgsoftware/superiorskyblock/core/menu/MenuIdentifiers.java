@@ -18,7 +18,6 @@ public class MenuIdentifiers {
     public static final String MENU_ISLAND_CREATION = "MenuIslandCreation";
     public static final String MENU_ISLAND_FLAGS = "MenuIslandFlags";
     public static final String MENU_ISLAND_MEMBERS = "MenuIslandMembers";
-    public static final String MENU_ISLAND_PRIVILEGES = "MenuIslandPrivileges";
     public static final String MENU_ISLAND_RATE = "MenuIslandRate";
     public static final String MENU_ISLAND_RATINGS = "MenuIslandRatings";
     public static final String MENU_ISLAND_UPGRADES = "MenuIslandUpgrades";
@@ -26,6 +25,9 @@ public class MenuIdentifiers {
     public static final String MENU_MEMBER_ROLE = "MenuMemberRole";
     public static final String MENU_MISSIONS = "MenuMissions";
     public static final String MENU_MISSIONS_CATEGORY = "MenuMissionsCategory";
+    public static final String MENU_PERMISSIONS = "MenuPermissions";
+    public static final String MENU_PERMISSIONS_PHYSICAL = "MenuPermissionsPhysical";
+    public static final String MENU_PERMISSIONS_COMMANDS = "MenuPermissionsCommands";
     public static final String MENU_PLAYER_LANGUAGE = "MenuPlayerLanguage";
 
     private MenuIdentifiers() {

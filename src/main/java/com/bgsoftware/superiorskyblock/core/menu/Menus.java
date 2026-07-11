@@ -15,7 +15,6 @@ import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandChest;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandCreation;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandFlags;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandMembers;
-import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandPrivileges;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandRate;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandRatings;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandUpgrades;
@@ -23,6 +22,9 @@ import com.bgsoftware.superiorskyblock.core.menu.impl.MenuMemberManage;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuMemberRole;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuMissions;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuMissionsCategory;
+import com.bgsoftware.superiorskyblock.core.menu.impl.MenuPermissions;
+import com.bgsoftware.superiorskyblock.core.menu.impl.MenuPermissionsCommands;
+import com.bgsoftware.superiorskyblock.core.menu.impl.MenuPermissionsPhysical;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuPlayerLanguage;
 import com.bgsoftware.superiorskyblock.core.menu.impl.internal.MenuBlank;
 import com.bgsoftware.superiorskyblock.core.menu.impl.internal.MenuConfigEditor;
@@ -48,7 +50,6 @@ public class Menus {
     public static MenuIslandCreation MENU_ISLAND_CREATION;
     public static MenuIslandFlags MENU_ISLAND_FLAGS;
     public static MenuIslandMembers MENU_ISLAND_MEMBERS;
-    public static MenuIslandPrivileges MENU_ISLAND_PRIVILEGES;
     public static MenuIslandRate MENU_ISLAND_RATE;
     public static MenuIslandRatings MENU_ISLAND_RATINGS;
     public static MenuIslandUpgrades MENU_ISLAND_UPGRADES;
@@ -56,6 +57,9 @@ public class Menus {
     public static MenuMemberRole MENU_MEMBER_ROLE;
     public static MenuMissions MENU_MISSIONS;
     public static MenuMissionsCategory MENU_MISSIONS_CATEGORY;
+    public static MenuPermissions MENU_PERMISSIONS;
+    public static MenuPermissionsPhysical MENU_PERMISSIONS_PHYSICAL;
+    public static MenuPermissionsCommands MENU_PERMISSIONS_COMMANDS;
     public static MenuPlayerLanguage MENU_PLAYER_LANGUAGE;
 
     private Menus() {
@@ -80,7 +84,6 @@ public class Menus {
         MENU_ISLAND_CREATION = createMenu(MenuIslandCreation.createInstance());
         MENU_ISLAND_FLAGS = createMenu(MenuIslandFlags.createInstance());
         MENU_ISLAND_MEMBERS = createMenu(MenuIslandMembers.createInstance());
-        MENU_ISLAND_PRIVILEGES = createMenu(MenuIslandPrivileges.createInstance());
         MENU_ISLAND_RATE = createMenu(MenuIslandRate.createInstance());
         MENU_ISLAND_RATINGS = createMenu(MenuIslandRatings.createInstance());
         MENU_ISLAND_UPGRADES = createMenu(MenuIslandUpgrades.createInstance());
@@ -88,6 +91,9 @@ public class Menus {
         MENU_MEMBER_ROLE = createMenu(MenuMemberRole.createInstance());
         MENU_MISSIONS = createMenu(MenuMissions.createInstance());
         MENU_MISSIONS_CATEGORY = createMenu(MenuMissionsCategory.createInstance());
+        MENU_PERMISSIONS = createMenu(MenuPermissions.createInstance());
+        MENU_PERMISSIONS_PHYSICAL = createMenu(MenuPermissionsPhysical.createInstance());
+        MENU_PERMISSIONS_COMMANDS = createMenu(MenuPermissionsCommands.createInstance());
         MENU_PLAYER_LANGUAGE = createMenu(MenuPlayerLanguage.createInstance());
     }
 
