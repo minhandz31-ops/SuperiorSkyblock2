@@ -9,24 +9,30 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 21
+      - name: Set up JDK 17 (for Gradle)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
 
-      - name: Set up JDK 8
+      - name: Set up JDK 8 (toolchain)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '8'
+
+      - name: Set up JDK 21 (toolchain for modern NMS)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
       - name: Cache Gradle
         uses: actions/cache@v4
@@ -43,10 +49,29 @@ jobs:
         with:
           gradle-version: '9.4.1'
 
+      - name: Print Java versions
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          java -version
+          echo "---"
+          ls $JAVA_HOME_8_X64/bin/ 2>/dev/null | head -3 || true
+          echo "JAVA_HOME_8_X64=$JAVA_HOME_8_X64"
+          echo "JAVA_HOME_21_X64=$JAVA_HOME_21_X64"
+
+      - name: Patch gradle.properties for toolchain path
+        run: |
+          # Remove the local JDK path override (CI has its own JDKs)
+          sed -i '/org.gradle.java.installations.paths/d' gradle.properties
+          cat gradle.properties
+
       - name: Build with Gradle
-        env:
-          JAVA_HOME_8_x64: ${{ env.JAVA_HOME_8_X64 }}
-        run: ./gradlew build -x checkDebug --no-daemon --stacktrace
+        run: ./gradlew build -x checkDebug --no-daemon --stacktrace --info 2>&1 | tee build.log
+
+      - name: Show errors if build failed
+        if: failure()
+        run: |
+          echo "=== Build failed. Searching for errors... ==="
+          grep -E "error:|FAILURE|Exception" build.log | head -50 || true
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -56,11 +81,9 @@ jobs:
           path: target/
           if-no-files-found: warn
 
-      - name: Upload build reports
+      - name: Upload build log
         uses: actions/upload-artifact@v4
-        if: failure()
+        if: always()
         with:
-          name: build-reports
-          path: |
-            **/build/reports/
-            **/build/generated/
+          name: build-log
+          path: build.log
