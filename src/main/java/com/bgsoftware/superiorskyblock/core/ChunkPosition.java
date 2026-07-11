@@ -1,7 +1,6 @@
 package com.bgsoftware.superiorskyblock.core;
 
 import com.bgsoftware.common.annotations.Nullable;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
 import com.bgsoftware.superiorskyblock.api.world.WorldInfo;
 import com.bgsoftware.superiorskyblock.api.wrappers.BlockPosition;
 import com.bgsoftware.superiorskyblock.api.wrappers.WorldPosition;
@@ -61,12 +60,6 @@ public class ChunkPosition implements ObjectsPool.Releasable, AutoCloseable {
     public static ChunkPosition of(WorldInfo worldInfo, int x, int z, boolean fromPool) {
         ChunkPosition chunkPosition = fromPool ? POOL.obtain() : new ChunkPosition(false);
         return chunkPosition.initialize(worldInfo, x, z);
-    }
-
-    public static ChunkPosition of(IslandWarp islandWarp) {
-        try (ObjectsPools.Wrapper<Location> wrapper = ObjectsPools.LOCATION.obtain()) {
-            return of(islandWarp.getLocation(wrapper.getHandle()));
-        }
     }
 
     protected ChunkPosition() {

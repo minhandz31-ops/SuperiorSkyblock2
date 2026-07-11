@@ -18,10 +18,7 @@ import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
 import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.bank.IslandBank;
 import com.bgsoftware.superiorskyblock.api.island.cache.IslandCache;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
-import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.missions.Mission;
 import com.bgsoftware.superiorskyblock.api.objects.Pair;
@@ -67,7 +64,6 @@ import com.google.common.base.Preconditions;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -138,8 +134,6 @@ public class SpawnIsland implements Island {
     private final int islandSize;
     private final IslandArea islandArea = new IslandArea();
 
-    private Biome biome = Biome.PLAINS;
-
 
     public SpawnIsland() throws ManagerLoadException {
         String spawnLocation = plugin.getSettings().getSpawn().getLocation();
@@ -165,8 +159,6 @@ public class SpawnIsland implements Island {
         this.spawnWorldInfo = new WorldInfoImpl(this.spawnWorld.getName(), Dimensions.fromEnvironment(this.spawnWorld.getEnvironment()));
 
         this.dirtyChunksContainer = new DirtyChunksContainer(this);
-
-        BukkitExecutor.sync(() -> biome = getCenter(null /* unused */).getBlock().getBiome());
     }
 
     @Override
@@ -215,28 +207,8 @@ public class SpawnIsland implements Island {
     }
 
     @Override
-    public List<SuperiorPlayer> getIslandVisitors() {
-        return getIslandVisitors(true);
-    }
-
-    @Override
-    public List<SuperiorPlayer> getIslandVisitors(boolean vanishPlayers) {
-        return Collections.emptyList();
-    }
-
-    @Override
     public List<SuperiorPlayer> getAllPlayersInside() {
         return new SequentialListBuilder<SuperiorPlayer>().build(playersInside);
-    }
-
-    @Override
-    public List<SuperiorPlayer> getUniqueVisitors() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<Pair<SuperiorPlayer, Long>> getUniqueVisitorsWithTimes() {
-        return Collections.emptyList();
     }
 
     @Override
@@ -403,26 +375,6 @@ public class SpawnIsland implements Island {
 
     @Override
     public void setIslandHome(Dimension dimension, WorldPosition homePosition) {
-        // Do nothing.
-    }
-
-    @Override
-    public Location getVisitorsLocation(Dimension unused) {
-        return this.getIslandHome(null /*unused*/);
-    }
-
-    @Override
-    public WorldPosition getVisitorsPosition(Dimension unused) {
-        return getIslandHomePosition(null /*unused*/);
-    }
-
-    @Override
-    public void setVisitorsLocation(Location visitorsLocation) {
-        // Do nothing.
-    }
-
-    @Override
-    public void setVisitorsLocation(Dimension dimension, WorldPosition visitorsPosition) {
         // Do nothing.
     }
 
@@ -1018,21 +970,6 @@ public class SpawnIsland implements Island {
     }
 
     @Override
-    public Biome getBiome() {
-        return biome;
-    }
-
-    @Override
-    public void setBiome(Biome biome) {
-        // Do nothing.
-    }
-
-    @Override
-    public void setBiome(Biome biome, boolean updateBlocks) {
-        // Do nothing.
-    }
-
-    @Override
     public boolean isLocked() {
         return false;
     }
@@ -1130,46 +1067,6 @@ public class SpawnIsland implements Island {
     @Override
     public void setLastTimeUpdate(long lastTimeUpdate) {
         // Do nothing.
-    }
-
-    @Override
-    public IslandBank getIslandBank() {
-        return null;
-    }
-
-    @Override
-    public BigDecimal getBankLimit() {
-        return IslandUpgradeConstants.NO_BANK_LIMIT_VALUE;
-    }
-
-    @Override
-    public void setBankLimit(BigDecimal bankLimit) {
-        // Do nothing.
-    }
-
-    @Override
-    public BigDecimal getBankLimitRaw() {
-        return IslandUpgradeConstants.NO_BANK_LIMIT_VALUE;
-    }
-
-    @Override
-    public boolean giveInterest(boolean checkOnlineOwner) {
-        return false;
-    }
-
-    @Override
-    public long getLastInterestTime() {
-        return -1;
-    }
-
-    @Override
-    public void setLastInterestTime(long lastInterest) {
-        // Do nothing.
-    }
-
-    @Override
-    public long getNextInterest() {
-        return -1;
     }
 
     @Override
@@ -1674,21 +1571,6 @@ public class SpawnIsland implements Island {
     }
 
     @Override
-    public int getWarpsLimit() {
-        return IslandUpgradeConstants.NO_LIMIT_VALUE;
-    }
-
-    @Override
-    public void setWarpsLimit(int warpsLimit) {
-        // Do nothing.
-    }
-
-    @Override
-    public int getWarpsLimitRaw() {
-        return IslandUpgradeConstants.NO_LIMIT_VALUE;
-    }
-
-    @Override
     public void setPotionEffect(PotionEffectType type, int level) {
         // Do nothing.
     }
@@ -1765,86 +1647,6 @@ public class SpawnIsland implements Island {
 
     @Override
     public Map<PlayerRole, Integer> getCustomRoleLimits() {
-        return Collections.emptyMap();
-    }
-
-    @Override
-    public WarpCategory createWarpCategory(String name) {
-        return null;
-    }
-
-    @Override
-    public WarpCategory getWarpCategory(String name) {
-        return null;
-    }
-
-    @Override
-    public WarpCategory getWarpCategory(int slot) {
-        return null;
-    }
-
-    @Override
-    public void renameCategory(WarpCategory warpCategory, String newName) {
-        // Do nothing.
-    }
-
-    @Override
-    public void deleteCategory(WarpCategory warpCategory) {
-        // Do nothing.
-    }
-
-    @Override
-    public Map<String, WarpCategory> getWarpCategories() {
-        return Collections.emptyMap();
-    }
-
-    @Override
-    public IslandWarp createWarp(String name, Location location, WarpCategory warpCategory) {
-        return null;
-    }
-
-    @Override
-    public IslandWarp createWarp(String s, WorldInfo worldInfo, WorldPosition worldPosition, WarpCategory warpCategory) {
-        return null;
-    }
-
-    @Override
-    public void renameWarp(IslandWarp islandWarp, String newName) {
-        // Do nothing.
-    }
-
-    @Override
-    public IslandWarp getWarp(Location location) {
-        return null;
-    }
-
-    @Override
-    public IslandWarp getWarp(String name) {
-        return null;
-    }
-
-    @Override
-    public void warpPlayer(SuperiorPlayer superiorPlayer, String warpName) {
-        // Do nothing.
-    }
-
-    @Override
-    public void warpPlayer(SuperiorPlayer superiorPlayer, String warpName, boolean force) {
-        // Do nothing.
-    }
-
-    @Override
-    public void deleteWarp(SuperiorPlayer superiorPlayer, Location location) {
-        // Do nothing.
-    }
-
-    @Override
-    public void deleteWarp(String name) {
-        // Do nothing.
-    }
-
-    @Override
-    public Map<String, IslandWarp> getIslandWarps() {
         return Collections.emptyMap();
     }
 

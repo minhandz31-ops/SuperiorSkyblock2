@@ -7,13 +7,9 @@ import com.bgsoftware.superiorskyblock.api.enums.MemberRemoveReason;
 import com.bgsoftware.superiorskyblock.api.enums.Rating;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.bank.IslandBank;
 import com.bgsoftware.superiorskyblock.api.island.cache.IslandCache;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
-import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.missions.Mission;
-import com.bgsoftware.superiorskyblock.api.objects.Pair;
 import com.bgsoftware.superiorskyblock.api.persistence.PersistentDataContainer;
 import com.bgsoftware.superiorskyblock.api.service.message.IMessageComponent;
 import com.bgsoftware.superiorskyblock.api.upgrades.Upgrade;
@@ -26,13 +22,11 @@ import com.bgsoftware.superiorskyblock.api.wrappers.WorldPosition;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
@@ -95,28 +89,8 @@ public class DelegateIsland implements Island {
     }
 
     @Override
-    public List<SuperiorPlayer> getIslandVisitors() {
-        return this.handle.getIslandVisitors();
-    }
-
-    @Override
-    public List<SuperiorPlayer> getIslandVisitors(boolean vanishPlayers) {
-        return this.handle.getIslandVisitors(vanishPlayers);
-    }
-
-    @Override
     public List<SuperiorPlayer> getAllPlayersInside() {
         return this.handle.getAllPlayersInside();
-    }
-
-    @Override
-    public List<SuperiorPlayer> getUniqueVisitors() {
-        return this.handle.getUniqueVisitors();
-    }
-
-    @Override
-    public List<Pair<SuperiorPlayer, Long>> getUniqueVisitorsWithTimes() {
-        return this.handle.getUniqueVisitorsWithTimes();
     }
 
     @Override
@@ -274,26 +248,6 @@ public class DelegateIsland implements Island {
     @Override
     public void setIslandHome(Dimension dimension, WorldPosition homePosition) {
         this.handle.setIslandHome(dimension, homePosition);
-    }
-
-    @Override
-    public Location getVisitorsLocation(Dimension dimension) {
-        return this.handle.getVisitorsLocation(dimension);
-    }
-
-    @Override
-    public WorldPosition getVisitorsPosition(Dimension dimension) {
-        return this.handle.getVisitorsPosition(dimension);
-    }
-
-    @Override
-    public void setVisitorsLocation(@Nullable Location visitorsLocation) {
-        this.handle.setVisitorsLocation(visitorsLocation);
-    }
-
-    @Override
-    public void setVisitorsLocation(Dimension dimension, WorldPosition visitorsPosition) {
-        this.handle.setVisitorsLocation(dimension, visitorsPosition);
     }
 
     @Override
@@ -842,21 +796,6 @@ public class DelegateIsland implements Island {
     }
 
     @Override
-    public Biome getBiome() {
-        return this.handle.getBiome();
-    }
-
-    @Override
-    public void setBiome(Biome biome) {
-        this.handle.setBiome(biome);
-    }
-
-    @Override
-    public void setBiome(Biome biome, boolean updateBlocks) {
-        this.handle.setBiome(biome, updateBlocks);
-    }
-
-    @Override
     public boolean isLocked() {
         return this.handle.isLocked();
     }
@@ -982,18 +921,8 @@ public class DelegateIsland implements Island {
     }
 
     @Override
-    public IslandBank getIslandBank() {
-        return this.handle.getIslandBank();
-    }
-
-    @Override
     public void setAmountMissionCompleted(Mission<?> mission, int finishCount) {
         this.handle.setAmountMissionCompleted(mission, finishCount);
-    }
-
-    @Override
-    public BigDecimal getBankLimit() {
-        return this.handle.getBankLimit();
     }
 
     @Override
@@ -1002,18 +931,8 @@ public class DelegateIsland implements Island {
     }
 
     @Override
-    public void setBankLimit(BigDecimal bankLimit) {
-        this.handle.setBankLimit(bankLimit);
-    }
-
-    @Override
     public Map<Mission<?>, Integer> getCompletedMissionsWithAmounts() {
         return this.handle.getCompletedMissionsWithAmounts();
-    }
-
-    @Override
-    public BigDecimal getBankLimitRaw() {
-        return this.handle.getBankLimitRaw();
     }
 
     @Override
@@ -1022,18 +941,8 @@ public class DelegateIsland implements Island {
     }
 
     @Override
-    public boolean giveInterest(boolean checkOnlineOwner) {
-        return this.handle.giveInterest(checkOnlineOwner);
-    }
-
-    @Override
     public PersistentDataContainer getPersistentDataContainer() {
         return this.handle.getPersistentDataContainer();
-    }
-
-    @Override
-    public long getLastInterestTime() {
-        return this.handle.getLastInterestTime();
     }
 
     @Override
@@ -1042,18 +951,8 @@ public class DelegateIsland implements Island {
     }
 
     @Override
-    public void setLastInterestTime(long lastInterest) {
-        this.handle.setLastInterestTime(lastInterest);
-    }
-
-    @Override
     public void savePersistentDataContainer() {
         this.handle.savePersistentDataContainer();
-    }
-
-    @Override
-    public long getNextInterest() {
-        return this.handle.getNextInterest();
     }
 
     @Override
@@ -1529,21 +1428,6 @@ public class DelegateIsland implements Island {
     }
 
     @Override
-    public int getWarpsLimit() {
-        return this.handle.getWarpsLimit();
-    }
-
-    @Override
-    public void setWarpsLimit(int warpsLimit) {
-        this.handle.setWarpsLimit(warpsLimit);
-    }
-
-    @Override
-    public int getWarpsLimitRaw() {
-        return this.handle.getWarpsLimitRaw();
-    }
-
-    @Override
     public void setPotionEffect(PotionEffectType type, int level) {
         this.handle.setPotionEffect(type, level);
     }
@@ -1621,90 +1505,6 @@ public class DelegateIsland implements Island {
     @Override
     public Map<PlayerRole, Integer> getCustomRoleLimits() {
         return this.handle.getCustomRoleLimits();
-    }
-
-    @Override
-    public WarpCategory createWarpCategory(String name) {
-        return this.handle.createWarpCategory(name);
-    }
-
-    @Nullable
-    @Override
-    public WarpCategory getWarpCategory(String name) {
-        return this.handle.getWarpCategory(name);
-    }
-
-    @Nullable
-    @Override
-    public WarpCategory getWarpCategory(int slot) {
-        return this.handle.getWarpCategory(slot);
-    }
-
-    @Override
-    public void renameCategory(WarpCategory warpCategory, String newName) {
-        this.handle.renameCategory(warpCategory, newName);
-    }
-
-    @Override
-    public void deleteCategory(WarpCategory warpCategory) {
-        this.handle.deleteCategory(warpCategory);
-    }
-
-    @Override
-    public Map<String, WarpCategory> getWarpCategories() {
-        return this.handle.getWarpCategories();
-    }
-
-    @Override
-    public IslandWarp createWarp(String name, Location location, @Nullable WarpCategory warpCategory) {
-        return this.handle.createWarp(name, location, warpCategory);
-    }
-
-    @Override
-    public IslandWarp createWarp(String name, WorldInfo worldInfo, WorldPosition position, WarpCategory warpCategory) {
-        return this.handle.createWarp(name, worldInfo, position, warpCategory);
-    }
-
-    @Override
-    public void renameWarp(IslandWarp islandWarp, String newName) {
-        this.handle.renameWarp(islandWarp, newName);
-    }
-
-    @Nullable
-    @Override
-    public IslandWarp getWarp(Location location) {
-        return this.handle.getWarp(location);
-    }
-
-    @Nullable
-    @Override
-    public IslandWarp getWarp(String name) {
-        return this.handle.getWarp(name);
-    }
-
-    @Override
-    public void warpPlayer(SuperiorPlayer superiorPlayer, String warpName) {
-        this.handle.warpPlayer(superiorPlayer, warpName);
-    }
-
-    @Override
-    public void warpPlayer(SuperiorPlayer superiorPlayer, String warpName, boolean force) {
-        this.handle.warpPlayer(superiorPlayer, warpName, force);
-    }
-
-    @Override
-    public void deleteWarp(@Nullable SuperiorPlayer superiorPlayer, Location location) {
-        this.handle.deleteWarp(superiorPlayer, location);
-    }
-
-    @Override
-    public void deleteWarp(String name) {
-        this.handle.deleteWarp(name);
-    }
-
-    @Override
-    public Map<String, IslandWarp> getIslandWarps() {
-        return this.handle.getIslandWarps();
     }
 
     @Override

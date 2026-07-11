@@ -183,22 +183,16 @@ public class DataManager extends Manager {
         IslandsDeserializer.deserializePlayerPermissions(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeRolePermissions(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeUpgrades(islandsLoader, databaseCache);
-        IslandsDeserializer.deserializeWarps(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeBlockLimits(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeRatings(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeMissions(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeIslandFlags(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeGenerators(islandsLoader, databaseCache);
-        IslandsDeserializer.deserializeVisitors(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeEntityLimits(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeEffects(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeIslandChest(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeRoleLimits(islandsLoader, databaseCache);
-        IslandsDeserializer.deserializeWarpCategories(islandsLoader, databaseCache);
-        IslandsDeserializer.deserializeIslandBank(islandsLoader, databaseCache);
-        IslandsDeserializer.deserializeVisitorHomes(islandsLoader, databaseCache);
         IslandsDeserializer.deserializeIslandSettings(islandsLoader, databaseCache);
-        IslandsDeserializer.deserializeBankTransactions(islandsLoader, databaseCache);
         IslandsDeserializer.deserializePersistentDataContainer(islandsLoader, databaseCache);
 
         islandsLoader.loadAllObjects("islands", resultSetRaw -> {
@@ -278,19 +272,13 @@ public class DataManager extends Manager {
     }
 
     private void checkCorruptedIslandRecord(DatabaseCache.Record<Island.Builder> islandRecord) {
-        boolean hasIslandsBanks = islandRecord.getRecordedTables().contains("islands_banks");
         boolean hasIslandsSettings = islandRecord.getRecordedTables().contains("islands_settings");
 
-        if (hasIslandsBanks && hasIslandsSettings)
+        if (hasIslandsSettings)
             return;
 
         // We create a temporary Island for inserting the corrupted record
         Island island = islandRecord.get().build();
-
-        if (!hasIslandsBanks) {
-            Log.warn("The island " + island.getUniqueId() + " does not have a islands_banks record - fixing it...");
-            IslandsDatabaseBridge.insertIslandBanks(island);
-        }
 
         if (!hasIslandsSettings) {
             Log.warn("The island " + island.getUniqueId() + " does not have a islands_settings record - fixing it...");

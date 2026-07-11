@@ -81,7 +81,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
     private static final Pattern TOP_VALUE_PLACEHOLDER_PATTERN = Pattern.compile("value_(.+)");
     private static final Pattern TOP_LEADER_PLACEHOLDER_PATTERN = Pattern.compile("leader_(.+)");
     private static final Pattern TOP_CUSTOM_PLACEHOLDER_PATTERN = Pattern.compile("(\\d+)_(.+)");
-    private static final Pattern VISITOR_LAST_JOIN_PLACEHOLDER_PATTERN = Pattern.compile("visitor_last_join_(.+)");
 
     private static final Map<String, PlayerPlaceholderParser> PLAYER_PARSES =
             new ImmutableMap.Builder<String, PlayerPlaceholderParser>()
@@ -120,26 +119,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
     private static final Map<String, IslandPlaceholderParser> ISLAND_PARSES =
             new ImmutableMap.Builder<String, IslandPlaceholderParser>()
                     // Island Placeholders
-                    .put("bank", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(island.getIslandBank().getBalance()))
-                    .put("bank_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(island.getIslandBank().getBalance(), superiorPlayer.getUserLocale()))
-                    .put("bank_int", (island, superiorPlayer) ->
-                            island.getIslandBank().getBalance().toBigInteger().toString())
-                    .put("bank_raw", (island, superiorPlayer) ->
-                            island.getIslandBank().getBalance().toString())
-                    .put("bank_limit", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(island.getBankLimit()))
-                    .put("bank_limit_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(island.getBankLimit(), superiorPlayer.getUserLocale()))
-                    .put("bank_limit_int", (island, superiorPlayer) ->
-                            island.getBankLimit().toBigInteger().toString())
-                    .put("bank_limit_raw", (island, superiorPlayer) ->
-                            island.getBankLimit().toString())
-                    .put("bank_last_interest", (island, superiorPlayer) ->
-                            Formatters.TIME_FORMATTER.format(Duration.ofSeconds(island.getLastInterestTime()), superiorPlayer.getUserLocale()))
-                    .put("bank_next_interest", (island, superiorPlayer) ->
-                            Formatters.TIME_FORMATTER.format(Duration.ofSeconds(island.getNextInterest()), superiorPlayer.getUserLocale()))
                     .put("bans_count", (island, superiorPlayer) ->
                             island.getBannedPlayers().size() + "")
                     .put("bans_list", (island, superiorPlayer) -> {
@@ -153,8 +132,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                         }
                         return teamBuilder.substring(2);
                     })
-                    .put("biome", (island, superiorPlayer) ->
-                            Formatters.CAPITALIZED_FORMATTER.format(island.getBiome().name()))
                     .put("center", (island, superiorPlayer) ->
                             Formatters.BLOCK_POSITION_FORMATTER.format(island.getCenterPosition(), getDefaultWorldInfo(island)))
                     .put("center_x", (island, superiorPlayer) ->
@@ -250,14 +227,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                             island.getRatingAmount() + "")
                     .put("rating_stars", (island, superiorPlayer) ->
                             Formatters.RATING_FORMATTER.format(island.getTotalRating(), superiorPlayer.getUserLocale()))
-                    .put("raw_bank_limit", (island, superiorPlayer) ->
-                            Formatters.NUMBER_FORMATTER.format(island.getBankLimitRaw()))
-                    .put("raw_bank_limit_format", (island, superiorPlayer) ->
-                            Formatters.FANCY_NUMBER_FORMATTER.format(island.getBankLimitRaw(), superiorPlayer.getUserLocale()))
-                    .put("raw_bank_limit_int", (island, superiorPlayer) ->
-                            island.getBankLimitRaw().toBigInteger().toString())
-                    .put("raw_bank_limit_raw", (island, superiorPlayer) ->
-                            island.getBankLimitRaw().toString())
                     .put("raw_coop_limit", (island, superiorPlayer) ->
                             island.getCoopLimitRaw() + "")
                     .put("raw_crops_multiplier", (island, superiorPlayer) ->
@@ -270,8 +239,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                             island.getSpawnerRatesRaw() + "")
                     .put("raw_team_limit", (island, superiorPlayer) ->
                             island.getTeamLimitRaw() + "")
-                    .put("raw_warps_limit", (island, superiorPlayer) ->
-                            island.getWarpsLimitRaw() + "")
                     .put("schematic", (island, superiorPlayer) ->
                             island.getSchematicName())
                     .put("size", (island, superiorPlayer) -> {
@@ -304,48 +271,8 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                             island.getIslandMembers(true).size() + "")
                     .put("team_size_online", (island, superiorPlayer) ->
                             island.getIslandMembers(true).stream().filter(SuperiorPlayer::isShownAsOnline).count() + "")
-                    .put("unique_visitors_count", (island, superiorPlayer) ->
-                            island.getUniqueVisitors().size() + "")
-                    .put("unique_visitors_list", (island, superiorPlayer) -> {
-                        StringBuilder teamBuilder = new StringBuilder();
-                        List<SuperiorPlayer> players = island.getUniqueVisitors();
-                        if (players.isEmpty()) {
-                            return "";
-                        }
-                        for (SuperiorPlayer player : players) {
-                            teamBuilder.append(", ").append(player.getName());
-                        }
-                        return teamBuilder.substring(2);
-                    })
                     .put("uuid", (island, superiorPlayer) ->
                             island.getUniqueId() + "")
-                    .put("visitors_count", (island, superiorPlayer) ->
-                            island.getIslandVisitors(false).size() + "")
-                    .put("visitors_list", (island, superiorPlayer) -> {
-                        StringBuilder teamBuilder = new StringBuilder();
-                        List<SuperiorPlayer> players = island.getIslandVisitors();
-                        if (players.isEmpty()) {
-                            return "";
-                        }
-                        for (SuperiorPlayer player : players) {
-                            teamBuilder.append(", ").append(player.getName());
-                        }
-                        return teamBuilder.substring(2);
-                    })
-                    .put("visitors_location", (island, superiorPlayer) -> {
-                        WorldInfo worldInfo = getDefaultWorldInfo(island);
-                        return Formatters.LOCATION_FORMATTER.format(island.getVisitorsPosition(null /*unused*/).toLocation(worldInfo));
-                    })
-                    .put("visitors_location_x", (island, superiorPlayer) ->
-                            island.getVisitorsPosition(getDefaultWorldDimension()).getX() + "")
-                    .put("visitors_location_y", (island, superiorPlayer) ->
-                            island.getVisitorsPosition(getDefaultWorldDimension()).getY() + "")
-                    .put("visitors_location_z", (island, superiorPlayer) ->
-                            island.getVisitorsPosition(getDefaultWorldDimension()).getZ() + "")
-                    .put("warps", (island, superiorPlayer) ->
-                            island.getIslandWarps().size() + "")
-                    .put("warps_limit", (island, superiorPlayer) ->
-                            island.getWarpsLimit() + "")
                     .put("world", (island, superiorPlayer) ->
                             getDefaultWorldInfo(island).getName())
                     // Deprecated Island Placeholders
@@ -621,13 +548,6 @@ public class PlaceholdersServiceImpl implements PlaceholdersService, IService {
                         return Optional.empty();
                     }
                     return Optional.of(island.getUpgradeLevel(upgrade).getLevel() + "");
-                } else if ((matcher = VISITOR_LAST_JOIN_PLACEHOLDER_PATTERN.matcher(subPlaceholder)).matches()) {
-                    String visitorName = matcher.group(1);
-                    return Optional.of(island.getUniqueVisitorsWithTimes().stream()
-                            .filter(uniqueVisitor -> uniqueVisitor.getKey().getName().equalsIgnoreCase(visitorName))
-                            .findFirst()
-                            .map(Pair::getValue).map(value -> Formatters.DATE_FORMATTER.format(new Date(value)))
-                            .orElse("Haven't Joined"));
                 }
             }
         }

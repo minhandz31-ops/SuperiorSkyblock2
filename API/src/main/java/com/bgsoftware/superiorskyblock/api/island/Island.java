@@ -10,16 +10,11 @@ import com.bgsoftware.superiorskyblock.api.enums.SyncStatus;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeGeneratorRateEvent;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.bank.BankTransaction;
-import com.bgsoftware.superiorskyblock.api.island.bank.IslandBank;
 import com.bgsoftware.superiorskyblock.api.island.cache.IslandCache;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
-import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.key.KeyMap;
 import com.bgsoftware.superiorskyblock.api.missions.IMissionsHolder;
 import com.bgsoftware.superiorskyblock.api.missions.Mission;
-import com.bgsoftware.superiorskyblock.api.objects.Pair;
 import com.bgsoftware.superiorskyblock.api.persistence.IPersistentDataHolder;
 import com.bgsoftware.superiorskyblock.api.service.message.IMessageComponent;
 import com.bgsoftware.superiorskyblock.api.upgrades.Upgrade;
@@ -32,14 +27,12 @@ import com.bgsoftware.superiorskyblock.api.wrappers.WorldPosition;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
@@ -109,31 +102,9 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
     List<SuperiorPlayer> getBannedPlayers();
 
     /**
-     * Get the list of all visitors that are on the island, including vanished ones.
-     */
-    List<SuperiorPlayer> getIslandVisitors();
-
-    /**
-     * Get the list of all visitors that are on the island.
-     *
-     * @param vanishPlayers Should vanish players be included?
-     */
-    List<SuperiorPlayer> getIslandVisitors(boolean vanishPlayers);
-
-    /**
      * Get the list of all the players that are on the island.
      */
     List<SuperiorPlayer> getAllPlayersInside();
-
-    /**
-     * Get all the visitors that visited the island until now.
-     */
-    List<SuperiorPlayer> getUniqueVisitors();
-
-    /**
-     * Get all the visitors that visited the island until now, with the time they last visited.
-     */
-    List<Pair<SuperiorPlayer, Long>> getUniqueVisitorsWithTimes();
 
     /**
      * Invite a player to the island.
@@ -357,41 +328,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
      * @param homePosition The new home position.
      */
     void setIslandHome(Dimension dimension, @Nullable WorldPosition homePosition);
-
-    /**
-     * Get the visitors' teleport location of the island.
-     * If the world is unloaded, the location's getWorld method will return null.
-     *
-     * @param dimension The dimension to get the visitors-location from.
-     *                  Currently unused, it has no effect.
-     */
-    @Nullable
-    Location getVisitorsLocation(Dimension dimension);
-
-    /**
-     * Get the visitors' teleport position of the island.
-     *
-     * @param dimension The dimension to get the visitors-position from.
-     *                  Currently unused, it has no effect.
-     */
-    @Nullable
-    WorldPosition getVisitorsPosition(Dimension dimension);
-
-    /**
-     * Set the visitors' teleport location of the island.
-     *
-     * @param visitorsLocation The new visitors location.
-     */
-    void setVisitorsLocation(@Nullable Location visitorsLocation);
-
-    /**
-     * Set the visitors' teleport position of the island.
-     *
-     * @param dimension        The dimension to change the visitors-position.
-     *                         Currently unused, it has no effect.
-     * @param visitorsPosition The new visitors position.
-     */
-    void setVisitorsLocation(Dimension dimension, @Nullable WorldPosition visitorsPosition);
 
     /**
      * Get the minimum location of the island.
@@ -1223,23 +1159,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
     void setPaypal(String paypal);
 
     /**
-     * The current biome of the island.
-     */
-    Biome getBiome();
-
-    /**
-     * Change the biome of the island's area.
-     */
-    void setBiome(Biome biome);
-
-    /**
-     * Change the biome of the island's area.
-     *
-     * @param updateBlocks Whether the blocks get updated or not.
-     */
-    void setBiome(Biome biome, boolean updateBlocks);
-
-    /**
      * Check whether the island is locked to visitors.
      */
     boolean isLocked();
@@ -1386,57 +1305,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
      * @param lastTimeUpdate The last time the island was updated.
      */
     void setLastTimeUpdate(long lastTimeUpdate);
-
-    /*
-     *  Bank related methods
-     */
-
-    /**
-     * Get the bank of the island.
-     */
-    IslandBank getIslandBank();
-
-    /**
-     * Get the limit of the bank.
-     */
-    BigDecimal getBankLimit();
-
-    /**
-     * Set a new limit for the bank.
-     *
-     * @param bankLimit The limit to set. Use -1 to remove the limit.
-     */
-    void setBankLimit(BigDecimal bankLimit);
-
-    /**
-     * Get the limit of the bank that was set using a command.
-     */
-    BigDecimal getBankLimitRaw();
-
-    /**
-     * Give the bank interest to this island.
-     *
-     * @param checkOnlineOwner Check if the island-owner was online recently.
-     * @return Whether the money was given.
-     */
-    boolean giveInterest(boolean checkOnlineOwner);
-
-    /**
-     * Get the last time that the bank interest was given.
-     */
-    long getLastInterestTime();
-
-    /**
-     * Set the last time that the bank interest was given.
-     *
-     * @param lastInterest The time it was given.
-     */
-    void setLastInterestTime(long lastInterest);
-
-    /**
-     * Get the duration until the bank interest will be given again, in seconds
-     */
-    long getNextInterest();
 
     /*
      *  Worth related methods
@@ -2181,23 +2049,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
     int getTeamLimitRaw();
 
     /**
-     * Get the warps limit of the island.
-     */
-    int getWarpsLimit();
-
-    /**
-     * Set the warps limit for the island.
-     *
-     * @param warpsLimit The limit to set.
-     */
-    void setWarpsLimit(int warpsLimit);
-
-    /**
-     * Get the warps limit of the island that was set using a command.
-     */
-    int getWarpsLimitRaw();
-
-    /**
      * Add a potion effect to the island.
      *
      * @param type  The potion effect to add.
@@ -2301,137 +2152,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
      * Get all the custom role limits for the island.
      */
     Map<PlayerRole, Integer> getCustomRoleLimits();
-
-    /*
-     *  Warps related methods
-     */
-
-    /**
-     * Create a new warp category.
-     * If a category already exists, it will be returned instead of a new created one.
-     *
-     * @param name The name of the category.
-     */
-    WarpCategory createWarpCategory(String name);
-
-    /**
-     * Get a warp category.
-     *
-     * @param name The name of the category.
-     */
-    @Nullable
-    WarpCategory getWarpCategory(String name);
-
-    /**
-     * Get a warp category by the slot inside the manage menu.
-     *
-     * @param slot The slot to check.
-     */
-    @Nullable
-    WarpCategory getWarpCategory(int slot);
-
-    /**
-     * Rename a category.
-     *
-     * @param warpCategory The category to rename.
-     * @param newName      A new name to set.
-     */
-    void renameCategory(WarpCategory warpCategory, String newName);
-
-    /**
-     * Delete a warp category.
-     * All the warps inside it will be deleted as well.
-     *
-     * @param warpCategory The category to delete.
-     */
-    void deleteCategory(WarpCategory warpCategory);
-
-    /**
-     * Get all the warp categories of the island.
-     */
-    Map<String, WarpCategory> getWarpCategories();
-
-    /**
-     * Create a warp for the island.
-     *
-     * @param name         The name of the warp.
-     * @param location     The location of the warp.
-     * @param warpCategory The category to add the island.
-     * @return The new island warp object.
-     */
-    IslandWarp createWarp(String name, Location location, @Nullable WarpCategory warpCategory);
-
-    /**
-     * Create a warp for the island.
-     *
-     * @param name         The name of the warp.
-     * @param worldInfo    The world of the warp.
-     * @param position     The position of the warp.
-     * @param warpCategory The category to add the island.
-     * @return The new island warp object.
-     */
-    IslandWarp createWarp(String name, WorldInfo worldInfo, WorldPosition position, @Nullable WarpCategory warpCategory);
-
-    /**
-     * Rename a warp.
-     *
-     * @param islandWarp The warp to rename.
-     * @param newName    A new name to set.
-     */
-    void renameWarp(IslandWarp islandWarp, String newName);
-
-    /**
-     * Get an island warp in a specific location.
-     *
-     * @param location The location to check.
-     */
-    @Nullable
-    IslandWarp getWarp(Location location);
-
-    /**
-     * Get an island warp by it's name..
-     *
-     * @param name The name to check.
-     */
-    @Nullable
-    IslandWarp getWarp(String name);
-
-    /**
-     * Teleport a player to a warp.
-     *
-     * @param superiorPlayer The player to teleport.
-     * @param warpName       The warp's name to teleport the player to.
-     */
-    void warpPlayer(SuperiorPlayer superiorPlayer, String warpName);
-
-    /**
-     * Teleport a player to a warp.
-     *
-     * @param superiorPlayer The player to teleport.
-     * @param warpName       The warp's name to teleport the player to.
-     * @param force          Force teleportation of the player
-     */
-    void warpPlayer(SuperiorPlayer superiorPlayer, String warpName, boolean force);
-
-    /**
-     * Delete a warp from the island.
-     *
-     * @param superiorPlayer The player who requested the operation.
-     * @param location       The location of the warp.
-     */
-    void deleteWarp(@Nullable SuperiorPlayer superiorPlayer, Location location);
-
-    /**
-     * Delete a warp from the island.
-     *
-     * @param name The warp's name to delete.
-     */
-    void deleteWarp(String name);
-
-    /**
-     * Get all the warps of the island.
-     */
-    Map<String, IslandWarp> getIslandWarps();
 
     /*
      *  Ratings related methods
@@ -2839,10 +2559,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
 
         Map<Dimension, KeyMap<Integer>> getGeneratorRatesAsDimensions();
 
-        Builder addUniqueVisitor(SuperiorPlayer superiorPlayer, long visitTime);
-
-        Map<SuperiorPlayer, Long> getUniqueVisitors();
-
         Builder setEntityLimit(Key entity, int limit);
 
         KeyMap<Integer> getEntityLimits();
@@ -2859,12 +2575,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
 
         Map<PlayerRole, Integer> getRoleLimits();
 
-        Builder setVisitorHome(Location location, Dimension dimension);
-
-        Builder setVisitorHome(Dimension dimension, WorldPosition worldPosition);
-
-        Map<Dimension, Location> getVisitorHomesAsDimensions();
-
         Builder setIslandSize(int islandSize);
 
         int getIslandSize();
@@ -2872,10 +2582,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
         Builder setTeamLimit(int teamLimit);
 
         int getTeamLimit();
-
-        Builder setWarpsLimit(int warpsLimit);
-
-        int getWarpsLimit();
 
         Builder setCropGrowth(double cropGrowth);
 
@@ -2892,36 +2598,6 @@ public interface Island extends Comparable<Island>, IMissionsHolder, IPersistent
         Builder setCoopLimit(int coopLimit);
 
         int getCoopLimit();
-
-        Builder setBankLimit(BigDecimal bankLimit);
-
-        BigDecimal getBankLimit();
-
-        Builder setBalance(BigDecimal balance);
-
-        BigDecimal getBalance();
-
-        Builder setLastInterestTime(long lastInterestTime);
-
-        long getLastInterestTime();
-
-        Builder addWarp(String name, String category, Location location, boolean isPrivate, @Nullable ItemStack icon);
-
-        Builder addWarp(String name, String category, WorldInfo worldInfo, WorldPosition worldPosition, boolean isPrivate, @Nullable ItemStack icon);
-
-        boolean hasWarp(String name);
-
-        boolean hasWarp(Location location);
-
-        boolean hasWarp(WorldInfo worldInfo, WorldPosition worldPosition);
-
-        Builder addWarpCategory(String name, int slot, @Nullable ItemStack icon);
-
-        boolean hasWarpCategory(String name);
-
-        Builder addBankTransaction(BankTransaction bankTransaction);
-
-        List<BankTransaction> getBankTransactions();
 
         Builder setPersistentData(byte[] persistentData);
 

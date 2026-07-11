@@ -43,7 +43,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffectType;
 
 import java.io.File;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -272,7 +271,6 @@ public class UpgradesModule extends BuiltinModule<UpgradesModule.Configuration> 
             return;
         }
 
-        Value<Optional<BigDecimal>> bankLimit = Value.syncedFixed(readString(levelSection, "bank-limit").map(BigDecimal::new));
         KeyMap<Integer> blockLimits = KeyMaps.createArrayMap(KeyIndicator.MATERIAL);
         if (levelSection.isConfigurationSection("block-limits")) {
             for (String block : levelSection.getConfigurationSection("block-limits").getKeys(false)) {
@@ -322,7 +320,7 @@ public class UpgradesModule extends BuiltinModule<UpgradesModule.Configuration> 
         SUpgradeLevel upgradeLevel = new SUpgradeLevel(level, upgradeCost, commands, permission, requirements,
                 cropGrowth, spawnerRates, mobDrops, teamLimit, warpsLimit, coopLimit, borderSize,
                 Value.syncedFixed(blockLimits), Value.syncedFixed(entityLimits), Value.syncedFixed(generatorRates),
-                Value.syncedFixed(islandEffects), bankLimit, Value.syncedFixed(rolesLimits));
+                Value.syncedFixed(islandEffects), Value.syncedFixed(rolesLimits));
 
         upgrade.addUpgradeLevel(level, upgradeLevel);
     }

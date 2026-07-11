@@ -46,7 +46,6 @@ import com.bgsoftware.superiorskyblock.island.GridManagerImpl;
 import com.bgsoftware.superiorskyblock.island.cache.IslandCacheKeys;
 import com.bgsoftware.superiorskyblock.island.container.DefaultIslandsContainer;
 import com.bgsoftware.superiorskyblock.island.flag.IslandFlags;
-import com.bgsoftware.superiorskyblock.island.preview.DefaultIslandPreviews;
 import com.bgsoftware.superiorskyblock.island.privilege.IslandPrivileges;
 import com.bgsoftware.superiorskyblock.island.purge.DefaultIslandsPurger;
 import com.bgsoftware.superiorskyblock.island.role.RolesManagerImpl;
@@ -99,7 +98,7 @@ public class SuperiorSkyblockPlugin extends JavaPlugin implements SuperiorSkyblo
     /* Managers */
     private final DataManager dataHandler = new DataManager(this);
     private final FactoriesManagerImpl factoriesHandler = new FactoriesManagerImpl();
-    private final GridManagerImpl gridHandler = new GridManagerImpl(this, new DefaultIslandsPurger(), new DefaultIslandPreviews());
+    private final GridManagerImpl gridHandler = new GridManagerImpl(this, new DefaultIslandsPurger());
     private final StackedBlocksManagerImpl stackedBlocksHandler = new StackedBlocksManagerImpl(this, new DefaultStackedBlocksContainer());
     private final BlockValuesManagerImpl blockValuesHandler = new BlockValuesManagerImpl(this);
     private final SchematicsManagerImpl schematicsHandler = new SchematicsManagerImpl(this, new DefaultSchematicsContainer());

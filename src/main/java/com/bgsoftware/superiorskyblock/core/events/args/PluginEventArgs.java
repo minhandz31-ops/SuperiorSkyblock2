@@ -14,8 +14,6 @@ import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
 import com.bgsoftware.superiorskyblock.api.island.container.IslandsContainer;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
-import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.menu.view.MenuView;
 import com.bgsoftware.superiorskyblock.api.missions.IMissionsHolder;
@@ -78,26 +76,6 @@ public class PluginEventArgs {
     public static class IslandBan extends IslandDoActionArgs {
 
         public SuperiorPlayer targetPlayer;
-
-    }
-
-    public static class IslandBankDeposit extends IslandBankTransactionArgs {
-
-    }
-
-    public static class IslandBankWithdraw extends IslandBankTransactionArgs {
-
-    }
-
-    public static class IslandBiomeChange extends IslandDoActionArgs {
-
-        public Biome biome;
-
-    }
-
-    public static class IslandChangeBankLimit extends IslandDoActionArgs {
-
-        public BigDecimal bankLimit;
 
     }
 
@@ -204,37 +182,6 @@ public class PluginEventArgs {
 
     }
 
-    public static class IslandChangeWarpCategoryIcon extends WarpCategoryDoActionArgs {
-
-        public ItemStack icon;
-
-    }
-
-    public static class IslandChangeWarpCategorySlot extends WarpCategoryDoActionArgs {
-
-        public int slot;
-        public int maxSlot;
-
-    }
-
-    public static class IslandChangeWarpIcon extends IslandWarpDoActionArgs {
-
-        public ItemStack icon;
-
-    }
-
-    public static class IslandChangeWarpLocation extends IslandWarpDoActionArgs {
-
-        public Location location;
-
-    }
-
-    public static class IslandChangeWarpsLimit extends IslandDoActionArgs {
-
-        public int warpsLimit;
-
-    }
-
     public static class IslandChat extends IslandDoActionArgs {
 
         public String message;
@@ -276,10 +223,6 @@ public class PluginEventArgs {
 
     }
 
-    public static class IslandCloseWarp extends IslandWarpDoActionArgs {
-
-    }
-
     public static class IslandCoopPlayer extends IslandDoActionArgs {
 
         public SuperiorPlayer targetPlayer;
@@ -290,25 +233,6 @@ public class PluginEventArgs {
 
         public String schematicName;
         public boolean canTeleport = true;
-
-    }
-
-    public static class IslandCreateWarpCategory extends IslandDoActionArgs {
-
-        public String categoryName;
-
-    }
-
-    public static class IslandCreateWarp extends IslandDoActionArgs {
-
-        public String warpName;
-        public boolean openToPublic;
-        public Location location;
-        public WarpCategory warpCategory;
-
-    }
-
-    public static class IslandDeleteWarp extends IslandWarpDoActionArgs {
 
     }
 
@@ -401,10 +325,6 @@ public class PluginEventArgs {
 
     }
 
-    public static class IslandOpenWarp extends IslandWarpDoActionArgs {
-
-    }
-
     public static class IslandQuit extends IslandDoActionArgs {
 
     }
@@ -463,18 +383,6 @@ public class PluginEventArgs {
 
     }
 
-    public static class IslandRenameWarpCategory extends WarpCategoryDoActionArgs {
-
-        public String categoryName;
-
-    }
-
-    public static class IslandRenameWarp extends IslandWarpDoActionArgs {
-
-        public String warpName;
-
-    }
-
     public static class IslandRestrictMove extends IslandDoActionArgs {
 
         public IslandRestrictMoveEvent.RestrictReason restrictReason;
@@ -492,12 +400,6 @@ public class PluginEventArgs {
 
         public Location islandHome;
         public IslandSetHomeEvent.Reason reason;
-
-    }
-
-    public static class IslandSetVisitorHome extends IslandDoActionArgs {
-
-        public Location islandVisitorHome;
 
     }
 
@@ -533,16 +435,6 @@ public class PluginEventArgs {
         public List<String> commands;
         public IslandUpgradeEvent.Cause upgradeCause;
         public UpgradeCost upgradeCost;
-
-    }
-
-    public static class IslandVisitorHomeTeleport extends IslandDoActionArgs {
-
-        public Dimension dimension;
-
-    }
-
-    public static class IslandWarpTeleport extends IslandWarpDoActionArgs {
 
     }
 
@@ -697,18 +589,6 @@ public class PluginEventArgs {
 
         public Island island;
         public SuperiorPlayer superiorPlayer;
-
-    }
-
-    private static class WarpCategoryDoActionArgs extends IslandDoActionArgs {
-
-        public WarpCategory warpCategory;
-
-    }
-
-    private static class IslandWarpDoActionArgs extends IslandDoActionArgs {
-
-        public IslandWarp islandWarp;
 
     }
 

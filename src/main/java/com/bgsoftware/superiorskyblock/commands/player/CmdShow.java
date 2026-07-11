@@ -92,18 +92,12 @@ public class CmdShow implements ISuperiorCommand {
             infoMessage.append(Message.ISLAND_INFO_RATE.getMessage(locale, Formatters.RATING_FORMATTER.format(rating, locale),
                     Formatters.NUMBER_FORMATTER.format(rating), island.getRatingAmount())).append("\n");
         }
-        if (BuiltinModules.BANK.isEnabled()) {
-            if (!Message.ISLAND_INFO_BANK.isEmpty(locale))
-                infoMessage.append(Message.ISLAND_INFO_BANK.getMessage(locale, island.getIslandBank().getBalance())).append("\n");
-        }
         if (!Message.ISLAND_INFO_DISCORD.isEmpty(locale) && !"None".equals(island.getDiscord()) && island.hasPermission(sender, IslandPrivileges.DISCORD_SHOW)) {
             infoMessage.append(Message.ISLAND_INFO_DISCORD.getMessage(locale, island.getDiscord())).append("\n");
         }
         if (!Message.ISLAND_INFO_PAYPAL.isEmpty(locale) && !"None".equals(island.getPaypal()) && island.hasPermission(sender, IslandPrivileges.PAYPAL_SHOW)) {
             infoMessage.append(Message.ISLAND_INFO_PAYPAL.getMessage(locale, island.getPaypal())).append("\n");
         }
-        if (!Message.ISLAND_INFO_VISITORS_COUNT.isEmpty(locale))
-            infoMessage.append(Message.ISLAND_INFO_VISITORS_COUNT.getMessage(locale, island.getIslandVisitors(false).size(), island.getUniqueVisitorsWithTimes().size())).append("\n");
 
         if (!Message.ISLAND_INFO_ROLES.isEmpty(locale)) {
             Map<PlayerRole, StringBuilder> rolesStrings = new ArrayMap<>();

@@ -134,12 +134,6 @@ public class CmdAdminShow implements IAdminIslandCommand {
                     Formatters.NUMBER_FORMATTER.format(rating), island.getRatingAmount())).append("\n");
         }
 
-        if (BuiltinModules.BANK.isEnabled()) {
-            // Island balance
-            if (!Message.ISLAND_INFO_BANK.isEmpty(locale))
-                infoMessage.append(Message.ISLAND_INFO_BANK.getMessage(locale, island.getIslandBank().getBalance())).append("\n");
-        }
-
         // Island discord
         if (!Message.ISLAND_INFO_DISCORD.isEmpty(locale) && !"None".equals(island.getDiscord())) {
             infoMessage.append(Message.ISLAND_INFO_DISCORD.getMessage(locale, island.getDiscord())).append("\n");
@@ -169,17 +163,9 @@ public class CmdAdminShow implements IAdminIslandCommand {
         // Island team limit
         collectIslandData(locale, infoMessage, island::getTeamLimit, island::getTeamLimitRaw, Message.ISLAND_INFO_ADMIN_TEAM_LIMIT);
 
-        // Island warps limit
-        collectIslandData(locale, infoMessage, island::getWarpsLimit, island::getWarpsLimitRaw, Message.ISLAND_INFO_ADMIN_WARPS_LIMIT);
-
         // Island coop limit
         if (plugin.getSettings().isCoopMembers())
             collectIslandData(locale, infoMessage, island::getCoopLimit, island::getCoopLimitRaw, Message.ISLAND_INFO_ADMIN_COOP_LIMIT);
-
-        // Island bank limit
-        if (BuiltinModules.BANK.isEnabled())
-            collectIslandData(locale, infoMessage, island::getBankLimit, island::getBankLimitRaw, Message.ISLAND_INFO_ADMIN_BANK_LIMIT,
-                Formatters.NUMBER_FORMATTER::format);
 
         if (upgradesModule) {
             // Island spawners multiplier

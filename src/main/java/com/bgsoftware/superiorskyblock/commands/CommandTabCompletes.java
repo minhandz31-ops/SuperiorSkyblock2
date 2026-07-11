@@ -116,14 +116,6 @@ public class CommandTabCompletes {
         return Collections.unmodifiableList(tabArguments);
     }
 
-    public static List<String> getIslandWarps(Island island, String argument) {
-        return filterByArgument(island.getIslandWarps().keySet(), argument.toLowerCase(Locale.ENGLISH));
-    }
-
-    public static List<String> getIslandVisitors(Island island, String argument, boolean hideVanish) {
-        return getPlayers(island.getIslandVisitors(!hideVanish), argument);
-    }
-
     public static List<String> getCustomComplete(String argument, String... tabVariables) {
         return getCustomComplete(argument, Arrays.asList(tabVariables));
     }

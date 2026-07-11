@@ -92,18 +92,6 @@ public interface ProvidersManager {
     void setChunksProvider(ChunksProvider chunksProvider);
 
     /**
-     * Get the currently used bank-economy provider.
-     */
-    EconomyProvider getBankEconomyProvider();
-
-    /**
-     * Set custom economy provider for the island banks.
-     *
-     * @param economyProvider The economy provider to set.
-     */
-    void setBankEconomyProvider(EconomyProvider economyProvider);
-
-    /**
      * Get the currently used afk providers.
      */
     List<AFKProvider> getAFKProviders();

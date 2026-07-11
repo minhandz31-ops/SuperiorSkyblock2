@@ -12,7 +12,6 @@ import com.bgsoftware.superiorskyblock.api.key.KeyMap;
 import com.bgsoftware.superiorskyblock.api.objects.Pair;
 import com.bgsoftware.superiorskyblock.core.Text;
 import com.bgsoftware.superiorskyblock.core.database.loader.sql.SQLDatabase;
-import com.bgsoftware.superiorskyblock.core.database.loader.sql.upgrade.v0.attributes.BankTransactionsAttributes;
 import com.bgsoftware.superiorskyblock.core.database.loader.sql.upgrade.v0.attributes.GridAttributes;
 import com.bgsoftware.superiorskyblock.core.database.loader.sql.upgrade.v0.attributes.IslandAttributes;
 import com.bgsoftware.superiorskyblock.core.database.loader.sql.upgrade.v0.attributes.IslandChestAttributes;
@@ -57,7 +56,6 @@ public class DatabaseConverter {
     private static final List<PlayerAttributes> loadedPlayers = new ArrayList<>();
     private static final List<IslandAttributes> loadedIslands = new ArrayList<>();
     private static final List<StackedBlockAttributes> loadedBlocks = new ArrayList<>();
-    private static final List<BankTransactionsAttributes> loadedBankTransactions = new ArrayList<>();
     private static final IDeserializer deserializer = new MultipleDeserializer(
             EmptyParameterGuardDeserializer.getInstance(),
             JsonDeserializer.INSTANCE,
@@ -104,19 +102,6 @@ public class DatabaseConverter {
 
         Log.info("[Database-Converter] Found ", loadedBlocks.size(), " stacked blocks in the database.");
 
-        // Ignoring errors as the bankTransactions table may not exist.
-        AtomicBoolean foundBankTransaction = new AtomicBoolean(false);
-        DBSession.select("bankTransactions", "", new QueryResult<ResultSet>().onSuccess(resultSet -> {
-            foundBankTransaction.set(true);
-            while (resultSet.next()) {
-                loadedBankTransactions.add(loadBankTransaction(new ResultSetMapBridge(resultSet)));
-            }
-        }));
-
-        if (foundBankTransaction.get()) {
-            Log.info("[Database-Converter] Found ", loadedBankTransactions.size(), " bank transactions in the database.");
-        }
-
         DBSession.select("grid", "", new QueryResult<ResultSet>().onSuccess(resultSet -> {
             if (resultSet.next()) {
                 gridAttributes = new GridAttributes()
@@ -149,7 +134,6 @@ public class DatabaseConverter {
         savePlayers();
         saveIslands();
         saveStackedBlocks();
-        saveBankTransactions();
         saveGrid();
     }
 
@@ -309,31 +293,6 @@ public class DatabaseConverter {
 
         try {
             DBSession.execute(stackedBlocksTransaction).get();
-        } catch (InterruptedException | ExecutionException error) {
-            error.printStackTrace();
-        }
-    }
-
-    private static void saveBankTransactions() {
-        Log.info("[Database-Converter] Converting bank transactions...");
-
-        CustomSQLDatabaseTransaction bankTransactionsTransaction = new CustomSQLDatabaseTransaction(
-                "REPLACE INTO {prefix}bank_transactions VALUES(?,?,?,?,?,?,?)");
-
-        for (BankTransactionsAttributes bankTransactionsAttributes : loadedBankTransactions) {
-            bankTransactionsTransaction
-                    .bindObject(bankTransactionsAttributes.getValue(BankTransactionsAttributes.Field.ISLAND))
-                    .bindObject(bankTransactionsAttributes.getValue(BankTransactionsAttributes.Field.PLAYER))
-                    .bindObject(bankTransactionsAttributes.getValue(BankTransactionsAttributes.Field.BANK_ACTION))
-                    .bindObject(bankTransactionsAttributes.getValue(BankTransactionsAttributes.Field.POSITION))
-                    .bindObject(bankTransactionsAttributes.getValue(BankTransactionsAttributes.Field.TIME))
-                    .bindObject(bankTransactionsAttributes.getValue(BankTransactionsAttributes.Field.FAILURE_REASON))
-                    .bindObject(bankTransactionsAttributes.getValue(BankTransactionsAttributes.Field.AMOUNT))
-                    .newBatch();
-        }
-
-        try {
-            DBSession.execute(bankTransactionsTransaction).get();
         } catch (InterruptedException | ExecutionException error) {
             error.printStackTrace();
         }
@@ -694,17 +653,6 @@ public class DatabaseConverter {
                 .setValue(StackedBlockAttributes.Field.LOCATION, world + ", " + x + ", " + y + ", " + z)
                 .setValue(StackedBlockAttributes.Field.BLOCK_TYPE, blockType)
                 .setValue(StackedBlockAttributes.Field.AMOUNT, amount);
-    }
-
-    private static BankTransactionsAttributes loadBankTransaction(ResultSetMapBridge resultSet) {
-        return new BankTransactionsAttributes()
-                .setValue(BankTransactionsAttributes.Field.ISLAND, resultSet.get("island"))
-                .setValue(BankTransactionsAttributes.Field.PLAYER, resultSet.get("player"))
-                .setValue(BankTransactionsAttributes.Field.BANK_ACTION, resultSet.get("bankAction"))
-                .setValue(BankTransactionsAttributes.Field.POSITION, resultSet.get("position"))
-                .setValue(BankTransactionsAttributes.Field.TIME, resultSet.get("time"))
-                .setValue(BankTransactionsAttributes.Field.FAILURE_REASON, resultSet.get("failureReason"))
-                .setValue(BankTransactionsAttributes.Field.AMOUNT, resultSet.get("amount"));
     }
 
     public static PlayerAttributes getPlayerAttributes(String uuid) {

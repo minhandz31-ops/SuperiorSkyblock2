@@ -2,8 +2,6 @@ package com.bgsoftware.superiorskyblock.core.factory;
 
 import com.bgsoftware.common.annotations.Nullable;
 import com.bgsoftware.superiorskyblock.api.data.DatabaseBridge;
-import com.bgsoftware.superiorskyblock.api.enums.BankAction;
-import com.bgsoftware.superiorskyblock.api.factory.BanksFactory;
 import com.bgsoftware.superiorskyblock.api.factory.DatabaseBridgeFactory;
 import com.bgsoftware.superiorskyblock.api.factory.IslandsFactory;
 import com.bgsoftware.superiorskyblock.api.factory.PlayersFactory;
@@ -13,8 +11,6 @@ import com.bgsoftware.superiorskyblock.api.handlers.StackedBlocksManager;
 import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandBlocksTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.api.island.algorithms.IslandEntitiesTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.api.island.bank.BankTransaction;
-import com.bgsoftware.superiorskyblock.api.island.bank.IslandBank;
 import com.bgsoftware.superiorskyblock.api.persistence.PersistentDataContainer;
 import com.bgsoftware.superiorskyblock.api.player.algorithm.PlayerTeleportAlgorithm;
 import com.bgsoftware.superiorskyblock.api.schematic.SchematicOptions;
@@ -37,8 +33,6 @@ import com.bgsoftware.superiorskyblock.core.persistence.PersistentDataContainerI
 import com.bgsoftware.superiorskyblock.island.SIsland;
 import com.bgsoftware.superiorskyblock.island.algorithm.DefaultIslandBlocksTrackerAlgorithm;
 import com.bgsoftware.superiorskyblock.island.algorithm.DefaultIslandEntitiesTrackerAlgorithm;
-import com.bgsoftware.superiorskyblock.island.bank.SBankTransaction;
-import com.bgsoftware.superiorskyblock.island.bank.SIslandBank;
 import com.bgsoftware.superiorskyblock.island.builder.IslandBuilderImpl;
 import com.bgsoftware.superiorskyblock.player.SSuperiorPlayer;
 import com.bgsoftware.superiorskyblock.player.algorithm.DefaultPlayerTeleportAlgorithm;
@@ -50,15 +44,12 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 
-import java.math.BigDecimal;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public class FactoriesManagerImpl implements FactoriesManager {
 
     private IslandsFactory islandsFactory = DefaultIslandsFactory.getInstance();
     private PlayersFactory playersFactory = DefaultPlayersFactory.getInstance();
-    private BanksFactory banksFactory = DefaultBanksFactory.getInstance();
     private DatabaseBridgeFactory databaseBridgeFactory = DefaultDatabaseBridgeFactory.getInstance();
 
     @Override
@@ -79,16 +70,6 @@ public class FactoriesManagerImpl implements FactoriesManager {
     @Override
     public PlayersFactory getPlayersFactory() {
         return playersFactory;
-    }
-
-    @Override
-    public void registerBanksFactory(@Nullable BanksFactory banksFactory) {
-        this.banksFactory = banksFactory == null ? DefaultBanksFactory.getInstance() : banksFactory;
-    }
-
-    @Override
-    public BanksFactory getBanksFactory() {
-        return banksFactory;
     }
 
     @Override
@@ -186,14 +167,6 @@ public class FactoriesManagerImpl implements FactoriesManager {
     }
 
     @Override
-    public BankTransaction createTransaction(@Nullable UUID player, BankAction action, int position, long time,
-                                             String failureReason, BigDecimal amount) {
-        Preconditions.checkNotNull(action, "action parameter cannot be null");
-        Preconditions.checkNotNull(amount, "amount parameter cannot be null");
-        return new SBankTransaction(player, action, position, time, failureReason, amount);
-    }
-
-    @Override
     public WorldInfo createWorldInfo(String worldName, Dimension dimension) {
         Preconditions.checkNotNull(worldName, "worldName parameter cannot be null");
         Preconditions.checkNotNull(dimension, "dimension parameter cannot be null");
@@ -210,10 +183,6 @@ public class FactoriesManagerImpl implements FactoriesManager {
     public SchematicOptions.Builder createSchematicOptionsBuilder(String schematicName) {
         Preconditions.checkNotNull(schematicName, "schematicName parameter cannot be null");
         return new SchematicOptionsBuilderImpl(schematicName);
-    }
-
-    public IslandBank createIslandBank(Island island, Supplier<Boolean> isGiveInterestFailed) {
-        return banksFactory.createIslandBank(island, new SIslandBank(island, isGiveInterestFailed));
     }
 
     public IslandBlocksTrackerAlgorithm createIslandBlocksTrackerAlgorithm(Island island) {

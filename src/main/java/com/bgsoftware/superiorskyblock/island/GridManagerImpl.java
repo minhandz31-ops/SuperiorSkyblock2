@@ -8,7 +8,6 @@ import com.bgsoftware.superiorskyblock.api.handlers.GridManager;
 import com.bgsoftware.superiorskyblock.api.hooks.LazyWorldsProvider;
 import com.bgsoftware.superiorskyblock.api.hooks.WorldsProvider;
 import com.bgsoftware.superiorskyblock.api.island.Island;
-import com.bgsoftware.superiorskyblock.api.island.IslandPreview;
 import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.island.container.IslandsContainer;
 import com.bgsoftware.superiorskyblock.api.menu.view.MenuView;
@@ -42,10 +41,7 @@ import com.bgsoftware.superiorskyblock.core.threads.BukkitExecutor;
 import com.bgsoftware.superiorskyblock.core.threads.Synchronized;
 import com.bgsoftware.superiorskyblock.island.algorithm.DefaultIslandCreationAlgorithm;
 import com.bgsoftware.superiorskyblock.island.builder.IslandBuilderImpl;
-import com.bgsoftware.superiorskyblock.island.preview.IslandPreviews;
-import com.bgsoftware.superiorskyblock.island.preview.SIslandPreview;
 import com.bgsoftware.superiorskyblock.island.purge.IslandsPurger;
-import com.bgsoftware.superiorskyblock.player.chat.PlayerChat;
 import com.bgsoftware.superiorskyblock.world.WorldBlocks;
 import com.bgsoftware.superiorskyblock.world.schematic.BaseSchematic;
 import com.google.common.base.Preconditions;
@@ -55,7 +51,6 @@ import org.bukkit.Chunk;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -90,7 +85,6 @@ public class GridManagerImpl extends Manager implements GridManager {
     };
 
     private final IslandsPurger islandsPurger;
-    private final IslandPreviews islandPreviews;
     private IslandsContainer islandsContainer;
     private DatabaseBridge databaseBridge;
     private IslandCreationAlgorithm islandCreationAlgorithm;
@@ -112,10 +106,9 @@ public class GridManagerImpl extends Manager implements GridManager {
         }
     };
 
-    public GridManagerImpl(SuperiorSkyblockPlugin plugin, IslandsPurger islandsPurger, IslandPreviews islandPreviews) {
+    public GridManagerImpl(SuperiorSkyblockPlugin plugin, IslandsPurger islandsPurger) {
         super(plugin);
         this.islandsPurger = islandsPurger;
-        this.islandPreviews = islandPreviews;
     }
 
     @Override
@@ -151,51 +144,46 @@ public class GridManagerImpl extends Manager implements GridManager {
     }
 
     @Override
-    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, Biome biome, String islandName) {
+    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, String islandName) {
         Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
         Preconditions.checkNotNull(schematicName, "schematicName parameter cannot be null.");
-        Preconditions.checkNotNull(biome, "biome parameter cannot be null.");
         Preconditions.checkNotNull(islandName, "islandName parameter cannot be null.");
-        createIsland(superiorPlayer, schematicName, biome, islandName, false);
+        createIsland(superiorPlayer, schematicName, islandName, false);
     }
 
     @Override
-    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, Biome biome, String islandName, boolean offset) {
+    public void createIsland(SuperiorPlayer superiorPlayer, String schematicName, String islandName, boolean offset) {
         Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
         Preconditions.checkNotNull(schematicName, "schematicName parameter cannot be null.");
-        Preconditions.checkNotNull(biome, "biome parameter cannot be null.");
         Preconditions.checkNotNull(islandName, "islandName parameter cannot be null.");
-        createIsland(superiorPlayer, schematicName, biome, islandName, offset, null);
+        createIsland(superiorPlayer, schematicName, islandName, offset, null);
     }
 
     @Override
     public void createIsland(SuperiorPlayer superiorPlayer, String schematicName,
-                             Biome biome, String islandName, boolean offset,
+                             String islandName, boolean offset,
                              @Nullable BlockOffset spawnOffset) {
         Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
         Preconditions.checkNotNull(schematicName, "schematicName parameter cannot be null.");
-        Preconditions.checkNotNull(biome, "biome parameter cannot be null.");
         Preconditions.checkNotNull(islandName, "islandName parameter cannot be null.");
         Island.Builder builder = Island.newBuilder()
                 .setOwner(superiorPlayer)
                 .setSchematicName(schematicName)
                 .setName(islandName);
 
-        createIsland(builder, biome, offset, spawnOffset);
+        createIsland(builder, offset, spawnOffset);
     }
 
     @Override
-    public void createIsland(Island.Builder builderParam, Biome biome, boolean offset) {
+    public void createIsland(Island.Builder builderParam, boolean offset) {
         Preconditions.checkNotNull(builderParam, "builder parameter cannot be null.");
-        Preconditions.checkNotNull(biome, "biome parameter cannot be null.");
         Preconditions.checkArgument(builderParam instanceof IslandBuilderImpl, "Cannot create islands out of a custom builder.");
-        createIsland(builderParam, biome, offset, null);
+        createIsland(builderParam, offset, null);
     }
 
     @Override
-    public void createIsland(Island.Builder builderParam, Biome biome, boolean offset, @Nullable BlockOffset spawnOffset) {
+    public void createIsland(Island.Builder builderParam, boolean offset, @Nullable BlockOffset spawnOffset) {
         Preconditions.checkNotNull(builderParam, "builder parameter cannot be null.");
-        Preconditions.checkNotNull(biome, "biome parameter cannot be null.");
         Preconditions.checkArgument(builderParam instanceof IslandBuilderImpl, "Cannot create islands out of a custom builder.");
 
         IslandBuilderImpl builder = (IslandBuilderImpl) builderParam;
@@ -208,27 +196,24 @@ public class GridManagerImpl extends Manager implements GridManager {
 
         try {
             if (!Bukkit.isPrimaryThread()) {
-                BukkitExecutor.sync(() -> createIslandInternalAsync(builder, biome, offset, schematic, spawnOffset));
+                BukkitExecutor.sync(() -> createIslandInternalAsync(builder, offset, schematic, spawnOffset));
             } else {
-                createIslandInternalAsync(builder, biome, offset, schematic, spawnOffset);
+                createIslandInternalAsync(builder, offset, schematic, spawnOffset);
             }
         } catch (Throwable error) {
-            Log.entering("ENTER", builder.owner.getName(), builder.islandType, biome, offset);
+            Log.entering("ENTER", builder.owner.getName(), builder.islandType, offset);
             Log.error(error, "An unexpected error occurred while creating an island:");
             builder.owner.setIsland(null);
             Message.CREATE_ISLAND_FAILURE.send(builder.owner);
         }
     }
 
-    private void createIslandInternalAsync(IslandBuilderImpl builder, Biome biome, boolean offset,
+    private void createIslandInternalAsync(IslandBuilderImpl builder, boolean offset,
                                            Schematic schematic, @Nullable BlockOffset spawnOffset) {
         assert builder.owner != null;
 
         Log.debug(Debug.CREATE_ISLAND, builder.owner.getName(),
-                builder.islandName, offset, biome, schematic.getName());
-
-        // Removing any active previews for the player.
-        boolean updateGameMode = this.islandPreviews.endIslandPreview(builder.owner) != null;
+                builder.islandName, offset, schematic.getName());
 
         if (!PluginEventsFactory.callPreIslandCreateEvent(builder.owner, builder.islandName))
             return;
@@ -247,8 +232,8 @@ public class GridManagerImpl extends Manager implements GridManager {
                 Log.debugResult(Debug.CREATE_ISLAND, "Creation Callback", "Successfully created island");
 
                 try {
-                    createIslandInternalOnSuccessCallback(builder, biome, offset, spawnOffset,
-                            schematic, updateGameMode, startTime, islandCreationResult);
+                    createIslandInternalOnSuccessCallback(builder, offset, spawnOffset,
+                            schematic, startTime, islandCreationResult);
                     return;
                 } catch (Throwable runtimeError) {
                     error = runtimeError;
@@ -258,7 +243,7 @@ public class GridManagerImpl extends Manager implements GridManager {
             Log.debugResult(Debug.CREATE_ISLAND, "Creation Callback", "Failed to create island");
 
             Log.entering(builder.owner.getName(), builder.islandName,
-                    offset, biome, schematic.getName());
+                    offset, schematic.getName());
 
             if (error != null)
                 Log.error(error, "An unexpected error occurred while creating an island:");
@@ -269,9 +254,9 @@ public class GridManagerImpl extends Manager implements GridManager {
         });
     }
 
-    private void createIslandInternalOnSuccessCallback(IslandBuilderImpl builder, Biome biome, boolean offset,
+    private void createIslandInternalOnSuccessCallback(IslandBuilderImpl builder, boolean offset,
                                                        @Nullable BlockOffset spawnOffset, Schematic schematic,
-                                                       boolean updateGameMode, long startTime,
+                                                       long startTime,
                                                        IslandCreationAlgorithm.IslandCreationResult islandCreationResult) {
         switch (islandCreationResult.getStatus()) {
             case NAME_OCCUPIED:
@@ -308,7 +293,6 @@ public class GridManagerImpl extends Manager implements GridManager {
         try {
             island.getDatabaseBridge().setDatabaseBridgeMode(DatabaseBridgeMode.IDLE);
 
-            island.setBiome(biome, false);
             island.setSchematicGenerate(defaultDimension);
             island.setCurrentlyActive(true);
         } finally {
@@ -324,9 +308,6 @@ public class GridManagerImpl extends Manager implements GridManager {
         island.setIslandHome(defaultDimension, SWorldPosition.of(homeLocation));
 
         BukkitExecutor.sync(() -> builder.owner.runIfOnline(player -> {
-            if (updateGameMode)
-                player.setGameMode(GameMode.SURVIVAL);
-
             if (!teleportPlayer) {
                 Log.debugResult(Debug.CREATE_ISLAND, "Creation Callback", "Do not teleport player");
 
@@ -344,10 +325,8 @@ public class GridManagerImpl extends Manager implements GridManager {
 
                     if (result) {
                         if (affectedChunks != null) {
-                            BukkitExecutor.sync(() -> {
-                                IslandUtils.resetChunksExcludedFromList(island, affectedChunks);
-                                island.setBiome(biome, true);
-                            }, 10L);
+                            BukkitExecutor.sync(() ->
+                                    IslandUtils.resetChunksExcludedFromList(island, affectedChunks), 10L);
                         }
 
                         if (defaultDimension.getEnvironment() == World.Environment.THE_END) {
@@ -380,78 +359,6 @@ public class GridManagerImpl extends Manager implements GridManager {
     public boolean hasActiveCreateRequest(SuperiorPlayer superiorPlayer) {
         Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
         return pendingCreationTasks.contains(superiorPlayer.getUniqueId());
-    }
-
-    @Override
-    public void startIslandPreview(SuperiorPlayer superiorPlayer, String schematicName, String islandName) {
-        Preconditions.checkNotNull(schematicName, "schematicName parameter cannot be null.");
-        startIslandPreview(superiorPlayer, plugin.getSchematics().getSchematic(schematicName), islandName);
-    }
-
-    public void startIslandPreview(SuperiorPlayer superiorPlayer, Schematic schematic, String islandName) {
-        Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
-        Preconditions.checkNotNull(schematic, "schematic parameter cannot be null.");
-        Preconditions.checkNotNull(islandName, "islandName parameter cannot be null.");
-
-        Location previewLocation = plugin.getSettings().getIslandPreviews().getLocations().get(schematic.getName().toLowerCase(Locale.ENGLISH));
-        if (previewLocation != null && previewLocation.getWorld() != null) {
-            superiorPlayer.teleport(previewLocation, result -> {
-                if (result) {
-                    this.islandPreviews.startIslandPreview(new SIslandPreview(superiorPlayer, previewLocation, schematic, islandName, superiorPlayer.asPlayer().getGameMode()));
-                    BukkitExecutor.ensureMain(() -> superiorPlayer.runIfOnline(player -> player.setGameMode(plugin.getSettings().getIslandPreviews().getGameMode())));
-                    Message.ISLAND_PREVIEW_START.send(superiorPlayer, schematic.getName());
-                }
-            });
-        }
-    }
-
-    @Override
-    public void cancelIslandPreview(SuperiorPlayer superiorPlayer) {
-        Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
-
-        IslandPreview islandPreview = this.islandPreviews.endIslandPreview(superiorPlayer);
-        if (islandPreview != null) {
-            superiorPlayer.runIfOnline(player -> {
-                BukkitExecutor.ensureMain(() -> superiorPlayer.teleport(plugin.getGrid().getSpawnIsland(), teleportResult -> {
-                    if (teleportResult && superiorPlayer.isOnline())
-                        player.setGameMode(islandPreview.getPreviousGameMode());
-                }));
-                PlayerChat.remove(player);
-            });
-        }
-    }
-
-    @Override
-    public void cancelAllIslandPreviews() {
-        if (!Bukkit.isPrimaryThread()) {
-            BukkitExecutor.sync(this::cancelAllIslandPreviewsSync);
-        } else {
-            cancelAllIslandPreviewsSync();
-        }
-    }
-
-    private void cancelAllIslandPreviewsSync() {
-        if (!Bukkit.isPrimaryThread()) {
-            Log.warn("Trying to cancel all island previews asynchronous. Stack trace:");
-            new Exception().printStackTrace();
-        }
-
-        this.islandPreviews.getActivePreviews().forEach(islandPreview -> {
-            SuperiorPlayer superiorPlayer = islandPreview.getPlayer();
-            superiorPlayer.runIfOnline(player -> {
-                superiorPlayer.teleport(plugin.getGrid().getSpawnIsland());
-                // We don't wait for the teleport to happen, as this method is called when the server is disabled.
-                // Therefore, we can't wait for the async task to occur.
-                player.setGameMode(GameMode.SURVIVAL);
-                PlayerChat.remove(player);
-            });
-        });
-    }
-
-    @Override
-    public IslandPreview getIslandPreview(SuperiorPlayer superiorPlayer) {
-        Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
-        return this.islandPreviews.getIslandPreview(superiorPlayer);
     }
 
     @Override
@@ -916,7 +823,6 @@ public class GridManagerImpl extends Manager implements GridManager {
 
     public void disablePlugin() {
         this.pluginDisable = true;
-        cancelAllIslandPreviews();
     }
 
     public boolean wasPluginDisabled() {

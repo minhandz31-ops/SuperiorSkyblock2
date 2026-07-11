@@ -14,8 +14,6 @@ import com.bgsoftware.superiorskyblock.api.events.IslandUpgradeEvent;
 import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
-import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.menu.view.MenuView;
 import com.bgsoftware.superiorskyblock.api.missions.IMissionsHolder;
@@ -99,50 +97,6 @@ public class PluginEventsFactory {
         islandBan.superiorPlayer = superiorPlayer;
         islandBan.targetPlayer = targetPlayer;
         return !fireEvent(ISLAND_BAN_EVENT, islandBan).isCancelled();
-    }
-
-    public static PluginEvent<IslandBankDeposit> callIslandBankDepositEvent(Island island, CommandSender commandSender, BigDecimal amount) {
-        return callIslandBankDepositEvent(island, commandSenderToSuperiorPlayer(commandSender), amount);
-    }
-
-    public static PluginEvent<IslandBankDeposit> callIslandBankDepositEvent(Island island, @Nullable SuperiorPlayer superiorPlayer, BigDecimal amount) {
-        IslandBankDeposit islandBankDeposit = new IslandBankDeposit();
-        islandBankDeposit.island = island;
-        islandBankDeposit.superiorPlayer = superiorPlayer;
-        islandBankDeposit.amount = amount;
-        return fireEvent(ISLAND_BANK_DEPOSIT_EVENT, islandBankDeposit);
-    }
-
-    public static PluginEvent<IslandBankWithdraw> callIslandBankWithdrawEvent(Island island, CommandSender commandSender, BigDecimal amount) {
-        return callIslandBankWithdrawEvent(island, commandSenderToSuperiorPlayer(commandSender), amount);
-    }
-
-    public static PluginEvent<IslandBankWithdraw> callIslandBankWithdrawEvent(Island island, @Nullable SuperiorPlayer superiorPlayer, BigDecimal amount) {
-        IslandBankWithdraw islandBankWithdraw = new IslandBankWithdraw();
-        islandBankWithdraw.island = island;
-        islandBankWithdraw.superiorPlayer = superiorPlayer;
-        islandBankWithdraw.amount = amount;
-        return fireEvent(ISLAND_BANK_WITHDRAW_EVENT, islandBankWithdraw);
-    }
-
-    public static PluginEvent<IslandBiomeChange> callIslandBiomeChangeEvent(Island island, SuperiorPlayer superiorPlayer, Biome biome) {
-        IslandBiomeChange islandBiomeChange = new IslandBiomeChange();
-        islandBiomeChange.island = island;
-        islandBiomeChange.superiorPlayer = superiorPlayer;
-        islandBiomeChange.biome = biome;
-        return fireEvent(ISLAND_BIOME_CHANGE_EVENT, islandBiomeChange);
-    }
-
-    public static PluginEvent<IslandChangeBankLimit> callIslandChangeBankLimitEvent(Island island, CommandSender commandSender, BigDecimal bankLimit) {
-        return callIslandChangeBankLimitEvent(island, commandSenderToSuperiorPlayer(commandSender), bankLimit);
-    }
-
-    public static PluginEvent<IslandChangeBankLimit> callIslandChangeBankLimitEvent(Island island, @Nullable SuperiorPlayer superiorPlayer, BigDecimal bankLimit) {
-        IslandChangeBankLimit islandChangeBankLimit = new IslandChangeBankLimit();
-        islandChangeBankLimit.island = island;
-        islandChangeBankLimit.superiorPlayer = superiorPlayer;
-        islandChangeBankLimit.bankLimit = bankLimit;
-        return fireEvent(ISLAND_CHANGE_BANK_LIMIT_EVENT, islandChangeBankLimit);
     }
 
     public static PluginEvent<IslandChangeBlockLimit> callIslandChangeBlockLimitEvent(Island island, CommandSender commandSender, Key block, int blockLimit) {
@@ -325,64 +279,6 @@ public class PluginEventsFactory {
         return fireEvent(ISLAND_CHANGE_SPAWNER_RATES_EVENT, islandChangeSpawnerRates);
     }
 
-    public static PluginEvent<IslandChangeWarpCategoryIcon> callIslandChangeWarpCategoryIconEvent(Island island, SuperiorPlayer superiorPlayer,
-                                                                                                  WarpCategory warpCategory, @Nullable ItemStack icon) {
-        IslandChangeWarpCategoryIcon islandChangeWarpCategoryIcon = new IslandChangeWarpCategoryIcon();
-        islandChangeWarpCategoryIcon.island = island;
-        islandChangeWarpCategoryIcon.superiorPlayer = superiorPlayer;
-        islandChangeWarpCategoryIcon.warpCategory = warpCategory;
-        islandChangeWarpCategoryIcon.icon = icon;
-        return fireEvent(ISLAND_CHANGE_WARP_CATEGORY_ICON_EVENT, islandChangeWarpCategoryIcon);
-    }
-
-    public static PluginEvent<IslandChangeWarpCategorySlot> callIslandChangeWarpCategorySlotEvent(Island island, SuperiorPlayer superiorPlayer,
-                                                                                                  WarpCategory warpCategory, int slot, int maxSlot) {
-        IslandChangeWarpCategorySlot islandChangeWarpCategorySlot = new IslandChangeWarpCategorySlot();
-        islandChangeWarpCategorySlot.island = island;
-        islandChangeWarpCategorySlot.superiorPlayer = superiorPlayer;
-        islandChangeWarpCategorySlot.warpCategory = warpCategory;
-        islandChangeWarpCategorySlot.slot = slot;
-        islandChangeWarpCategorySlot.maxSlot = maxSlot;
-        return fireEvent(ISLAND_CHANGE_WARP_CATEGORY_SLOT_EVENT, islandChangeWarpCategorySlot);
-    }
-
-    public static PluginEvent<IslandChangeWarpIcon> callIslandChangeWarpIconEvent(Island island, SuperiorPlayer superiorPlayer,
-                                                                                  IslandWarp islandWarp, @Nullable ItemStack icon) {
-        IslandChangeWarpIcon islandChangeWarpIcon = new IslandChangeWarpIcon();
-        islandChangeWarpIcon.island = island;
-        islandChangeWarpIcon.superiorPlayer = superiorPlayer;
-        islandChangeWarpIcon.islandWarp = islandWarp;
-        islandChangeWarpIcon.icon = icon;
-        return fireEvent(ISLAND_CHANGE_WARP_ICON_EVENT, islandChangeWarpIcon);
-    }
-
-    public static PluginEvent<IslandChangeWarpLocation> callIslandChangeWarpLocationEvent(Island island, Player player,
-                                                                                          IslandWarp islandWarp, Location location) {
-        return callIslandChangeWarpLocationEvent(island, commandSenderToSuperiorPlayer(player), islandWarp, location);
-    }
-
-    public static PluginEvent<IslandChangeWarpLocation> callIslandChangeWarpLocationEvent(Island island, SuperiorPlayer superiorPlayer,
-                                                                                          IslandWarp islandWarp, Location location) {
-        IslandChangeWarpLocation islandChangeWarpLocation = new IslandChangeWarpLocation();
-        islandChangeWarpLocation.island = island;
-        islandChangeWarpLocation.superiorPlayer = superiorPlayer;
-        islandChangeWarpLocation.islandWarp = islandWarp;
-        islandChangeWarpLocation.location = location;
-        return fireEvent(ISLAND_CHANGE_WARP_LOCATION_EVENT, islandChangeWarpLocation);
-    }
-
-    public static PluginEvent<IslandChangeWarpsLimit> callIslandChangeWarpsLimitEvent(Island island, CommandSender commandSender, int warpsLimit) {
-        return callIslandChangeWarpsLimitEvent(island, commandSenderToSuperiorPlayer(commandSender), warpsLimit);
-    }
-
-    public static PluginEvent<IslandChangeWarpsLimit> callIslandChangeWarpsLimitEvent(Island island, @Nullable SuperiorPlayer superiorPlayer, int warpsLimit) {
-        IslandChangeWarpsLimit islandChangeWarpsLimit = new IslandChangeWarpsLimit();
-        islandChangeWarpsLimit.island = island;
-        islandChangeWarpsLimit.superiorPlayer = superiorPlayer;
-        islandChangeWarpsLimit.warpsLimit = warpsLimit;
-        return fireEvent(ISLAND_CHANGE_WARPS_LIMIT_EVENT, islandChangeWarpsLimit);
-    }
-
     public static boolean callIslandChangeRolePrivilegeEvent(Island island, CommandSender commandSender, PlayerRole playerRole) {
         return callIslandChangeRolePrivilegeEvent(island, commandSenderToSuperiorPlayer(commandSender), playerRole);
     }
@@ -475,14 +371,6 @@ public class PluginEventsFactory {
         return !fireEvent(ISLAND_CLOSE_EVENT, islandClose).isCancelled();
     }
 
-    public static boolean callIslandCloseWarpEvent(Island island, SuperiorPlayer superiorPlayer, IslandWarp islandWarp) {
-        IslandCloseWarp islandCloseWarp = new IslandCloseWarp();
-        islandCloseWarp.island = island;
-        islandCloseWarp.superiorPlayer = superiorPlayer;
-        islandCloseWarp.islandWarp = islandWarp;
-        return !fireEvent(ISLAND_CLOSE_WARP_EVENT, islandCloseWarp).isCancelled();
-    }
-
     public static boolean callIslandCoopPlayerEvent(Island island, SuperiorPlayer superiorPlayer, SuperiorPlayer targetPlayer) {
         IslandCoopPlayer islandCoopPlayer = new IslandCoopPlayer();
         islandCoopPlayer.island = island;
@@ -498,43 +386,6 @@ public class PluginEventsFactory {
         islandCreate.schematicName = schematicName;
         islandCreate.canTeleport = canTeleport;
         return fireEvent(ISLAND_CREATE_EVENT, islandCreate);
-    }
-
-    public static boolean callIslandCreateWarpCategoryEvent(Island island, SuperiorPlayer superiorPlayer, String categoryName) {
-        IslandCreateWarpCategory islandCreateWarpCategory = new IslandCreateWarpCategory();
-        islandCreateWarpCategory.island = island;
-        islandCreateWarpCategory.superiorPlayer = superiorPlayer;
-        islandCreateWarpCategory.categoryName = categoryName;
-        return !fireEvent(ISLAND_CREATE_WARP_CATEGORY_EVENT, islandCreateWarpCategory).isCancelled();
-    }
-
-    public static boolean callIslandCreateWarpEvent(Island island, SuperiorPlayer superiorPlayer, String warpName,
-                                                    Location location, @Nullable WarpCategory warpCategory) {
-        return callIslandCreateWarpEvent(island, superiorPlayer, warpName, location, plugin.getSettings().isPublicWarps(), warpCategory);
-    }
-
-    public static boolean callIslandCreateWarpEvent(Island island, SuperiorPlayer superiorPlayer, String warpName,
-                                                    Location location, boolean openToPublic, @Nullable WarpCategory warpCategory) {
-        IslandCreateWarp islandCreateWarp = new IslandCreateWarp();
-        islandCreateWarp.island = island;
-        islandCreateWarp.superiorPlayer = superiorPlayer;
-        islandCreateWarp.warpName = warpName;
-        islandCreateWarp.location = location;
-        islandCreateWarp.openToPublic = openToPublic;
-        islandCreateWarp.warpCategory = warpCategory;
-        return !fireEvent(ISLAND_CREATE_WARP_EVENT, islandCreateWarp).isCancelled();
-    }
-
-    public static boolean callIslandDeleteWarpEvent(Island island, CommandSender commandSender, IslandWarp islandWarp) {
-        return callIslandDeleteWarpEvent(island, commandSenderToSuperiorPlayer(commandSender), islandWarp);
-    }
-
-    public static boolean callIslandDeleteWarpEvent(Island island, @Nullable SuperiorPlayer superiorPlayer, IslandWarp islandWarp) {
-        IslandDeleteWarp islandDeleteWarp = new IslandDeleteWarp();
-        islandDeleteWarp.island = island;
-        islandDeleteWarp.superiorPlayer = superiorPlayer;
-        islandDeleteWarp.islandWarp = islandWarp;
-        return !fireEvent(ISLAND_DELETE_WARP_EVENT, islandDeleteWarp).isCancelled();
     }
 
     public static boolean callIslandDisableFlagEvent(Island island, CommandSender commandSender, IslandFlag islandFlag) {
@@ -680,14 +531,6 @@ public class PluginEventsFactory {
         return !fireEvent(ISLAND_OPEN_EVENT, islandOpen).isCancelled();
     }
 
-    public static boolean callIslandOpenWarpEvent(Island island, SuperiorPlayer superiorPlayer, IslandWarp islandWarp) {
-        IslandOpenWarp islandOpenWarp = new IslandOpenWarp();
-        islandOpenWarp.island = island;
-        islandOpenWarp.superiorPlayer = superiorPlayer;
-        islandOpenWarp.islandWarp = islandWarp;
-        return !fireEvent(ISLAND_OPEN_WARP_EVENT, islandOpenWarp).isCancelled();
-    }
-
     public static boolean callIslandQuitEvent(Island island, SuperiorPlayer superiorPlayer) {
         IslandQuit islandQuit = new IslandQuit();
         islandQuit.island = island;
@@ -781,13 +624,6 @@ public class PluginEventsFactory {
         return !fireEvent(ISLAND_REMOVE_ROLE_LIMIT_EVENT, islandRemoveRoleLimit).isCancelled();
     }
 
-    public static boolean callIslandRemoveVisitorHomeEvent(Island island, SuperiorPlayer superiorPlayer) {
-        IslandRemoveVisitorHome islandRemoveVisitorHome = new IslandRemoveVisitorHome();
-        islandRemoveVisitorHome.island = island;
-        islandRemoveVisitorHome.superiorPlayer = superiorPlayer;
-        return !fireEvent(ISLAND_REMOVE_VISITOR_HOME_EVENT, islandRemoveVisitorHome).isCancelled();
-    }
-
     public static PluginEvent<IslandRename> callIslandRenameEvent(Island island, CommandSender commandSender, String islandName) {
         return callIslandRenameEvent(island, commandSenderToSuperiorPlayer(commandSender), islandName);
     }
@@ -798,31 +634,6 @@ public class PluginEventsFactory {
         islandRename.superiorPlayer = superiorPlayer;
         islandRename.islandName = islandName;
         return fireEvent(ISLAND_RENAME_EVENT, islandRename);
-    }
-
-    public static PluginEvent<IslandRenameWarpCategory> callIslandRenameWarpCategoryEvent(Island island, SuperiorPlayer superiorPlayer,
-                                                                                          WarpCategory warpCategory, String categoryName) {
-        IslandRenameWarpCategory islandRenameWarpCategory = new IslandRenameWarpCategory();
-        islandRenameWarpCategory.island = island;
-        islandRenameWarpCategory.superiorPlayer = superiorPlayer;
-        islandRenameWarpCategory.warpCategory = warpCategory;
-        islandRenameWarpCategory.categoryName = categoryName;
-        return fireEvent(ISLAND_RENAME_WARP_CATEGORY_EVENT, islandRenameWarpCategory);
-    }
-
-    public static PluginEvent<IslandRenameWarp> callIslandRenameWarpEvent(Island island, Player player,
-                                                                          IslandWarp islandWarp, String warpName) {
-        return callIslandRenameWarpEvent(island, commandSenderToSuperiorPlayer(player), islandWarp, warpName);
-    }
-
-    public static PluginEvent<IslandRenameWarp> callIslandRenameWarpEvent(Island island, SuperiorPlayer superiorPlayer,
-                                                                          IslandWarp islandWarp, String warpName) {
-        IslandRenameWarp islandRenameWarp = new IslandRenameWarp();
-        islandRenameWarp.island = island;
-        islandRenameWarp.superiorPlayer = superiorPlayer;
-        islandRenameWarp.islandWarp = islandWarp;
-        islandRenameWarp.warpName = warpName;
-        return fireEvent(ISLAND_RENAME_WARP_EVENT, islandRenameWarp);
     }
 
     public static void callIslandRestrictMoveEvent(Island island, SuperiorPlayer superiorPlayer, IslandRestrictMoveEvent.RestrictReason restrictReason) {
@@ -850,15 +661,6 @@ public class PluginEventsFactory {
         islandRenameWarp.islandHome = islandHome;
         islandRenameWarp.reason = reason;
         return fireEvent(ISLAND_SET_HOME_EVENT, islandRenameWarp);
-    }
-
-    public static PluginEvent<IslandSetVisitorHome> callIslandSetVisitorHomeEvent(Island island, SuperiorPlayer superiorPlayer,
-                                                                                  Location islandVisitorHome) {
-        IslandSetVisitorHome islandSetVisitorHome = new IslandSetVisitorHome();
-        islandSetVisitorHome.island = island;
-        islandSetVisitorHome.superiorPlayer = superiorPlayer;
-        islandSetVisitorHome.islandVisitorHome = islandVisitorHome;
-        return fireEvent(ISLAND_SET_VISITOR_HOME_EVENT, islandSetVisitorHome);
     }
 
     public static boolean callIslandTransferEvent(Island island, SuperiorPlayer previousOwner, SuperiorPlayer superiorPlayer) {
@@ -926,22 +728,6 @@ public class PluginEventsFactory {
         islandUpgrade.upgradeCause = upgradeCause;
         islandUpgrade.upgradeCost = upgradeCost;
         return fireEvent(ISLAND_UPGRADE_EVENT, islandUpgrade);
-    }
-
-    public static boolean callIslandVisitorHomeTeleportEvent(Island island, SuperiorPlayer superiorPlayer, Dimension dimension) {
-        IslandVisitorHomeTeleport islandVisitorHomeTeleport = new IslandVisitorHomeTeleport();
-        islandVisitorHomeTeleport.island = island;
-        islandVisitorHomeTeleport.superiorPlayer = superiorPlayer;
-        islandVisitorHomeTeleport.dimension = dimension;
-        return !fireEvent(ISLAND_VISITOR_HOME_TELEPORT_EVENT, islandVisitorHomeTeleport).isCancelled();
-    }
-
-    public static boolean callIslandWarpTeleportEvent(Island island, SuperiorPlayer superiorPlayer, IslandWarp islandWarp) {
-        IslandWarpTeleport islandWarpTeleport = new IslandWarpTeleport();
-        islandWarpTeleport.island = island;
-        islandWarpTeleport.superiorPlayer = superiorPlayer;
-        islandWarpTeleport.islandWarp = islandWarp;
-        return !fireEvent(ISLAND_WARP_TELEPORT_EVENT, islandWarpTeleport).isCancelled();
     }
 
     public static boolean callIslandWorldResetEvent(Island island, CommandSender commandSender, Dimension dimension) {

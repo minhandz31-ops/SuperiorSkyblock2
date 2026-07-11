@@ -33,17 +33,13 @@ public class ControlPanelButton extends AbstractMenuViewButton<IslandMenuView> {
             case OPEN_SETTINGS:
                 plugin.getCommands().dispatchSubCommand(clickEvent.getWhoClicked(), "settings");
                 break;
-            case OPEN_VISITORS:
-                plugin.getCommands().dispatchSubCommand(clickEvent.getWhoClicked(), "visitors");
-                break;
         }
     }
 
     public enum ControlPanelAction {
 
         OPEN_MEMBERS,
-        OPEN_SETTINGS,
-        OPEN_VISITORS
+        OPEN_SETTINGS
 
     }
 

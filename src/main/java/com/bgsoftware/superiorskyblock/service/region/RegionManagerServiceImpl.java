@@ -7,7 +7,6 @@ import com.bgsoftware.superiorskyblock.api.events.IslandEnterEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandLeaveEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandRestrictMoveEvent;
 import com.bgsoftware.superiorskyblock.api.island.Island;
-import com.bgsoftware.superiorskyblock.api.island.IslandPreview;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.player.PlayerStatus;
@@ -583,19 +582,6 @@ public class RegionManagerServiceImpl implements RegionManagerService, IService 
 
         Island fromIsland = null;
         boolean lookupFromIsland = true;
-
-        //Checking for out of distance from preview location.
-        IslandPreview islandPreview = plugin.getGrid().getIslandPreview(superiorPlayer);
-        if (islandPreview != null) {
-            try (ObjectsPools.Wrapper<Location> wrapper = ObjectsPools.LOCATION.obtain()) {
-                Location islandPreviewLocation = islandPreview.getLocation(wrapper.getHandle());
-                if (!islandPreviewLocation.getWorld().equals(to.getWorld()) ||
-                        islandPreviewLocation.distance(to) > plugin.getSettings().getIslandPreviews().getMaxDistance()) {
-                    islandPreview.handleEscape();
-                    return MoveResult.ISLAND_PREVIEW_MOVED_TOO_FAR;
-                }
-            }
-        }
 
         if (from.getBlockX() != to.getBlockX() || from.getBlockZ() != to.getBlockZ()) {
             // Handle moving while in teleport warmup.

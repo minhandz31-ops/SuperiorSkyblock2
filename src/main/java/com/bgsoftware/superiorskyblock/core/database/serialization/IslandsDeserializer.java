@@ -21,7 +21,6 @@ import com.bgsoftware.superiorskyblock.core.key.Keys;
 import com.bgsoftware.superiorskyblock.core.logging.Log;
 import com.bgsoftware.superiorskyblock.core.serialization.Serializers;
 import com.bgsoftware.superiorskyblock.island.IslandUtils;
-import com.bgsoftware.superiorskyblock.island.bank.SBankTransaction;
 import com.bgsoftware.superiorskyblock.island.builder.IslandBuilderImpl;
 import com.bgsoftware.superiorskyblock.island.role.SPlayerRole;
 import com.bgsoftware.superiorskyblock.module.BuiltinModules;
@@ -107,34 +106,6 @@ public class IslandsDeserializer {
 
             Island.Builder builder = lookupIsland(databaseCache, uuid.get(), "islands_bans");
             builder.addBannedPlayer(superiorPlayer);
-        });
-    }
-
-    public static void deserializeVisitors(DatabaseBridge databaseBridge, DatabaseCache<Island.Builder> databaseCache) {
-        databaseBridge.loadAllObjects("islands_visitors", visitorsRow -> {
-            DatabaseResult visitors = new DatabaseResult(visitorsRow);
-
-            Optional<UUID> uuid = visitors.getUUID("island");
-            if (!uuid.isPresent()) {
-                Log.warn("Cannot load island visitors for null islands, skipping...");
-                return;
-            }
-
-            Optional<UUID> playerUUID = visitors.getUUID("player");
-            if (!playerUUID.isPresent()) {
-                Log.warn("Cannot load island visitors with invalid uuids for ", uuid.get(), ", skipping...");
-                return;
-            }
-
-            SuperiorPlayer visitorPlayer = plugin.getPlayers().getSuperiorPlayer(playerUUID.get(), false);
-            if (visitorPlayer == null) {
-                Log.warn("Cannot load island visitor with unrecognized uuid: " + playerUUID.get() + ", skipping...");
-                return;
-            }
-
-            Island.Builder builder = lookupIsland(databaseCache, uuid.get(), "islands_visitors");
-            long visitTime = visitors.getLong("visit_time").orElse(System.currentTimeMillis());
-            builder.addUniqueVisitor(visitorPlayer, visitTime);
         });
     }
 
@@ -234,37 +205,6 @@ public class IslandsDeserializer {
 
             Island.Builder builder = lookupIsland(databaseCache, uuid.get(), "islands_upgrades");
             builder.setUpgrade(upgrade.get(), level.get());
-        });
-    }
-
-    public static void deserializeWarps(DatabaseBridge databaseBridge, DatabaseCache<Island.Builder> databaseCache) {
-        databaseBridge.loadAllObjects("islands_warps", islandWarpsRow -> {
-            DatabaseResult islandWarp = new DatabaseResult(islandWarpsRow);
-
-            Optional<UUID> uuid = islandWarp.getUUID("island");
-            if (!uuid.isPresent()) {
-                Log.warn("Cannot load warps for null islands, skipping...");
-                return;
-            }
-
-            Optional<String> name = islandWarp.getString("name").map(_name -> {
-                return IslandUtils.isWarpNameLengthValid(_name) ? _name : _name.substring(0, IslandUtils.getMaxWarpNameLength());
-            });
-            if (!name.isPresent() || name.get().isEmpty()) {
-                Log.warn("Cannot load warps with invalid names for ", uuid.get(), ", skipping...");
-                return;
-            }
-
-            Optional<Location> location = islandWarp.getString("location").map(Serializers.LOCATION_SERIALIZER::deserialize);
-            if (!location.isPresent()) {
-                Log.warn("Cannot load warps with invalid locations for ", uuid.get(), ", skipping...");
-                return;
-            }
-
-            Island.Builder builder = lookupIsland(databaseCache, uuid.get(), "islands_warps");
-            builder.addWarp(name.get(), islandWarp.getString("category").orElse(""),
-                    location.get(), islandWarp.getBoolean("private").orElse(!plugin.getSettings().isPublicWarps()),
-                    islandWarp.getString("icon").map(Serializers.ITEM_STACK_SERIALIZER::deserialize).orElse(null));
         });
     }
 
@@ -543,33 +483,6 @@ public class IslandsDeserializer {
         });
     }
 
-    public static void deserializeVisitorHomes(DatabaseBridge databaseBridge, DatabaseCache<Island.Builder> databaseCache) {
-        databaseBridge.loadAllObjects("islands_visitor_homes", islandVisitorHomesRow -> {
-            DatabaseResult islandVisitorHomes = new DatabaseResult(islandVisitorHomesRow);
-
-            Optional<UUID> uuid = islandVisitorHomes.getUUID("island");
-            if (!uuid.isPresent()) {
-                Log.warn("Cannot load island homes for null islands, skipping...");
-                return;
-            }
-
-            Optional<Dimension> dimension = islandVisitorHomes.getString("environment").map(Dimension::getByName);
-            if (!dimension.isPresent()) {
-                Log.warn("Cannot load island homes with invalid environment for ", uuid.get(), ", skipping...");
-                return;
-            }
-
-            Optional<WorldPosition> location = islandVisitorHomes.getString("location").map(Serializers.WORLD_POSITION_SERIALIZER::deserialize);
-            if (!location.isPresent()) {
-                Log.warn("Cannot load island homes with invalid location for ", uuid.get(), ", skipping...");
-                return;
-            }
-
-            Island.Builder builder = lookupIsland(databaseCache, uuid.get(), "islands_visitor_homes");
-            builder.setVisitorHome(dimension.get(), location.get());
-        });
-    }
-
     public static void deserializeEffects(DatabaseBridge databaseBridge, DatabaseCache<Island.Builder> databaseCache) {
         databaseBridge.loadAllObjects("islands_effects", islandEffectRow -> {
             DatabaseResult islandEffects = new DatabaseResult(islandEffectRow);
@@ -670,53 +583,6 @@ public class IslandsDeserializer {
         });
     }
 
-    public static void deserializeWarpCategories(DatabaseBridge databaseBridge, DatabaseCache<Island.Builder> databaseCache) {
-        databaseBridge.loadAllObjects("islands_warp_categories", warpCategoryRow -> {
-            DatabaseResult warpCategory = new DatabaseResult(warpCategoryRow);
-
-            Optional<UUID> uuid = warpCategory.getUUID("island");
-            if (!uuid.isPresent()) {
-                Log.warn("Cannot load warp categories for null islands, skipping...");
-                return;
-            }
-
-            Optional<String> name = warpCategory.getString("name").map(Formatters.STRIP_COLOR_FORMATTER::format);
-            if (!name.isPresent() || name.get().isEmpty()) {
-                Log.warn("Cannot load warp categories with invalid name for ", uuid.get(), ", skipping...");
-                return;
-            }
-
-            Island.Builder builder = lookupIsland(databaseCache, uuid.get(), "islands_warp_categories");
-            builder.addWarpCategory(name.get(), warpCategory.getInt("slot").orElse(-1),
-                    warpCategory.getString("icon").map(Serializers.ITEM_STACK_SERIALIZER::deserialize).orElse(null));
-        });
-    }
-
-    public static void deserializeIslandBank(DatabaseBridge databaseBridge, DatabaseCache<Island.Builder> databaseCache) {
-        databaseBridge.loadAllObjects("islands_banks", islandBankRow -> {
-            DatabaseResult islandBank = new DatabaseResult(islandBankRow);
-
-            Optional<UUID> uuid = islandBank.getUUID("island");
-            if (!uuid.isPresent()) {
-                Log.warn("Cannot load island banks for null islands, skipping...");
-                return;
-            }
-
-            Optional<BigDecimal> balance = islandBank.getBigDecimal("balance");
-            if (!balance.isPresent()) {
-                Log.warn("Cannot load island banks with invalid balance for ", uuid.get(), ", skipping...");
-                return;
-            }
-
-            long currentTime = System.currentTimeMillis() / 1000;
-
-            Island.Builder builder = lookupIsland(databaseCache, uuid.get(), "islands_banks");
-            builder.setBalance(balance.get());
-            long lastInterestTime = islandBank.getLong("last_interest_time").orElse(currentTime);
-            builder.setLastInterestTime(lastInterestTime > currentTime ? lastInterestTime / 1000 : lastInterestTime);
-        });
-    }
-
     public static void deserializeIslandSettings(DatabaseBridge databaseBridge, DatabaseCache<Island.Builder> databaseCache) {
         databaseBridge.loadAllObjects("islands_settings", islandSettingsRow -> {
             DatabaseResult islandSettings = new DatabaseResult(islandSettingsRow);
@@ -731,31 +597,10 @@ public class IslandsDeserializer {
 
             builder.setIslandSize(islandSettings.getInt("size").orElse(SYNCED_VALUE));
             builder.setTeamLimit(islandSettings.getInt("members_limit").orElse(SYNCED_VALUE));
-            builder.setWarpsLimit(islandSettings.getInt("warps_limit").orElse(SYNCED_VALUE));
             builder.setCropGrowth(islandSettings.getDouble("crop_growth_multiplier").orElse((double) SYNCED_VALUE));
             builder.setSpawnerRates(islandSettings.getDouble("spawner_rates_multiplier").orElse((double) SYNCED_VALUE));
             builder.setMobDrops(islandSettings.getDouble("mob_drops_multiplier").orElse((double) SYNCED_VALUE));
             builder.setCoopLimit(islandSettings.getInt("coops_limit").orElse(SYNCED_VALUE));
-            builder.setBankLimit(islandSettings.getBigDecimal("bank_limit").orElse(SYNCED_BANK_LIMIT_VALUE));
-        });
-    }
-
-    public static void deserializeBankTransactions(DatabaseBridge databaseBridge, DatabaseCache<Island.Builder> databaseCache) {
-        if (!BuiltinModules.BANK.getConfiguration().isBankLogs() ||
-                !BuiltinModules.BANK.getConfiguration().isCacheAllLogs())
-            return;
-
-        databaseBridge.loadAllObjects("bank_transactions", bankTransactionRow -> {
-            DatabaseResult bankTransaction = new DatabaseResult(bankTransactionRow);
-
-            Optional<UUID> uuid = bankTransaction.getUUID("island");
-            if (!uuid.isPresent()) {
-                Log.warn("Cannot load bank transaction for null islands, skipping...");
-                return;
-            }
-
-            Island.Builder builder = lookupIsland(databaseCache, uuid.get(), "bank_transactions");
-            SBankTransaction.fromDatabase(bankTransaction).ifPresent(builder::addBankTransaction);
         });
     }
 

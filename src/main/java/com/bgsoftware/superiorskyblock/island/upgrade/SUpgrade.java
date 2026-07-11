@@ -14,7 +14,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.Set;
@@ -37,7 +36,6 @@ public class SUpgrade implements Upgrade {
             Value.syncedFixed(KeyMaps.createEmptyMap()),
             Value.syncedFixed(new EnumerateMap<>(Collections.emptyList())),
             Value.syncedFixed(Collections.emptyMap()),
-            Value.syncedFixed(Optional.empty()),
             Value.syncedFixed(EmptyInt2IntMapView.INSTANCE));
 
     private final String name;

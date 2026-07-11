@@ -2,9 +2,7 @@ package com.bgsoftware.superiorskyblock.island.top;
 
 import com.bgsoftware.superiorskyblock.api.enums.TopIslandMembersSorting;
 import com.bgsoftware.superiorskyblock.api.island.Island;
-import com.bgsoftware.superiorskyblock.api.island.bank.BankTransaction;
 import com.bgsoftware.superiorskyblock.api.wrappers.SuperiorPlayer;
-import com.bgsoftware.superiorskyblock.island.SIsland;
 import com.bgsoftware.superiorskyblock.island.top.metadata.IslandSortMetadata;
 
 import java.util.Comparator;
@@ -12,10 +10,6 @@ import java.util.Comparator;
 public class SortingComparators {
 
     public final static Comparator<SuperiorPlayer> PLAYER_NAMES_COMPARATOR = Comparator.comparing(SuperiorPlayer::getName);
-    public final static Comparator<SIsland.UniqueVisitor> PAIRED_PLAYERS_NAMES_COMPARATOR =
-            Comparator.comparing(o -> o.getSuperiorPlayer().getName());
-    public final static Comparator<BankTransaction> BANK_TRANSACTIONS_COMPARATOR =
-            Comparator.comparingInt(BankTransaction::getPosition);
     private final static Comparator<Island> ISLAND_NAMES_COMPARATOR = (o1, o2) -> {
         String firstName = o1.getStrippedName().isEmpty() ? o1.getOwner().getName() : o1.getStrippedName();
         String secondName = o2.getStrippedName().isEmpty() ? o2.getOwner().getName() : o2.getStrippedName();

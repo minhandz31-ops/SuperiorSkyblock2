@@ -15,7 +15,6 @@ import com.bgsoftware.superiorskyblock.core.menu.button.AbstractMenuViewButton;
 import com.bgsoftware.superiorskyblock.core.menu.button.MenuTemplateButtonImpl;
 import com.bgsoftware.superiorskyblock.core.menu.impl.MenuIslandCreation;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Biome;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -62,8 +61,6 @@ public class IslandCreationButton extends AbstractMenuViewButton<MenuIslandCreat
         private final Schematic schematic;
         private TemplateItem noAccessItem = null;
         private List<String> noAccessCommands = null;
-        @Nullable
-        private Biome biome;
         private boolean isOffset;
         private BlockOffset spawnOffset = null;
 
@@ -95,10 +92,6 @@ public class IslandCreationButton extends AbstractMenuViewButton<MenuIslandCreat
             this.noAccessCommands = noAccessCommands;
         }
 
-        public void setBiome(Biome biome) {
-            this.biome = biome;
-        }
-
         public void setOffset(boolean isOffset) {
             this.isOffset = isOffset;
         }
@@ -110,7 +103,7 @@ public class IslandCreationButton extends AbstractMenuViewButton<MenuIslandCreat
         @Override
         public MenuTemplateButton<MenuIslandCreation.View> build() {
             return new Template(requiredPermission, lackPermissionSound, clickSound, commands, noAccessItem,
-                    noAccessCommands, biome, isOffset, buttonItem, spawnOffset, schematic);
+                    noAccessCommands, isOffset, buttonItem, spawnOffset, schematic);
         }
 
     }
@@ -122,8 +115,6 @@ public class IslandCreationButton extends AbstractMenuViewButton<MenuIslandCreat
         private final List<String> accessCommands;
         private final TemplateItem lackPermissionItem;
         private final List<String> lackPermissionCommands;
-        @Nullable
-        private final Biome biome;
         private final boolean isOffset;
         private final Schematic schematic;
         @Nullable
@@ -134,7 +125,7 @@ public class IslandCreationButton extends AbstractMenuViewButton<MenuIslandCreat
         Template(@Nullable String requiredPermission, @Nullable GameSound lackPermissionSound,
                  @Nullable GameSound accessSound, @Nullable List<String> accessCommands,
                  @Nullable TemplateItem lackPermissionItem, @Nullable List<String> lackPermissionCommands,
-                 @Nullable Biome biome, boolean isOffset,
+                 boolean isOffset,
                  @Nullable TemplateItem accessItem, @Nullable BlockOffset spawnOffset, Schematic schematic) {
             super(accessItem == null ? TemplateItem.AIR : accessItem, null, null, requiredPermission,
                     lackPermissionSound, IslandCreationButton.class, IslandCreationButton::new);
@@ -142,7 +133,6 @@ public class IslandCreationButton extends AbstractMenuViewButton<MenuIslandCreat
             this.accessCommands = accessCommands == null ? Collections.emptyList() : accessCommands;
             this.lackPermissionItem = lackPermissionItem == null ? TemplateItem.AIR : lackPermissionItem;
             this.lackPermissionCommands = lackPermissionCommands == null ? Collections.emptyList() : lackPermissionCommands;
-            this.biome = biome;
             this.isOffset = isOffset;
             this.spawnOffset = spawnOffset;
             this.schematic = Objects.requireNonNull(schematic, "schematic cannot be null");
@@ -160,11 +150,6 @@ public class IslandCreationButton extends AbstractMenuViewButton<MenuIslandCreat
 
         public List<String> getAccessCommands() {
             return accessCommands;
-        }
-
-        @Nullable
-        public Biome getBiome() {
-            return biome;
         }
 
 

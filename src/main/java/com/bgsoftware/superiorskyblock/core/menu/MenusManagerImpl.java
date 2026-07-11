@@ -7,8 +7,6 @@ import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
-import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.menu.ISuperiorMenu;
 import com.bgsoftware.superiorskyblock.api.menu.Menu;
 import com.bgsoftware.superiorskyblock.api.menu.MenuCommands;
@@ -49,26 +47,6 @@ public class MenusManagerImpl extends Manager implements MenusManager {
     @Override
     public void loadData() {
         plugin.getProviders().getMenusProvider().initializeMenus();
-    }
-
-    @Override
-    public void openBankLogs(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        plugin.getProviders().getMenusProvider().openBankLogs(targetPlayer, previousMenu, targetIsland);
-    }
-
-    @Override
-    public void refreshBankLogs(Island island) {
-        plugin.getProviders().getMenusProvider().refreshBankLogs(island);
-    }
-
-    @Override
-    public void openBiomes(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        plugin.getProviders().getMenusProvider().openBiomes(targetPlayer, previousMenu, targetIsland);
-    }
-
-    @Override
-    public void openIslandBiomesMenu(SuperiorPlayer superiorPlayer) {
-        openBiomes(superiorPlayer, null, superiorPlayer.getIsland());
     }
 
     @Override
@@ -129,31 +107,6 @@ public class MenusManagerImpl extends Manager implements MenusManager {
     @Override
     public void refreshCoops(Island island) {
         plugin.getProviders().getMenusProvider().refreshCoops(island);
-    }
-
-    @Override
-    public void openGlobalWarps(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu) {
-        plugin.getProviders().getMenusProvider().openGlobalWarps(targetPlayer, previousMenu);
-    }
-
-    @Override
-    public void openGlobalWarpsMenu(SuperiorPlayer superiorPlayer) {
-        openGlobalWarps(superiorPlayer, null);
-    }
-
-    @Override
-    public void refreshGlobalWarps() {
-        plugin.getProviders().getMenusProvider().refreshGlobalWarps();
-    }
-
-    @Override
-    public void openIslandBank(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        plugin.getProviders().getMenusProvider().openIslandBank(targetPlayer, previousMenu, targetIsland);
-    }
-
-    @Override
-    public void refreshIslandBank(Island island) {
-        plugin.getProviders().getMenusProvider().refreshIslandBank(island);
     }
 
     @Override
@@ -352,21 +305,6 @@ public class MenusManagerImpl extends Manager implements MenusManager {
     }
 
     @Override
-    public void openUniqueVisitors(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        plugin.getProviders().getMenusProvider().openUniqueVisitors(targetPlayer, previousMenu, targetIsland);
-    }
-
-    @Override
-    public void openUniqueVisitorsMenu(SuperiorPlayer superiorPlayer, Island island) {
-        openUniqueVisitors(superiorPlayer, null, island);
-    }
-
-    @Override
-    public void refreshUniqueVisitors(Island island) {
-        plugin.getProviders().getMenusProvider().refreshUniqueVisitors(island);
-    }
-
-    @Override
     public void openUpgrades(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
         plugin.getProviders().getMenusProvider().openUpgrades(targetPlayer, previousMenu, targetIsland);
     }
@@ -379,87 +317,6 @@ public class MenusManagerImpl extends Manager implements MenusManager {
     @Override
     public void refreshUpgrades(Island island) {
         plugin.getProviders().getMenusProvider().refreshUpgrades(island);
-    }
-
-    @Override
-    public void openVisitors(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        plugin.getProviders().getMenusProvider().openVisitors(targetPlayer, previousMenu, targetIsland);
-    }
-
-    @Override
-    public void refreshVisitors(Island island) {
-        plugin.getProviders().getMenusProvider().refreshVisitors(island);
-    }
-
-    @Override
-    public void openIslandVisitorsMenu(SuperiorPlayer superiorPlayer, Island island) {
-        openVisitors(superiorPlayer, null, island);
-    }
-
-    @Override
-    public void openWarpCategories(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland) {
-        plugin.getProviders().getMenusProvider().openWarpCategories(targetPlayer, previousMenu, targetIsland);
-    }
-
-    @Override
-    public void refreshWarpCategories(Island island) {
-        plugin.getProviders().getMenusProvider().refreshWarpCategories(island);
-    }
-
-    @Override
-    public void destroyWarpCategories(Island island) {
-        plugin.getProviders().getMenusProvider().destroyWarpCategories(island);
-    }
-
-    @Override
-    public void openWarpCategoryIconEdit(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, WarpCategory targetCategory) {
-        plugin.getProviders().getMenusProvider().openWarpCategoryIconEdit(targetPlayer, previousMenu, targetCategory);
-    }
-
-    @Override
-    public void openWarpCategoryManage(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, WarpCategory targetCategory) {
-        plugin.getProviders().getMenusProvider().openWarpCategoryManage(targetPlayer, previousMenu, targetCategory);
-    }
-
-    @Override
-    public void refreshWarpCategoryManage(WarpCategory warpCategory) {
-        plugin.getProviders().getMenusProvider().refreshWarpCategoryManage(warpCategory);
-    }
-
-    @Override
-    public void openWarpIconEdit(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, IslandWarp targetWarp) {
-        plugin.getProviders().getMenusProvider().openWarpIconEdit(targetPlayer, previousMenu, targetWarp);
-    }
-
-    @Override
-    public void openWarpManage(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, IslandWarp targetWarp) {
-        plugin.getProviders().getMenusProvider().openWarpManage(targetPlayer, previousMenu, targetWarp);
-    }
-
-    @Override
-    public void refreshWarpManage(IslandWarp islandWarp) {
-        plugin.getProviders().getMenusProvider().refreshWarpManage(islandWarp);
-    }
-
-    @Override
-    public void openWarps(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, WarpCategory targetCategory) {
-        plugin.getProviders().getMenusProvider().openWarps(targetPlayer, previousMenu, targetCategory);
-    }
-
-    @Override
-    public void openIslandWarpsMenu(SuperiorPlayer superiorPlayer, Island island) {
-        openWarps(superiorPlayer, null, island.getWarpCategories().values()
-                .stream().findFirst().orElseGet(() -> island.createWarpCategory("Default Category")));
-    }
-
-    @Override
-    public void refreshWarps(WarpCategory warpCategory) {
-        plugin.getProviders().getMenusProvider().refreshWarps(warpCategory);
-    }
-
-    @Override
-    public void destroyWarps(WarpCategory warpCategory) {
-        plugin.getProviders().getMenusProvider().destroyWarps(warpCategory);
     }
 
     @Override

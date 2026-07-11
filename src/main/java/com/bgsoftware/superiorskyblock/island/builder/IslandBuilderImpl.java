@@ -9,7 +9,6 @@ import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.island.PermissionNode;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
-import com.bgsoftware.superiorskyblock.api.island.bank.BankTransaction;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.key.KeyMap;
 import com.bgsoftware.superiorskyblock.api.missions.Mission;
@@ -33,7 +32,6 @@ import com.bgsoftware.superiorskyblock.core.key.map.KeyMaps;
 import com.bgsoftware.superiorskyblock.core.value.DoubleValue;
 import com.bgsoftware.superiorskyblock.core.value.IntValue;
 import com.bgsoftware.superiorskyblock.core.value.Value;
-import com.bgsoftware.superiorskyblock.island.SIsland;
 import com.bgsoftware.superiorskyblock.island.privilege.PlayerPrivilegeNode;
 import com.bgsoftware.superiorskyblock.mission.MissionReference;
 import com.google.common.base.Preconditions;
@@ -42,7 +40,6 @@ import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,7 +57,6 @@ import java.util.stream.Collectors;
 
 public class IslandBuilderImpl implements Island.Builder {
 
-    private static final BigDecimal SYNCED_BANK_LIMIT_VALUE = BigDecimal.valueOf(-2);
     private static final int SYNCED_VALUE = -2;
 
     private static final SuperiorSkyblockPlugin plugin = SuperiorSkyblockPlugin.getPlugin();
@@ -95,25 +91,16 @@ public class IslandBuilderImpl implements Island.Builder {
     public final Map<MissionReference, Counter> completedMissions = new LinkedHashMap<>();
     public final Map<IslandFlag, Byte> islandFlags = new LinkedHashMap<>();
     public final EnumerateMap<Dimension, KeyMap<IntValue>> cobbleGeneratorValues = new EnumerateMap<>(Dimension.values());
-    public final List<SIsland.UniqueVisitor> uniqueVisitors = new LinkedList<>();
     public final KeyMap<IntValue> entityLimits = KeyMaps.createArrayMap(KeyIndicator.ENTITY_TYPE);
     public final Map<PotionEffectType, IntValue> islandEffects = new LinkedHashMap<>();
     public final List<ItemStack[]> islandChests = new ArrayList<>(plugin.getSettings().getIslandChests().getDefaultPages());
     public final Int2ObjectMapView<IntValue> roleLimits = CollectionsFactory.createInt2ObjectArrayMap();
-    public final EnumerateMap<Dimension, WorldPosition> visitorHomes = new EnumerateMap<>(Dimension.values());
     public IntValue islandSize = IntValue.syncedFixed(SYNCED_VALUE);
-    public IntValue warpsLimit = IntValue.syncedFixed(SYNCED_VALUE);
     public IntValue teamLimit = IntValue.syncedFixed(SYNCED_VALUE);
     public IntValue coopLimit = IntValue.syncedFixed(SYNCED_VALUE);
     public DoubleValue cropGrowth = DoubleValue.syncedFixed(SYNCED_VALUE);
     public DoubleValue spawnerRates = DoubleValue.syncedFixed(SYNCED_VALUE);
     public DoubleValue mobDrops = DoubleValue.syncedFixed(SYNCED_VALUE);
-    public Value<BigDecimal> bankLimit = Value.syncedFixed(SYNCED_BANK_LIMIT_VALUE);
-    public BigDecimal balance = BigDecimal.ZERO;
-    public long lastInterestTime = System.currentTimeMillis() / 1000;
-    public List<WarpRecord> warps = new LinkedList<>();
-    public List<WarpCategoryRecord> warpCategories = new LinkedList<>();
-    public List<BankTransaction> bankTransactions = new LinkedList<>();
     public byte[] persistentData = new byte[0];
 
     public IslandBuilderImpl() {
@@ -510,21 +497,6 @@ public class IslandBuilderImpl implements Island.Builder {
     }
 
     @Override
-    public Island.Builder addUniqueVisitor(SuperiorPlayer superiorPlayer, long visitTime) {
-        Preconditions.checkNotNull(superiorPlayer, "superiorPlayer parameter cannot be null.");
-        this.uniqueVisitors.add(new SIsland.UniqueVisitor(superiorPlayer, visitTime));
-        return this;
-    }
-
-    @Override
-    public Map<SuperiorPlayer, Long> getUniqueVisitors() {
-        LinkedHashMap<SuperiorPlayer, Long> result = new LinkedHashMap<>();
-        this.uniqueVisitors.forEach(uniqueVisitor ->
-                result.put(uniqueVisitor.getSuperiorPlayer(), uniqueVisitor.getLastVisitTime()));
-        return Collections.unmodifiableMap(result);
-    }
-
-    @Override
     public Island.Builder setEntityLimit(Key entity, int limit) {
         Preconditions.checkNotNull(entity, "entity parameter cannot be null.");
         this.entityLimits.put(entity, limit < 0 ? IntValue.syncedFixed(limit) : IntValue.fixed(limit));
@@ -593,34 +565,6 @@ public class IslandBuilderImpl implements Island.Builder {
     }
 
     @Override
-    public Island.Builder setVisitorHome(Location location, Dimension dimension) {
-        Preconditions.checkNotNull(location, "location parameter cannot be null.");
-        return setVisitorHome(dimension, SWorldPosition.of(location));
-    }
-
-    @Override
-    public Island.Builder setVisitorHome(Dimension dimension, WorldPosition worldPosition) {
-        Preconditions.checkNotNull(dimension, "dimension parameter cannot be null.");
-        Preconditions.checkNotNull(worldPosition, "worldPosition parameter cannot be null.");
-        this.visitorHomes.put(dimension, worldPosition);
-        return this;
-    }
-
-    @Override
-    public Map<Dimension, Location> getVisitorHomesAsDimensions() {
-        Map<Dimension, Location> visitorHomes = new LinkedHashMap<>();
-
-        for (Dimension dimension : Dimension.values()) {
-            WorldPosition visitorHome = this.visitorHomes.get(dimension);
-            if (visitorHome != null) {
-                visitorHomes.put(dimension, visitorHome.toLocation((World) null));
-            }
-        }
-
-        return visitorHomes.isEmpty() ? Collections.emptyMap() : Collections.unmodifiableMap(visitorHomes);
-    }
-
-    @Override
     public Island.Builder setIslandSize(int islandSize) {
         this.islandSize = islandSize < 0 ? IntValue.syncedFixed(islandSize) : IntValue.fixed(islandSize);
         return this;
@@ -640,17 +584,6 @@ public class IslandBuilderImpl implements Island.Builder {
     @Override
     public int getTeamLimit() {
         return this.teamLimit.get();
-    }
-
-    @Override
-    public Island.Builder setWarpsLimit(int warpsLimit) {
-        this.warpsLimit = warpsLimit < 0 ? IntValue.syncedFixed(warpsLimit) : IntValue.fixed(warpsLimit);
-        return this;
-    }
-
-    @Override
-    public int getWarpsLimit() {
-        return this.warpsLimit.get();
     }
 
     @Override
@@ -695,134 +628,6 @@ public class IslandBuilderImpl implements Island.Builder {
     @Override
     public int getCoopLimit() {
         return this.coopLimit.get();
-    }
-
-    @Override
-    public Island.Builder setBankLimit(BigDecimal bankLimit) {
-        Preconditions.checkNotNull(bankLimit, "bankLimit parameter cannot be null.");
-        this.bankLimit = bankLimit.compareTo(SYNCED_BANK_LIMIT_VALUE) <= 0 ? Value.syncedFixed(bankLimit) : Value.fixed(bankLimit);
-        return this;
-    }
-
-    @Override
-    public BigDecimal getBankLimit() {
-        return this.bankLimit.get();
-    }
-
-    @Override
-    public Island.Builder setBalance(BigDecimal balance) {
-        Preconditions.checkNotNull(balance, "balance parameter cannot be null.");
-        this.balance = balance;
-        return this;
-    }
-
-    @Override
-    public BigDecimal getBalance() {
-        return this.balance;
-    }
-
-    @Override
-    public Island.Builder setLastInterestTime(long lastInterestTime) {
-        this.lastInterestTime = lastInterestTime;
-        return this;
-    }
-
-    @Override
-    public long getLastInterestTime() {
-        return this.lastInterestTime;
-    }
-
-    @Override
-    public Island.Builder addWarp(String name, String category, Location location, boolean isPrivate, @Nullable ItemStack icon) {
-        Preconditions.checkNotNull(name, "name parameter cannot be null.");
-        Preconditions.checkNotNull(category, "category parameter cannot be null.");
-        Preconditions.checkNotNull(location, "location parameter cannot be null.");
-        this.warps.add(new WarpRecord(name, category, SWorldPosition.of(location), LazyWorldLocation.getWorldName(location), isPrivate, icon));
-        return this;
-    }
-
-    @Override
-    public Island.Builder addWarp(String name, String category, WorldInfo worldInfo, WorldPosition worldPosition, boolean isPrivate, @Nullable ItemStack icon) {
-        Preconditions.checkNotNull(name, "name parameter cannot be null.");
-        Preconditions.checkNotNull(category, "category parameter cannot be null.");
-        Preconditions.checkNotNull(worldInfo, "worldInfo parameter cannot be null.");
-        Preconditions.checkNotNull(worldPosition, "worldPosition parameter cannot be null.");
-        this.warps.add(new WarpRecord(name, category, worldPosition, worldInfo.getName(), isPrivate, icon));
-        return this;
-    }
-
-    @Override
-    public boolean hasWarp(String name) {
-        Preconditions.checkNotNull(name, "name parameter cannot be null");
-
-        for (WarpRecord warpRecord : this.warps) {
-            if (warpRecord.name.equals(name))
-                return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean hasWarp(Location location) {
-        Preconditions.checkNotNull(location, "location parameter cannot be null");
-
-        WorldPosition worldPosition = SWorldPosition.of(location);
-        String worldName = LazyWorldLocation.getWorldName(location);
-
-        for (WarpRecord warpRecord : this.warps) {
-            if (warpRecord.worldName.equals(worldName) && warpRecord.worldPosition.equals(worldPosition))
-                return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean hasWarp(WorldInfo worldInfo, WorldPosition worldPosition) {
-        Preconditions.checkNotNull(worldInfo, "worldInfo parameter cannot be null");
-        Preconditions.checkNotNull(worldPosition, "worldPosition parameter cannot be null");
-
-        String worldName = worldInfo.getName();
-
-        for (WarpRecord warpRecord : this.warps) {
-            if (warpRecord.worldName.equals(worldName) && warpRecord.worldPosition.equals(worldPosition))
-                return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public Island.Builder addWarpCategory(String name, int slot, @Nullable ItemStack icon) {
-        Preconditions.checkNotNull(name, "name parameter cannot be null.");
-        Preconditions.checkArgument(slot >= 0, "slot must be positive.");
-        this.warpCategories.add(new WarpCategoryRecord(name, slot, icon));
-        return this;
-    }
-
-    @Override
-    public boolean hasWarpCategory(String name) {
-        Preconditions.checkNotNull(name, "name parameter cannot be null");
-
-        for (WarpCategoryRecord warpCategoryRecord : this.warpCategories) {
-            if (warpCategoryRecord.name.equals(name))
-                return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public Island.Builder addBankTransaction(BankTransaction bankTransaction) {
-        Preconditions.checkNotNull(bankTransaction, "bankTransaction parameter cannot be null.");
-        this.bankTransactions.add(bankTransaction);
-        return this;
-    }
-
-    @Override
-    public List<BankTransaction> getBankTransactions() {
-        return Collections.unmodifiableList(this.bankTransactions);
     }
 
     @Override

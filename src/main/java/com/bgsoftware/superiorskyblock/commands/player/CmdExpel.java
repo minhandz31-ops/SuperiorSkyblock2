@@ -117,9 +117,6 @@ public class CmdExpel implements IPermissibleCommand {
         if (args.length != 2)
             return Collections.emptyList();
 
-        if (island != null)
-            return CommandTabCompletes.getIslandVisitors(island, args[1], plugin.getSettings().isTabCompleteHideVanished());
-
         try (ObjectsPools.Wrapper<Location> wrapper = ObjectsPools.LOCATION.obtain()) {
             return CommandTabCompletes.getOnlinePlayers(plugin, args[1], plugin.getSettings().isTabCompleteHideVanished(),
                     onlinePlayer -> plugin.getGrid().getIslandAt(onlinePlayer.getLocation(wrapper.getHandle())) != null);

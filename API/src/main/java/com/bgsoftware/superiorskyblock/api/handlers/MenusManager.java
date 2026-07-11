@@ -5,8 +5,6 @@ import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
-import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.menu.ISuperiorMenu;
 import com.bgsoftware.superiorskyblock.api.menu.Menu;
 import com.bgsoftware.superiorskyblock.api.menu.MenuCommands;
@@ -24,42 +22,6 @@ import com.bgsoftware.superiorskyblock.api.wrappers.SuperiorPlayer;
 import java.util.Map;
 
 public interface MenusManager {
-
-    /**
-     * Open the bank-logs menu.
-     * Used to display all logs of bank transactions.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetIsland The island to display bank logs for.
-     */
-    void openBankLogs(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland);
-
-    /**
-     * Refresh the bank-logs menu for a specific island.
-     *
-     * @param island The island to refresh the menus for.
-     */
-    void refreshBankLogs(Island island);
-
-    /**
-     * Open the biomes-menu.
-     * Used to display and choose biomes for the island.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetIsland The island to change biomes for.
-     */
-    void openBiomes(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland);
-
-    /**
-     * Open the island biomes menu for a player.
-     *
-     * @param superiorPlayer The player to open the menu for.
-     * @deprecated see {@link #openBiomes(SuperiorPlayer, ISuperiorMenu, Island)}
-     */
-    @Deprecated
-    void openIslandBiomesMenu(SuperiorPlayer superiorPlayer);
 
     /**
      * Open the border-color menu.
@@ -175,46 +137,6 @@ public interface MenusManager {
      * @param island The island to refresh the menus for.
      */
     void refreshCoops(Island island);
-
-    /**
-     * Open the global-warps menu.
-     * Used when running the /is warp command.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     */
-    void openGlobalWarps(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu);
-
-    /**
-     * Open the global warps menu for a player.
-     *
-     * @param superiorPlayer The player to open the menu for.
-     * @deprecated see {@link #openGlobalWarps(SuperiorPlayer, ISuperiorMenu)}
-     */
-    @Deprecated
-    void openGlobalWarpsMenu(SuperiorPlayer superiorPlayer);
-
-    /**
-     * Refresh the global-warps menu.
-     */
-    void refreshGlobalWarps();
-
-    /**
-     * Open the island-bank menu.
-     * Used when running the /is bank command.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetIsland The island to open the bank for.
-     */
-    void openIslandBank(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland);
-
-    /**
-     * Refresh the island bank menu for a specific island.
-     *
-     * @param island The island to refresh the menus for.
-     */
-    void refreshIslandBank(Island island);
 
     /**
      * Open the banned-players menu.
@@ -569,32 +491,6 @@ public interface MenusManager {
     void updateSettings(IslandFlag islandFlag);
 
     /**
-     * Open the unique-visitors menu.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetIsland The island to get visitors from.
-     */
-    void openUniqueVisitors(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland);
-
-    /**
-     * Open the unique island visitors menu for a player.
-     *
-     * @param superiorPlayer The player to open the menu for.
-     * @param island         The island to get the visitors from.
-     * @deprecated see {@link #openUniqueVisitors(SuperiorPlayer, ISuperiorMenu, Island)}
-     */
-    @Deprecated
-    void openUniqueVisitorsMenu(SuperiorPlayer superiorPlayer, Island island);
-
-    /**
-     * Refresh the unique-visitors menu for a specific island.
-     *
-     * @param island The island to refresh the menus for.
-     */
-    void refreshUniqueVisitors(Island island);
-
-    /**
      * Open the upgrades-menu.
      *
      * @param targetPlayer The player to open the menu for.
@@ -619,143 +515,6 @@ public interface MenusManager {
      * @param island The island to refresh the menus for.
      */
     void refreshUpgrades(Island island);
-
-    /**
-     * Open the visitors-menu.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetIsland The island to get visitors from.
-     */
-    void openVisitors(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland);
-
-    /**
-     * Refresh the visitors-menu for a specific island.
-     *
-     * @param island The island to refresh the menus for.
-     */
-    void refreshVisitors(Island island);
-
-    /**
-     * Open the island visitors menu for a player.
-     *
-     * @param superiorPlayer The player to open the menu for.
-     * @param island         The island to get the visitors from.
-     * @deprecated see {@link #openVisitors(SuperiorPlayer, ISuperiorMenu, Island)}
-     */
-    @Deprecated
-    void openIslandVisitorsMenu(SuperiorPlayer superiorPlayer, Island island);
-
-    /**
-     * Open the warp categories menu
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetIsland The island to get warp categories from.
-     */
-    void openWarpCategories(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, Island targetIsland);
-
-    /**
-     * Refresh the warp categories menu for a specific island.
-     *
-     * @param island The island to refresh the menus for.
-     */
-    void refreshWarpCategories(Island island);
-
-    /**
-     * Destroy the warp-categories menus for a specific island.
-     *
-     * @param island The island to close menus of.
-     */
-    void destroyWarpCategories(Island island);
-
-    /**
-     * Open the warp-category icon edit menu.
-     * Used when editing an icon of a warp category.
-     *
-     * @param targetPlayer   The player to open the menu for.
-     * @param previousMenu   The previous menu that was opened, if exists.
-     * @param targetCategory The warp category to edit the icon for.
-     */
-    void openWarpCategoryIconEdit(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, WarpCategory targetCategory);
-
-    /**
-     * Open the warp category manage menu.
-     * Used when managing a warp category.
-     *
-     * @param targetPlayer   The player to open the menu for.
-     * @param previousMenu   The previous menu that was opened, if exists.
-     * @param targetCategory The warp category to manage.
-     */
-    void openWarpCategoryManage(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, WarpCategory targetCategory);
-
-    /**
-     * Refresh the warp category manage menu for a specific warp category.
-     *
-     * @param warpCategory The warp category to refresh the menus for.
-     */
-    void refreshWarpCategoryManage(WarpCategory warpCategory);
-
-    /**
-     * Open the warp icon edit menu.
-     * Used when editing an icon of a warp.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetWarp   The warp to edit the icon for.
-     */
-    void openWarpIconEdit(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, IslandWarp targetWarp);
-
-    /**
-     * Open the warp manage menu.
-     * Used when managing a warp.
-     *
-     * @param targetPlayer The player to open the menu for.
-     * @param previousMenu The previous menu that was opened, if exists.
-     * @param targetWarp   The warp to manage.
-     */
-    void openWarpManage(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, IslandWarp targetWarp);
-
-    /**
-     * Refresh the warp manage menu for a specific warp.
-     *
-     * @param islandWarp The warp to refresh the menus for.
-     */
-    void refreshWarpManage(IslandWarp islandWarp);
-
-    /**
-     * Open the warps menu.
-     * Used to look for all warps in a category.
-     *
-     * @param targetPlayer   The player to open the menu for.
-     * @param previousMenu   The previous menu that was opened, if exists.
-     * @param targetCategory The category to get warps from.
-     */
-    void openWarps(SuperiorPlayer targetPlayer, @Nullable ISuperiorMenu previousMenu, WarpCategory targetCategory);
-
-    /**
-     * Open the island warps menu for a player.
-     *
-     * @param superiorPlayer The player to open the menu for.
-     * @param island         The island to get the warps from.
-     * @deprecated see {@link #openWarps(SuperiorPlayer, ISuperiorMenu, WarpCategory)}
-     */
-    @Deprecated
-    void openIslandWarpsMenu(SuperiorPlayer superiorPlayer, Island island);
-
-    /**
-     * Refresh the warps-menu for a specific island.
-     *
-     * @param warpCategory The warp category to refresh the menus for.
-     */
-    void refreshWarps(WarpCategory warpCategory);
-
-    /**
-     * Destroy the warp-categories menus for a specific warp category.
-     *
-     * @param warpCategory The warp category to close menus of.
-     */
-    void destroyWarps(WarpCategory warpCategory);
 
     /**
      * Register a new menu to the plugin.

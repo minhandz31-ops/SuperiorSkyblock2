@@ -11,9 +11,6 @@ import com.bgsoftware.superiorskyblock.api.island.IslandChest;
 import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
-import com.bgsoftware.superiorskyblock.api.island.bank.BankTransaction;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
-import com.bgsoftware.superiorskyblock.api.island.warps.WarpCategory;
 import com.bgsoftware.superiorskyblock.api.key.Key;
 import com.bgsoftware.superiorskyblock.api.missions.Mission;
 import com.bgsoftware.superiorskyblock.api.objects.Pair;
@@ -234,10 +231,6 @@ public class IslandsDatabaseBridge {
         updateIslandValue(island, "last_time_updated", island.getLastTimeUpdate());
     }
 
-    public static void saveBankLimit(Island island) {
-        updateIslandSettingsValue(island, "bank_limit", island.getBankLimit() + "");
-    }
-
     public static void saveUpgrade(Island island, Upgrade upgrade, int level) {
         runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
             try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
@@ -318,10 +311,6 @@ public class IslandsDatabaseBridge {
         updateIslandSettingsValue(island, "members_limit", island.getTeamLimit());
     }
 
-    public static void saveWarpsLimit(Island island) {
-        updateIslandSettingsValue(island, "warps_limit", island.getWarpsLimit());
-    }
-
     public static void saveIslandEffect(Island island, PotionEffectType potionEffectType, int level) {
         runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
             try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
@@ -365,81 +354,6 @@ public class IslandsDatabaseBridge {
             try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
                 DBColumn column = pool.obtain().withNameAndValue("role", playerRole.getId());
                 databaseBridge.deleteObject("islands_role_limits", createFilter(pool, "island", island, column));
-            }
-        });
-    }
-
-    public static void saveWarp(Island island, IslandWarp islandWarp) {
-        WarpCategory category = islandWarp.getCategory();
-        ItemStack icon = islandWarp.getRawIcon();
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain();
-                 ObjectsPools.Wrapper<LazyWorldLocation> wrapper = ObjectsPools.LAZY_LOCATION.obtain()) {
-                databaseBridge.insertObject("islands_warps",
-                        pool.obtain().withNameAndValue("island", island.getUniqueId().toString()),
-                        pool.obtain().withNameAndValue("name", islandWarp.getName()),
-                        pool.obtain().withNameAndValue("category", category == null ? "" : category.getName()),
-                        pool.obtain().withNameAndValue("location", Serializers.LOCATION_SERIALIZER.serialize(islandWarp.getLocation(wrapper.getHandle()))),
-                        pool.obtain().withNameAndValue("private", islandWarp.hasPrivateFlag()),
-                        pool.obtain().withNameAndValue("icon", Serializers.ITEM_STACK_SERIALIZER.serialize(icon))
-                );
-            }
-        });
-    }
-
-    public static void updateWarpName(Island island, IslandWarp islandWarp, String oldName) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.updateObject("islands_warps",
-                        createFilter(pool, "island", island, pool.obtain().withNameAndValue("name", oldName)),
-                        pool.obtain().withNameAndValue("name", islandWarp.getName())
-                );
-            }
-        });
-    }
-
-    public static void updateWarpLocation(Island island, IslandWarp islandWarp) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain();
-                 ObjectsPools.Wrapper<LazyWorldLocation> wrapper = ObjectsPools.LAZY_LOCATION.obtain()) {
-                String islandWarpLocation = Serializers.LOCATION_SERIALIZER.serialize(islandWarp.getLocation(wrapper.getHandle()));
-                databaseBridge.updateObject("islands_warps",
-                        createFilter(pool, "island", island, pool.obtain().withNameAndValue("name", islandWarp.getName())),
-                        pool.obtain().withNameAndValue("location", islandWarpLocation)
-                );
-            }
-        });
-    }
-
-    public static void updateWarpPrivateStatus(Island island, IslandWarp islandWarp) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.updateObject("islands_warps",
-                        createFilter(pool, "island", island, pool.obtain().withNameAndValue("name", islandWarp.getName())),
-                        pool.obtain().withNameAndValue("private", islandWarp.hasPrivateFlag())
-                );
-            }
-        });
-    }
-
-    public static void updateWarpIcon(Island island, IslandWarp islandWarp) {
-
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            ItemStack icon = islandWarp.getRawIcon();
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.updateObject("islands_warps",
-                        createFilter(pool, "island", island, pool.obtain().withNameAndValue("name", islandWarp.getName())),
-                        pool.obtain().withNameAndValue("icon", Serializers.ITEM_STACK_SERIALIZER.serialize(icon))
-                );
-            }
-        });
-    }
-
-    public static void removeWarp(Island island, IslandWarp islandWarp) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                DBColumn column = pool.obtain().withNameAndValue("name", islandWarp.getName());
-                databaseBridge.deleteObject("islands_warps", createFilter(pool, "island", island, column));
             }
         });
     }
@@ -583,15 +497,6 @@ public class IslandsDatabaseBridge {
         });
     }
 
-    public static void saveLastInterestTime(Island island) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Wrapper<DBColumn> wrapper = ObjectsPools.DB_COLUMN.obtain()) {
-                DBColumn column = wrapper.getHandle().withNameAndValue("last_interest_time", island.getLastInterestTime() * 1000);
-                databaseBridge.updateObject("islands_banks", createFilter("island", island), column);
-            }
-        });
-    }
-
     public static void saveVisitor(Island island, SuperiorPlayer visitor, long visitTime) {
         runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
             try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
@@ -604,103 +509,11 @@ public class IslandsDatabaseBridge {
         });
     }
 
-    public static void saveWarpCategory(Island island, WarpCategory warpCategory) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.insertObject("islands_warp_categories",
-                        pool.obtain().withNameAndValue("island", island.getUniqueId().toString()),
-                        pool.obtain().withNameAndValue("name", warpCategory.getName()),
-                        pool.obtain().withNameAndValue("slot", warpCategory.getSlot()),
-                        pool.obtain().withNameAndValue("icon", Serializers.ITEM_STACK_SERIALIZER.serialize(warpCategory.getRawIcon()))
-                );
-            }
-        });
-    }
-
-    public static void updateWarpCategory(Island island, IslandWarp islandWarp, String oldCategoryName) {
-        WarpCategory category = islandWarp.getCategory();
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.updateObject("islands_warps",
-                        createFilter(pool, "island", island, pool.obtain().withNameAndValue("category", oldCategoryName)),
-                        pool.obtain().withNameAndValue("category", category == null ? "" : category.getName())
-                );
-            }
-        });
-    }
-
-    public static void updateWarpCategoryName(Island island, WarpCategory warpCategory, String oldName) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.updateObject("islands_warp_categories",
-                        createFilter(pool, "island", island, pool.obtain().withNameAndValue("name", oldName)),
-                        pool.obtain().withNameAndValue("name", warpCategory.getName())
-                );
-            }
-        });
-    }
-
-    public static void updateWarpCategorySlot(Island island, WarpCategory warpCategory) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.updateObject("islands_warp_categories",
-                        createFilter(pool, "island", island, pool.obtain().withNameAndValue("name", warpCategory.getName())),
-                        pool.obtain().withNameAndValue("slot", warpCategory.getSlot())
-                );
-            }
-        });
-    }
-
-    public static void updateWarpCategoryIcon(Island island, WarpCategory warpCategory) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.updateObject("islands_warp_categories",
-                        createFilter(pool, "island", island, pool.obtain().withNameAndValue("name", warpCategory.getName())),
-                        pool.obtain().withNameAndValue("icon", Serializers.ITEM_STACK_SERIALIZER.serialize(warpCategory.getRawIcon()))
-                );
-            }
-        });
-    }
-
-    public static void removeWarpCategory(Island island, WarpCategory warpCategory) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                DBColumn column = pool.obtain().withNameAndValue("name", warpCategory.getName());
-                databaseBridge.deleteObject("islands_warp_categories", createFilter(pool, "island", island, column));
-            }
-        });
-    }
-
     public static void saveIslandLeader(Island island) {
         runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
             try (ObjectsPools.Wrapper<DBColumn> wrapper = ObjectsPools.DB_COLUMN.obtain()) {
                 DBColumn column = wrapper.getHandle().withNameAndValue("owner", island.getOwner().getUniqueId().toString());
                 databaseBridge.updateObject("islands", createFilter("uuid", island), column);
-            }
-        });
-    }
-
-    public static void saveBankBalance(Island island) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Wrapper<DBColumn> wrapper = ObjectsPools.DB_COLUMN.obtain()) {
-                DBColumn column = wrapper.getHandle().withNameAndValue("balance", island.getIslandBank().getBalance() + "");
-                databaseBridge.updateObject("islands_banks", createFilter("island", island), column);
-            }
-        });
-    }
-
-    public static void saveBankTransaction(Island island, BankTransaction bankTransaction) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.insertObject("bank_transactions",
-                        pool.obtain().withNameAndValue("island", island.getUniqueId().toString()),
-                        pool.obtain().withNameAndValue("player", bankTransaction.getPlayer() == null ? "" : bankTransaction.getPlayer().toString()),
-                        pool.obtain().withNameAndValue("bank_action", bankTransaction.getAction().name()),
-                        pool.obtain().withNameAndValue("position", bankTransaction.getPosition()),
-                        pool.obtain().withNameAndValue("time", bankTransaction.getTime()),
-                        pool.obtain().withNameAndValue("failure_reason", bankTransaction.getFailureReason()),
-                        pool.obtain().withNameAndValue("amount", bankTransaction.getAmount() + "")
-                );
             }
         });
     }
@@ -730,7 +543,6 @@ public class IslandsDatabaseBridge {
                         pool.obtain().withNameAndValue("bank_limit", IslandUpgradeConstants.SYNCED_BANK_LIMIT_VALUE.toString()),
                         pool.obtain().withNameAndValue("coops_limit", IslandUpgradeConstants.SYNCED_VALUE),
                         pool.obtain().withNameAndValue("members_limit", IslandUpgradeConstants.SYNCED_VALUE),
-                        pool.obtain().withNameAndValue("warps_limit", IslandUpgradeConstants.SYNCED_VALUE),
                         pool.obtain().withNameAndValue("crop_growth_multiplier", IslandUpgradeConstants.SYNCED_VALUE),
                         pool.obtain().withNameAndValue("spawner_rates_multiplier", IslandUpgradeConstants.SYNCED_VALUE),
                         pool.obtain().withNameAndValue("mob_drops_multiplier", IslandUpgradeConstants.SYNCED_VALUE)
@@ -766,20 +578,7 @@ public class IslandsDatabaseBridge {
             }
         });
 
-        insertIslandBanks(island);
         insertIslandSettings(island);
-    }
-
-    public static void insertIslandBanks(Island island) {
-        runOperationIfRunning(island.getDatabaseBridge(), databaseBridge -> {
-            try (ObjectsPools.Batch<DBColumn> pool = ObjectsPools.DB_COLUMN_BATCH.obtain()) {
-                databaseBridge.insertObject("islands_banks",
-                        pool.obtain().withNameAndValue("island", island.getUniqueId().toString()),
-                        pool.obtain().withNameAndValue("balance", island.getIslandBank().getBalance() + ""),
-                        pool.obtain().withNameAndValue("last_interest_time", island.getLastInterestTime())
-                );
-            }
-        });
     }
 
     public static void insertIslandSettings(Island island) {
@@ -788,10 +587,8 @@ public class IslandsDatabaseBridge {
                 databaseBridge.insertObject("islands_settings",
                         pool.obtain().withNameAndValue("island", island.getUniqueId().toString()),
                         pool.obtain().withNameAndValue("size", island.getIslandSizeRaw()),
-                        pool.obtain().withNameAndValue("bank_limit", island.getBankLimitRaw() + ""),
                         pool.obtain().withNameAndValue("coops_limit", island.getCoopLimitRaw()),
                         pool.obtain().withNameAndValue("members_limit", island.getTeamLimitRaw()),
-                        pool.obtain().withNameAndValue("warps_limit", island.getWarpsLimitRaw()),
                         pool.obtain().withNameAndValue("crop_growth_multiplier", island.getCropGrowthRaw()),
                         pool.obtain().withNameAndValue("spawner_rates_multiplier", island.getSpawnerRatesRaw()),
                         pool.obtain().withNameAndValue("mob_drops_multiplier", island.getMobDropsRaw())
@@ -805,9 +602,7 @@ public class IslandsDatabaseBridge {
             DatabaseFilter islandFilter = createFilter("island", island);
 
             databaseBridge.deleteObject("islands", createFilter("uuid", island));
-            databaseBridge.deleteObject("islands_banks", islandFilter);
             databaseBridge.deleteObject("islands_settings", islandFilter);
-            databaseBridge.deleteObject("bank_transactions", islandFilter);
 
 
             if (!island.getBannedPlayers().isEmpty())
@@ -846,18 +641,6 @@ public class IslandsDatabaseBridge {
                 databaseBridge.deleteObject("islands_role_permissions", islandFilter);
             if (!island.getUpgrades().isEmpty())
                 databaseBridge.deleteObject("islands_upgrades", islandFilter);
-            for (Dimension dimension : Dimension.values()) {
-                if (island.getVisitorsPosition(dimension) != null) {
-                    databaseBridge.deleteObject("islands_visitor_homes", islandFilter);
-                    break;
-                }
-            }
-            if (!island.getUniqueVisitors().isEmpty())
-                databaseBridge.deleteObject("islands_visitors", islandFilter);
-            if (!island.getWarpCategories().isEmpty()) {
-                databaseBridge.deleteObject("islands_warp_categories", islandFilter);
-                databaseBridge.deleteObject("islands_warps", islandFilter);
-            }
         });
     }
 

@@ -19,7 +19,6 @@ public class AdminCommandsMap extends CommandsMap {
         registerCommand(new CmdAdminAddDisbands());
         registerCommand(new CmdAdminAddSize());
         registerCommand(new CmdAdminAddTeamLimit());
-        registerCommand(new CmdAdminAddWarpsLimit());
         registerCommand(new CmdAdminBypass());
         registerCommand(new CmdAdminChest());
         registerCommand(new CmdAdminClose());
@@ -27,7 +26,6 @@ public class AdminCommandsMap extends CommandsMap {
         registerCommand(new CmdAdminCount());
         registerCommand(new CmdAdminData());
         registerCommand(new CmdAdminDebug());
-        registerCommand(new CmdAdminDelWarp());
         registerCommand(new CmdAdminDemote());
         registerCommand(new CmdAdminDisband());
         registerCommand(new CmdAdminFly());
@@ -48,13 +46,11 @@ public class AdminCommandsMap extends CommandsMap {
         registerCommand(new CmdAdminResetSettings());
         registerCommand(new CmdAdminResetWorld());
         registerCommand(new CmdAdminSchematic());
-        registerCommand(new CmdAdminSetBiome());
         registerCommand(new CmdAdminSetBlockAmount());
         registerCommand(new CmdAdminSetChestRow());
         if (plugin.getSettings().isCoopMembers())
             registerCommand(new CmdAdminSetCoopLimit());
         registerCommand(new CmdAdminSetDisbands());
-        registerCommand(new CmdAdminSetIslandPreview());
         registerCommand(new CmdAdminSetLeader());
         registerCommand(new CmdAdminSetPermission());
         registerCommand(new CmdAdminSetRate());
@@ -64,7 +60,6 @@ public class AdminCommandsMap extends CommandsMap {
         registerCommand(new CmdAdminSetSpawn());
         registerCommand(new CmdAdminSetTeamLimit());
         registerCommand(new CmdAdminSettings());
-        registerCommand(new CmdAdminSetWarpsLimit());
         registerCommand(new CmdAdminShow());
         registerCommand(new CmdAdminSpawn());
         registerCommand(new CmdAdminSpy());

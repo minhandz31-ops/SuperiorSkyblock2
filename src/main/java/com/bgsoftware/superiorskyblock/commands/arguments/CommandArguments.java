@@ -7,7 +7,6 @@ import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.IslandFlag;
 import com.bgsoftware.superiorskyblock.api.island.IslandPrivilege;
 import com.bgsoftware.superiorskyblock.api.island.PlayerRole;
-import com.bgsoftware.superiorskyblock.api.island.warps.IslandWarp;
 import com.bgsoftware.superiorskyblock.api.missions.Mission;
 import com.bgsoftware.superiorskyblock.api.missions.MissionCategory;
 import com.bgsoftware.superiorskyblock.api.schematic.Schematic;
@@ -25,7 +24,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
@@ -329,26 +327,6 @@ public class CommandArguments {
 
     public static NumberArgument<Integer> getSize(CommandSender sender, String argument) {
         return getInt(sender, argument, Message.INVALID_SIZE);
-    }
-
-    public static IslandWarp getWarp(CommandSender sender, Island island, String[] args, int start) {
-        String warpName = buildLongString(args, start, false);
-        IslandWarp islandWarp = island.getWarp(warpName);
-
-        if (islandWarp == null)
-            Message.INVALID_WARP.send(sender, warpName);
-
-        return islandWarp;
-    }
-
-    public static Biome getBiome(SuperiorSkyblockPlugin plugin, CommandSender sender, String argument) {
-        Biome biome = plugin.getNMSAlgorithms().getBiome(argument);
-
-        if (biome == null) {
-            Message.INVALID_BIOME.send(sender, argument);
-        }
-
-        return biome;
     }
 
     public static World getWorld(CommandSender sender, String argument) {

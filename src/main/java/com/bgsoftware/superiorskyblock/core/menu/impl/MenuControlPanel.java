@@ -50,8 +50,6 @@ public class MenuControlPanel extends AbstractMenu<IslandMenuView, IslandViewArg
                 new ControlPanelButton.Builder().setAction(ControlPanelButton.ControlPanelAction.OPEN_MEMBERS));
         patternBuilder.mapButtons(MenuParserImpl.getInstance().parseButtonSlots(cfg, "settings", menuPatternSlots),
                 new ControlPanelButton.Builder().setAction(ControlPanelButton.ControlPanelAction.OPEN_SETTINGS));
-        patternBuilder.mapButtons(MenuParserImpl.getInstance().parseButtonSlots(cfg, "visitors", menuPatternSlots),
-                new ControlPanelButton.Builder().setAction(ControlPanelButton.ControlPanelAction.OPEN_VISITORS));
 
         return new MenuControlPanel(menuParseResult);
     }
@@ -85,18 +83,14 @@ public class MenuControlPanel extends AbstractMenu<IslandMenuView, IslandViewArg
 
         char membersChar = AbstractMenuLayout.BUTTON_SYMBOLS[charCounter++];
         char settingsChar = AbstractMenuLayout.BUTTON_SYMBOLS[charCounter++];
-        char visitorsChar = AbstractMenuLayout.BUTTON_SYMBOLS[charCounter++];
 
         MenuConverter.convertItem(cfg.getConfigurationSection("main-panel.members"), patternChars, membersChar,
                 itemsSection, commandsSection, soundsSection);
         MenuConverter.convertItem(cfg.getConfigurationSection("main-panel.settings"), patternChars, settingsChar,
                 itemsSection, commandsSection, soundsSection);
-        MenuConverter.convertItem(cfg.getConfigurationSection("main-panel.visitors"), patternChars, visitorsChar,
-                itemsSection, commandsSection, soundsSection);
 
         newMenu.set("members", membersChar + "");
         newMenu.set("settings", settingsChar + "");
-        newMenu.set("visitors", visitorsChar + "");
 
         newMenu.set("pattern", MenuConverter.buildPattern(size, patternChars,
                 AbstractMenuLayout.BUTTON_SYMBOLS[charCounter]));

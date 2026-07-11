@@ -3,7 +3,6 @@ package com.bgsoftware.superiorskyblock.api.handlers;
 import com.bgsoftware.common.annotations.Nullable;
 import com.bgsoftware.superiorskyblock.api.data.IDatabaseBridgeHolder;
 import com.bgsoftware.superiorskyblock.api.island.Island;
-import com.bgsoftware.superiorskyblock.api.island.IslandPreview;
 import com.bgsoftware.superiorskyblock.api.island.SortingType;
 import com.bgsoftware.superiorskyblock.api.island.container.IslandsContainer;
 import com.bgsoftware.superiorskyblock.api.world.Dimension;
@@ -15,7 +14,6 @@ import com.bgsoftware.superiorskyblock.api.wrappers.SuperiorPlayer;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 
 import java.math.BigDecimal;
@@ -29,53 +27,48 @@ public interface GridManager extends IDatabaseBridgeHolder {
      *
      * @param superiorPlayer The new owner for the island.
      * @param schemName      The schematic that should be used.
-     * @param biome          A starting biome for the island.
      * @param islandName     The name of the new island.
      */
-    void createIsland(SuperiorPlayer superiorPlayer, String schemName, Biome biome, String islandName);
+    void createIsland(SuperiorPlayer superiorPlayer, String schemName, String islandName);
 
     /**
      * Create a new island.
      *
      * @param superiorPlayer The new owner for the island.
      * @param schemName      The schematic that should be used.
-     * @param biome          A starting biome for the island.
      * @param islandName     The name of the new island.
      * @param offset         Should the island have an offset for it's values?
      */
-    void createIsland(SuperiorPlayer superiorPlayer, String schemName, Biome biome, String islandName, boolean offset);
+    void createIsland(SuperiorPlayer superiorPlayer, String schemName, String islandName, boolean offset);
 
     /**
      * Create a new island.
      *
      * @param superiorPlayer The new owner for the island.
      * @param schemName      The schematic that should be used.
-     * @param biome          A starting biome for the island.
      * @param islandName     The name of the new island.
      * @param offset         Should the island have an offset for it's values?
      * @param spawnOffset    The offset to teleport the player to from the center of the schematic
      */
     void createIsland(SuperiorPlayer superiorPlayer, String schemName,
-                      Biome biome, String islandName, boolean offset, @Nullable BlockOffset spawnOffset);
+                      String islandName, boolean offset, @Nullable BlockOffset spawnOffset);
 
     /**
      * Create a new island.
      *
      * @param builder The builder for the island.
-     * @param biome   A starting biome for the island.
      * @param offset  Should the island have an offset for its values? If disabled, the bonus will be given.
      */
-    void createIsland(Island.Builder builder, Biome biome, boolean offset);
+    void createIsland(Island.Builder builder, boolean offset);
 
     /**
      * Create a new island.
      *
      * @param builder     The builder for the island.
-     * @param biome       A starting biome for the island.
      * @param offset      Should the island have an offset for its values? If disabled, the bonus will be given.
      * @param spawnOffset The offset to teleport the player to from the center of the schematic
      */
-    void createIsland(Island.Builder builder, Biome biome, boolean offset, @Nullable BlockOffset spawnOffset);
+    void createIsland(Island.Builder builder, boolean offset, @Nullable BlockOffset spawnOffset);
 
     /**
      * Set the creation algorithm of islands.
@@ -96,35 +89,6 @@ public interface GridManager extends IDatabaseBridgeHolder {
      * @param superiorPlayer The player to check.
      */
     boolean hasActiveCreateRequest(SuperiorPlayer superiorPlayer);
-
-    /**
-     * Start the island preview task for a specific player.
-     *
-     * @param superiorPlayer The player to start preview for.
-     * @param schemName      The schematic to preview.
-     * @param islandName     The requested island name by the player.
-     */
-    void startIslandPreview(SuperiorPlayer superiorPlayer, String schemName, String islandName);
-
-    /**
-     * Cancel the island preview for a specific player.
-     *
-     * @param superiorPlayer The player to cancel preview for.
-     */
-    void cancelIslandPreview(SuperiorPlayer superiorPlayer);
-
-    /**
-     * Cancel all active island previews.
-     */
-    void cancelAllIslandPreviews();
-
-    /**
-     * Check if a player has an ongoing island preview task.
-     *
-     * @param superiorPlayer The player to check.
-     */
-    @Nullable
-    IslandPreview getIslandPreview(SuperiorPlayer superiorPlayer);
 
     /**
      * Delete an island.

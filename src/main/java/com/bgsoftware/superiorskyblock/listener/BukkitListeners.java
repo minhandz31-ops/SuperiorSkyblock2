@@ -31,7 +31,6 @@ public class BukkitListeners {
         new PlayersListener(this.plugin);
         new PortalsListener(this.plugin);
         new ProtectionListener(this.plugin);
-        new SignsListener(this.plugin);
         new StackedBlocksListener(this.plugin);
         new WorldDestructionListener(this.plugin);
 
@@ -40,9 +39,6 @@ public class BukkitListeners {
 
         if (plugin.getSettings().isAutoBlocksTracking())
             new BlockChangesListener(this.plugin);
-
-        if (!plugin.getSettings().getIslandPreviews().getLocations().isEmpty())
-            new IslandPreviewListener(this.plugin);
 
         safeEventsRegister(new BukkitEventsListener(this.plugin));
     }

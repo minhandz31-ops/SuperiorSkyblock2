@@ -6,7 +6,6 @@ import com.bgsoftware.superiorskyblock.core.value.Value;
 import com.bgsoftware.superiorskyblock.island.upgrade.cost.EmptyUpgradeCost;
 
 import java.util.Collections;
-import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 
@@ -28,7 +27,6 @@ public class DefaultUpgradeLevel extends SUpgradeLevel {
                 Value.syncedSupplied(() -> (KeyMap<Integer>) plugin.getSettings().getDefaultValues().getEntityLimits()),
                 Value.syncedSupplied(() -> plugin.getSettings().getDefaultValues().getRealGeneratorsMap()),
                 Value.syncedSupplied(() -> plugin.getSettings().getDefaultValues().getIslandEffects()),
-                Value.syncedSupplied(() -> Optional.of(plugin.getSettings().getDefaultValues().getBankLimit())),
                 Value.syncedSupplied(() -> plugin.getSettings().getDefaultValues().getRoleLimitsAsView())
         );
     }

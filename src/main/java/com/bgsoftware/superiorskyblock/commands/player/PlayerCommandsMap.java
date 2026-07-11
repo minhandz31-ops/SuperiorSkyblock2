@@ -17,7 +17,6 @@ public class PlayerCommandsMap extends CommandsMap {
         registerCommand(new CmdAdmin());
         registerCommand(new CmdBan());
         registerCommand(new CmdBans());
-        registerCommand(new CmdBiome());
         registerCommand(new CmdBorder());
         registerCommand(new CmdChest());
         registerCommand(new CmdClose());
@@ -26,7 +25,6 @@ public class PlayerCommandsMap extends CommandsMap {
             registerCommand(new CmdCoops());
         }
         registerCommand(new CmdCreate());
-        registerCommand(new CmdDelWarp());
         registerCommand(new CmdDemote());
         registerCommand(new CmdDisband());
         registerCommand(new CmdExpel());
@@ -51,7 +49,6 @@ public class PlayerCommandsMap extends CommandsMap {
         registerCommand(new CmdSetRole());
         registerCommand(new CmdSetTeleport());
         registerCommand(new CmdSettings());
-        registerCommand(new CmdSetWarp());
         registerCommand(new CmdShow());
         registerCommand(new CmdTeam());
         registerCommand(new CmdTeamChat());
@@ -60,10 +57,6 @@ public class PlayerCommandsMap extends CommandsMap {
         registerCommand(new CmdTransfer());
         if (plugin.getSettings().isCoopMembers())
             registerCommand(new CmdUncoop());
-        registerCommand(new CmdVisit());
-        registerCommand(new CmdVisitors());
-        registerCommand(new CmdWarp());
-        registerCommand(new CmdWarps());
     }
 
 }

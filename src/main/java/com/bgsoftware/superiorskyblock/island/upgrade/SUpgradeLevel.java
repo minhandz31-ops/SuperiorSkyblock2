@@ -65,7 +65,6 @@ public class SUpgradeLevel implements UpgradeLevel {
     private final Value<KeyMap<Integer>> entityLimits;
     private final Value<EnumerateMap<Dimension, Map<Key, Integer>>> generatorRates;
     private final Value<Map<PotionEffectType, Integer>> islandEffects;
-    private final Value<Optional<BigDecimal>> bankLimit;
     private final Value<Int2IntMapView> roleLimits;
 
     @Nullable
@@ -76,7 +75,7 @@ public class SUpgradeLevel implements UpgradeLevel {
                          Value<OptionalInt> teamLimit, Value<OptionalInt> warpsLimit, Value<OptionalInt> coopLimit,
                          Value<OptionalInt> borderSize, Value<KeyMap<Integer>> blockLimits,
                          Value<KeyMap<Integer>> entityLimits, Value<EnumerateMap<Dimension, Map<Key, Integer>>> generatorRates,
-                         Value<Map<PotionEffectType, Integer>> islandEffects, Value<Optional<BigDecimal>> bankLimit,
+                         Value<Map<PotionEffectType, Integer>> islandEffects,
                          Value<Int2IntMapView> roleLimits) {
         this.level = level;
         this.cost = cost;
@@ -94,7 +93,6 @@ public class SUpgradeLevel implements UpgradeLevel {
         this.entityLimits = entityLimits;
         this.generatorRates = generatorRates;
         this.islandEffects = islandEffects;
-        this.bankLimit = bankLimit;
         this.roleLimits = roleLimits;
     }
 
@@ -277,16 +275,6 @@ public class SUpgradeLevel implements UpgradeLevel {
     }
 
     @Override
-    public boolean hasBankLimit() {
-        return bankLimit.get().isPresent();
-    }
-
-    @Override
-    public BigDecimal getBankLimit() {
-        return bankLimit.get().orElse(IslandUpgradeConstants.NO_BANK_LIMIT_VALUE);
-    }
-
-    @Override
     public int getRoleLimit(PlayerRole playerRole) {
         Preconditions.checkNotNull(playerRole, "playerRole parameter cannot be null.");
         return roleLimits.get().getOrDefault(playerRole.getId(), IslandUpgradeConstants.NO_LIMIT_VALUE);
@@ -377,10 +365,6 @@ public class SUpgradeLevel implements UpgradeLevel {
                 Map.Entry::getKey,
                 entry -> IntValue.syncedFixed(entry.getValue()))
         );
-    }
-
-    public Value<BigDecimal> getBankLimitUpgradeValue() {
-        return Value.syncedSupplied(() -> bankLimit.get().orElseGet(() -> IslandUpgradeConstants.NO_BANK_LIMIT_VALUE));
     }
 
     public Map<PlayerRole, IntValue> getRoleLimitsUpgradeValue() {

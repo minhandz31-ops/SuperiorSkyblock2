@@ -5,7 +5,6 @@ import com.bgsoftware.superiorskyblock.api.handlers.GridManager;
 import com.bgsoftware.superiorskyblock.api.schematic.Schematic;
 import com.bgsoftware.superiorskyblock.api.world.GameSound;
 import com.bgsoftware.superiorskyblock.api.wrappers.BlockOffset;
-import org.bukkit.block.Biome;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -42,10 +41,5 @@ public interface MenuIslandCreationConfig {
      */
     @Nullable
     BlockOffset getSpawnOffset();
-
-    /**
-     * Get the biome to set to the new island.
-     */
-    Biome getBiome();
 
 }

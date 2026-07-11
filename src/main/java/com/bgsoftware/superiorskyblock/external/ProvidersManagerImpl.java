@@ -82,7 +82,6 @@ public class ProvidersManagerImpl extends Manager implements ProvidersManager {
     private SpawnersProvider spawnersProvider = new SpawnersProvider_Default();
     private StackedBlocksProvider stackedBlocksProvider = new StackedBlocksProvider_Default();
     private EconomyProvider economyProvider = new EconomyProvider_Default();
-    private EconomyProvider bankEconomyProvider = new EconomyProvider_Default();
     private PermissionsProvider permissionsProvider = new PermissionsProvider_Default();
     private PricesProvider pricesProvider = new PricesProvider_Default();
     private VanishProvider vanishProvider = new VanishProvider_Default();
@@ -212,17 +211,6 @@ public class ProvidersManagerImpl extends Manager implements ProvidersManager {
     public void setChunksProvider(ChunksProvider chunksProvider) {
         Preconditions.checkNotNull(chunksProvider, "chunksProvider parameter cannot be null.");
         this.chunksProvider = chunksProvider;
-    }
-
-    @Override
-    public EconomyProvider getBankEconomyProvider() {
-        return this.bankEconomyProvider;
-    }
-
-    @Override
-    public void setBankEconomyProvider(EconomyProvider bankEconomyProvider) {
-        Preconditions.checkNotNull(bankEconomyProvider, "bankEconomyProvider parameter cannot be null.");
-        this.bankEconomyProvider = bankEconomyProvider;
     }
 
     @Override
@@ -404,30 +392,6 @@ public class ProvidersManagerImpl extends Manager implements ProvidersManager {
         }
 
         return economyProvider.withdrawMoney(superiorPlayer, amount.doubleValue());
-    }
-
-    public EconomyProvider.EconomyResult depositMoneyForBanks(SuperiorPlayer superiorPlayer, BigDecimal amount) {
-        while (amount.compareTo(MAX_DOUBLE) > 0) {
-            EconomyProvider.EconomyResult result = bankEconomyProvider.depositMoney(superiorPlayer, Double.MAX_VALUE);
-            if (result.hasFailed())
-                return result;
-
-            amount = amount.subtract(MAX_DOUBLE);
-        }
-
-        return bankEconomyProvider.depositMoney(superiorPlayer, amount.doubleValue());
-    }
-
-    public EconomyProvider.EconomyResult withdrawMoneyForBanks(SuperiorPlayer superiorPlayer, BigDecimal amount) {
-        while (amount.compareTo(MAX_DOUBLE) > 0) {
-            EconomyProvider.EconomyResult result = bankEconomyProvider.withdrawMoney(superiorPlayer, Double.MAX_VALUE);
-            if (result.hasFailed())
-                return result;
-
-            amount = amount.subtract(MAX_DOUBLE);
-        }
-
-        return bankEconomyProvider.withdrawMoney(superiorPlayer, amount.doubleValue());
     }
 
     public boolean hasCustomWorldsSupport() {
@@ -667,15 +631,9 @@ public class ProvidersManagerImpl extends Manager implements ProvidersManager {
 
     private void registerEconomyProviders() {
         if (canRegisterHook("Vault")) {
-            if (this.economyProvider instanceof EconomyProvider_Default ||
-                    this.bankEconomyProvider instanceof EconomyProvider_Default) {
+            if (this.economyProvider instanceof EconomyProvider_Default) {
                 Optional<EconomyProvider> economyProviderOptional = createInstance("economy.EconomyProvider_Vault");
-                economyProviderOptional.ifPresent(economyProvider -> {
-                    if (this.economyProvider instanceof EconomyProvider_Default)
-                        setEconomyProvider(economyProvider);
-                    if (this.bankEconomyProvider instanceof EconomyProvider_Default)
-                        setBankEconomyProvider(economyProvider);
-                });
+                economyProviderOptional.ifPresent(this::setEconomyProvider);
             }
         }
     }

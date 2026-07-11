@@ -852,12 +852,6 @@ public interface SettingsManager {
         double getMobDrops();
 
         /**
-         * The default bank-limit for new islands.
-         * Config-path: default-values.bank-limit
-         */
-        BigDecimal getBankLimit();
-
-        /**
          * The default generator-rates for new islands.
          * Represented by an array of maps with keys as the blocks, and values as the rates.
          * The maps are sorted by the {@link Dimension} they belong to.

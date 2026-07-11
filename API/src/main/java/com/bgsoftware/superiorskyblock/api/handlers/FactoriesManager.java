@@ -1,13 +1,10 @@
 package com.bgsoftware.superiorskyblock.api.handlers;
 
 import com.bgsoftware.common.annotations.Nullable;
-import com.bgsoftware.superiorskyblock.api.enums.BankAction;
-import com.bgsoftware.superiorskyblock.api.factory.BanksFactory;
 import com.bgsoftware.superiorskyblock.api.factory.DatabaseBridgeFactory;
 import com.bgsoftware.superiorskyblock.api.factory.IslandsFactory;
 import com.bgsoftware.superiorskyblock.api.factory.PlayersFactory;
 import com.bgsoftware.superiorskyblock.api.island.Island;
-import com.bgsoftware.superiorskyblock.api.island.bank.BankTransaction;
 import com.bgsoftware.superiorskyblock.api.schematic.SchematicOptions;
 import com.bgsoftware.superiorskyblock.api.world.Dimension;
 import com.bgsoftware.superiorskyblock.api.world.GameSound;
@@ -20,7 +17,6 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.World;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 public interface FactoriesManager {
@@ -50,19 +46,6 @@ public interface FactoriesManager {
      * Get the current players factory.
      */
     PlayersFactory getPlayersFactory();
-
-    /**
-     * Register a custom banks factory.
-     *
-     * @param banksFactory The new factory to set.
-     *                     If set to null, the default factory will be used.
-     */
-    void registerBanksFactory(@Nullable BanksFactory banksFactory);
-
-    /**
-     * Get the current banks factory.
-     */
-    BanksFactory getBanksFactory();
 
     /**
      * Register a custom database-bridge factory.
@@ -170,21 +153,6 @@ public interface FactoriesManager {
      * @param location The location.
      */
     WorldPosition createWorldPosition(Location location);
-
-    /**
-     * Create a new bank transaction.
-     *
-     * @param player        The player that made the transaction.
-     *                      Can be null if console made it.
-     * @param action        The transaction action
-     * @param position      The position of the transaction.
-     * @param time          The time the transaction was made.
-     * @param failureReason The reason of failure for this transaction, if exists.
-     *                      On successful transactions, empty string should be set.
-     * @param amount        The amount of money that was transferred in this transaction.
-     */
-    BankTransaction createTransaction(@Nullable UUID player, BankAction action, int position,
-                                      long time, String failureReason, BigDecimal amount);
 
     /**
      * Create a new world info.

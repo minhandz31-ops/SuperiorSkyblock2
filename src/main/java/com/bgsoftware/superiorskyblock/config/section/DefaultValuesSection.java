@@ -8,7 +8,6 @@ import com.bgsoftware.superiorskyblock.core.collections.EnumerateMap;
 import com.bgsoftware.superiorskyblock.core.collections.view.Int2IntMapView;
 import org.bukkit.potion.PotionEffectType;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Map;
 
@@ -57,11 +56,6 @@ public class DefaultValuesSection extends SettingsContainerHolder implements Set
     @Override
     public double getMobDrops() {
         return getContainer().defaultMobDrops;
-    }
-
-    @Override
-    public BigDecimal getBankLimit() {
-        return getContainer().defaultBankLimit;
     }
 
     @Override

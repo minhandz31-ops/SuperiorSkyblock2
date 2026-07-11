@@ -4,16 +4,12 @@ import com.bgsoftware.superiorskyblock.SuperiorSkyblockPlugin;
 import com.bgsoftware.superiorskyblock.api.island.Island;
 import com.bgsoftware.superiorskyblock.api.island.cache.IslandCache;
 import com.bgsoftware.superiorskyblock.api.service.world.WorldRecordService;
-import com.bgsoftware.superiorskyblock.api.world.Dimension;
-import com.bgsoftware.superiorskyblock.api.world.WorldInfo;
 import com.bgsoftware.superiorskyblock.api.wrappers.BlockPosition;
 import com.bgsoftware.superiorskyblock.core.ChunkPosition;
-import com.bgsoftware.superiorskyblock.core.IslandWorldsPlayersStrategy;
 import com.bgsoftware.superiorskyblock.core.LazyReference;
 import com.bgsoftware.superiorskyblock.core.ObjectsPools;
 import com.bgsoftware.superiorskyblock.core.mutable.MutableBoolean;
 import com.bgsoftware.superiorskyblock.core.threads.BukkitExecutor;
-import com.bgsoftware.superiorskyblock.island.IslandUtils;
 import com.bgsoftware.superiorskyblock.island.cache.IslandCacheKeys;
 import com.bgsoftware.superiorskyblock.module.BuiltinModules;
 import com.bgsoftware.superiorskyblock.module.upgrades.type.UpgradeTypeCropGrowth;
@@ -25,14 +21,10 @@ import com.bgsoftware.superiorskyblock.platform.event.args.GameEventArgs;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
-import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -112,19 +104,6 @@ public class ChunksListener extends AbstractGameEventListener {
 
     private void handleIslandChunkLoad(Island island, Chunk chunk, ChunkPosition chunkPosition, boolean isNewChunk) {
         World world = chunk.getWorld();
-        Dimension dimension = plugin.getGrid().getIslandsWorldDimension(world);
-
-        if (isNewChunk && dimension == plugin.getSettings().getWorlds().getDefaultWorldDimension()) {
-            Biome defaultWorldBiome = IslandUtils.getDefaultWorldBiome(dimension);
-            // We want to update the biome for new island chunks.
-            if (island.getBiome() != defaultWorldBiome) {
-                List<Player> playersToUpdate;
-                try (IslandWorldsPlayersStrategy strategy = IslandWorldsPlayersStrategy.create(island)) {
-                    playersToUpdate = strategy.getPlayers(WorldInfo.of(world));
-                }
-                plugin.getNMSChunks().setBiome(Collections.singletonList(chunkPosition), island.getBiome(), playersToUpdate);
-            }
-        }
 
         plugin.getNMSChunks().injectChunkSections(chunk);
 
@@ -147,11 +126,6 @@ public class ChunksListener extends AbstractGameEventListener {
         MutableBoolean recalculateEntities = new MutableBoolean(false);
 
         if (chunk.getX() == (islandCenter.getX() >> 4) && chunk.getZ() == (islandCenter.getZ() >> 4)) {
-            if (dimension == plugin.getSettings().getWorlds().getDefaultWorldDimension()) {
-                Block chunkBlock = chunk.getBlock(0, 100, 0);
-                island.setBiome(world.getBiome(chunkBlock.getX(), chunkBlock.getZ()), false);
-            }
-
             if (entityLimitsEnabled)
                 recalculateEntities.set(true);
         }

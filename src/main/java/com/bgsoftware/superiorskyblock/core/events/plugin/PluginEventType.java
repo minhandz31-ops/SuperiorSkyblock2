@@ -5,10 +5,6 @@ import com.bgsoftware.superiorskyblock.api.events.AttemptPlayerSendMessageEvent;
 import com.bgsoftware.superiorskyblock.api.events.BlockStackEvent;
 import com.bgsoftware.superiorskyblock.api.events.BlockUnstackEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandBanEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandBankDepositEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandBankWithdrawEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandBiomeChangeEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeBankLimitEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeBlockLimitEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeBorderSizeEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeCoopLimitEvent;
@@ -25,11 +21,6 @@ import com.bgsoftware.superiorskyblock.api.events.IslandChangePlayerPrivilegeEve
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeRoleLimitEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeRolePrivilegeEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChangeSpawnerRatesEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeWarpCategoryIconEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeWarpCategorySlotEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeWarpIconEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeWarpLocationEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandChangeWarpsLimitEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChatEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandChunkResetEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandClearFlagsEvent;
@@ -38,12 +29,8 @@ import com.bgsoftware.superiorskyblock.api.events.IslandClearPlayerPrivilegesEve
 import com.bgsoftware.superiorskyblock.api.events.IslandClearRatingsEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandClearRolesPrivilegesEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandCloseEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandCloseWarpEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandCoopPlayerEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandCreateEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandCreateWarpCategoryEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandCreateWarpEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandDeleteWarpEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandDisableFlagEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandDisbandEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandEnableFlagEvent;
@@ -59,7 +46,6 @@ import com.bgsoftware.superiorskyblock.api.events.IslandLeaveEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandLeaveProtectedEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandLockWorldEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandOpenEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandOpenWarpEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandQuitEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandRateEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandRemoveBlockLimitEvent;
@@ -68,21 +54,15 @@ import com.bgsoftware.superiorskyblock.api.events.IslandRemoveEntityLimitEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandRemoveGeneratorRateEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandRemoveRatingEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandRemoveRoleLimitEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandRemoveVisitorHomeEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandRenameEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandRenameWarpCategoryEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandRenameWarpEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandRestrictMoveEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandSchematicPasteEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandSetHomeEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandSetVisitorHomeEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandTransferEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandUnbanEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandUncoopPlayerEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandUnlockWorldEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandUpgradeEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandVisitorHomeTeleportEvent;
-import com.bgsoftware.superiorskyblock.api.events.IslandWarpTeleportEvent;
 import com.bgsoftware.superiorskyblock.api.events.IslandWorldResetEvent;
 import com.bgsoftware.superiorskyblock.api.events.MissionCompleteEvent;
 import com.bgsoftware.superiorskyblock.api.events.MissionResetEvent;
@@ -123,10 +103,6 @@ import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.B
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.BlockUnstack;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.Empty;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandBan;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandBankDeposit;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandBankWithdraw;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandBiomeChange;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeBankLimit;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeBlockLimit;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeBorderSize;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeCoopLimit;
@@ -143,11 +119,6 @@ import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.I
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeRoleLimit;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeRolePrivilege;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeSpawnerRates;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeWarpCategoryIcon;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeWarpCategorySlot;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeWarpIcon;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeWarpLocation;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChangeWarpsLimit;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChat;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandChunkReset;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandClearFlags;
@@ -156,12 +127,8 @@ import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.I
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandClearRatings;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandClearRolesPrivileges;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandClose;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandCloseWarp;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandCoopPlayer;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandCreate;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandCreateWarp;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandCreateWarpCategory;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandDeleteWarp;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandDisableFlag;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandDisband;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandEnableFlag;
@@ -177,7 +144,6 @@ import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.I
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandLeaveProtected;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandLockWorld;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandOpen;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandOpenWarp;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandQuit;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRate;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRemoveBlockLimit;
@@ -186,21 +152,15 @@ import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.I
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRemoveGeneratorRate;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRemoveRating;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRemoveRoleLimit;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRemoveVisitorHome;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRename;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRenameWarp;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRenameWarpCategory;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandRestrictMove;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandSchematicPaste;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandSetHome;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandSetVisitorHome;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandTransfer;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandUnban;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandUncoopPlayer;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandUnlockWorld;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandUpgrade;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandVisitorHomeTeleport;
-import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandWarpTeleport;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.IslandWorldReset;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.MissionComplete;
 import static com.bgsoftware.superiorskyblock.core.events.args.PluginEventArgs.MissionReset;
@@ -277,54 +237,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
         @Override
         public Event createBukkitEvent(IslandBan args) {
             return new IslandBanEvent(args.superiorPlayer, args.targetPlayer, args.island);
-        }
-    };
-    public static final PluginEventType<IslandBankDeposit> ISLAND_BANK_DEPOSIT_EVENT = new PluginEventType<IslandBankDeposit>(IslandBankDepositEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandBankDeposit args) {
-            return new IslandBankDepositEvent(args.superiorPlayer, args.island, args.amount);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandBankDeposit> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().failureReason = ((IslandBankDepositEvent) bukkitEvent).getFailureReason();
-        }
-    };
-    public static final PluginEventType<IslandBankWithdraw> ISLAND_BANK_WITHDRAW_EVENT = new PluginEventType<IslandBankWithdraw>(IslandBankWithdrawEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandBankWithdraw args) {
-            return new IslandBankWithdrawEvent(args.superiorPlayer, args.island, args.amount);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandBankWithdraw> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().failureReason = ((IslandBankWithdrawEvent) bukkitEvent).getFailureReason();
-        }
-    };
-    public static final PluginEventType<IslandBiomeChange> ISLAND_BIOME_CHANGE_EVENT = new PluginEventType<IslandBiomeChange>(IslandBiomeChangeEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandBiomeChange args) {
-            return new IslandBiomeChangeEvent(args.superiorPlayer, args.island, args.biome);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandBiomeChange> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().biome = ((IslandBiomeChangeEvent) bukkitEvent).getBiome();
-        }
-    };
-    public static final PluginEventType<IslandChangeBankLimit> ISLAND_CHANGE_BANK_LIMIT_EVENT = new PluginEventType<IslandChangeBankLimit>(IslandChangeBankLimitEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandChangeBankLimit args) {
-            return new IslandChangeBankLimitEvent(args.superiorPlayer, args.island, args.bankLimit);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandChangeBankLimit> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().bankLimit = ((IslandChangeBankLimitEvent) bukkitEvent).getBankLimit();
         }
     };
     public static final PluginEventType<IslandChangeBlockLimit> ISLAND_CHANGE_BLOCK_LIMIT_EVENT = new PluginEventType<IslandChangeBlockLimit>(IslandChangeBlockLimitEvent.class) {
@@ -507,66 +419,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
             pluginEvent.getArgs().spawnerRates = ((IslandChangeSpawnerRatesEvent) bukkitEvent).getSpawnerRates();
         }
     };
-    public static final PluginEventType<IslandChangeWarpCategoryIcon> ISLAND_CHANGE_WARP_CATEGORY_ICON_EVENT = new PluginEventType<IslandChangeWarpCategoryIcon>(IslandChangeWarpIconEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandChangeWarpCategoryIcon args) {
-            return new IslandChangeWarpCategoryIconEvent(args.superiorPlayer, args.island, args.warpCategory, args.icon);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandChangeWarpCategoryIcon> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().icon = ((IslandChangeWarpCategoryIconEvent) bukkitEvent).getIcon();
-        }
-    };
-    public static final PluginEventType<IslandChangeWarpCategorySlot> ISLAND_CHANGE_WARP_CATEGORY_SLOT_EVENT = new PluginEventType<IslandChangeWarpCategorySlot>(IslandChangeWarpCategorySlotEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandChangeWarpCategorySlot args) {
-            return new IslandChangeWarpCategorySlotEvent(args.superiorPlayer, args.island, args.warpCategory, args.slot, args.maxSlot);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandChangeWarpCategorySlot> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().slot = ((IslandChangeWarpCategorySlotEvent) bukkitEvent).getSlot();
-        }
-    };
-    public static final PluginEventType<IslandChangeWarpIcon> ISLAND_CHANGE_WARP_ICON_EVENT = new PluginEventType<IslandChangeWarpIcon>(IslandChangeWarpIconEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandChangeWarpIcon args) {
-            return new IslandChangeWarpIconEvent(args.superiorPlayer, args.island, args.islandWarp, args.icon);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandChangeWarpIcon> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().icon = ((IslandChangeWarpIconEvent) bukkitEvent).getIcon();
-        }
-    };
-    public static final PluginEventType<IslandChangeWarpLocation> ISLAND_CHANGE_WARP_LOCATION_EVENT = new PluginEventType<IslandChangeWarpLocation>(IslandChangeWarpLocationEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandChangeWarpLocation args) {
-            return new IslandChangeWarpLocationEvent(args.superiorPlayer, args.island, args.islandWarp, args.location);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandChangeWarpLocation> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().location = ((IslandChangeWarpLocationEvent) bukkitEvent).getLocation();
-        }
-    };
-    public static final PluginEventType<IslandChangeWarpsLimit> ISLAND_CHANGE_WARPS_LIMIT_EVENT = new PluginEventType<IslandChangeWarpsLimit>(IslandChangeWarpsLimitEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandChangeWarpsLimit args) {
-            return new IslandChangeWarpsLimitEvent(args.superiorPlayer, args.island, args.warpsLimit);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandChangeWarpsLimit> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().warpsLimit = ((IslandChangeWarpsLimitEvent) bukkitEvent).getWarpsLimit();
-        }
-    };
     public static final PluginEventType<IslandChat> ISLAND_CHAT_EVENT = new PluginEventType<IslandChat>(IslandChatEvent.class) {
         @Override
         public Event createBukkitEvent(IslandChat args) {
@@ -621,12 +473,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
             return new IslandCloseEvent(args.superiorPlayer, args.island);
         }
     };
-    public static final PluginEventType<IslandCloseWarp> ISLAND_CLOSE_WARP_EVENT = new PluginEventType<IslandCloseWarp>(IslandCloseWarpEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandCloseWarp args) {
-            return new IslandCloseWarpEvent(args.superiorPlayer, args.island, args.islandWarp);
-        }
-    };
     public static final PluginEventType<IslandCoopPlayer> ISLAND_COOP_PLAYER_EVENT = new PluginEventType<IslandCoopPlayer>(IslandCoopPlayerEvent.class) {
         @Override
         public Event createBukkitEvent(IslandCoopPlayer args) {
@@ -643,24 +489,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
         public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandCreate> pluginEvent) {
             super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
             pluginEvent.getArgs().canTeleport = ((IslandCreateEvent) bukkitEvent).canTeleport();
-        }
-    };
-    public static final PluginEventType<IslandCreateWarpCategory> ISLAND_CREATE_WARP_CATEGORY_EVENT = new PluginEventType<IslandCreateWarpCategory>(IslandCreateWarpCategoryEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandCreateWarpCategory args) {
-            return new IslandCreateWarpCategoryEvent(args.superiorPlayer, args.island, args.categoryName);
-        }
-    };
-    public static final PluginEventType<IslandCreateWarp> ISLAND_CREATE_WARP_EVENT = new PluginEventType<IslandCreateWarp>(IslandCreateWarpEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandCreateWarp args) {
-            return new IslandCreateWarpEvent(args.superiorPlayer, args.island, args.warpName, args.location, args.openToPublic, args.warpCategory);
-        }
-    };
-    public static final PluginEventType<IslandDeleteWarp> ISLAND_DELETE_WARP_EVENT = new PluginEventType<IslandDeleteWarp>(IslandDeleteWarpEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandDeleteWarp args) {
-            return new IslandDeleteWarpEvent(args.superiorPlayer, args.island, args.islandWarp);
         }
     };
     public static final PluginEventType<IslandDisableFlag> ISLAND_DISABLE_FLAG_EVENT = new PluginEventType<IslandDisableFlag>(IslandDisableFlagEvent.class) {
@@ -795,12 +623,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
             return new IslandOpenEvent(args.superiorPlayer, args.island);
         }
     };
-    public static final PluginEventType<IslandOpenWarp> ISLAND_OPEN_WARP_EVENT = new PluginEventType<IslandOpenWarp>(IslandOpenWarpEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandOpenWarp args) {
-            return new IslandOpenWarpEvent(args.superiorPlayer, args.island, args.islandWarp);
-        }
-    };
     public static final PluginEventType<IslandQuit> ISLAND_QUIT_EVENT = new PluginEventType<IslandQuit>(IslandQuitEvent.class) {
         @Override
         public Event createBukkitEvent(IslandQuit args) {
@@ -849,12 +671,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
             return new IslandRemoveRoleLimitEvent(args.superiorPlayer, args.island, args.playerRole);
         }
     };
-    public static final PluginEventType<IslandRemoveVisitorHome> ISLAND_REMOVE_VISITOR_HOME_EVENT = new PluginEventType<IslandRemoveVisitorHome>(IslandRemoveVisitorHomeEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandRemoveVisitorHome args) {
-            return new IslandRemoveVisitorHomeEvent(args.superiorPlayer, args.island);
-        }
-    };
     public static final PluginEventType<IslandRename> ISLAND_RENAME_EVENT = new PluginEventType<IslandRename>(IslandRenameEvent.class) {
         @Override
         public Event createBukkitEvent(IslandRename args) {
@@ -865,30 +681,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
         public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandRename> pluginEvent) {
             super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
             pluginEvent.getArgs().islandName = ((IslandRenameEvent) bukkitEvent).getIslandName();
-        }
-    };
-    public static final PluginEventType<IslandRenameWarpCategory> ISLAND_RENAME_WARP_CATEGORY_EVENT = new PluginEventType<IslandRenameWarpCategory>(IslandRenameWarpCategoryEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandRenameWarpCategory args) {
-            return new IslandRenameWarpCategoryEvent(args.superiorPlayer, args.island, args.warpCategory, args.categoryName);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandRenameWarpCategory> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().categoryName = ((IslandRenameWarpCategoryEvent) bukkitEvent).getCategoryName();
-        }
-    };
-    public static final PluginEventType<IslandRenameWarp> ISLAND_RENAME_WARP_EVENT = new PluginEventType<IslandRenameWarp>(IslandRenameWarpEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandRenameWarp args) {
-            return new IslandRenameWarpEvent(args.superiorPlayer, args.island, args.islandWarp, args.warpName);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandRenameWarp> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().warpName = ((IslandRenameWarpEvent) bukkitEvent).getWarpName();
         }
     };
     public static final PluginEventType<IslandRestrictMove> ISLAND_RESTRICT_MOVE_EVENT = new PluginEventType<IslandRestrictMove>(IslandRestrictMoveEvent.class) {
@@ -923,18 +715,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
         public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandSetHome> pluginEvent) {
             super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
             pluginEvent.getArgs().islandHome = ((IslandSetHomeEvent) bukkitEvent).getIslandHome();
-        }
-    };
-    public static final PluginEventType<IslandSetVisitorHome> ISLAND_SET_VISITOR_HOME_EVENT = new PluginEventType<IslandSetVisitorHome>(IslandSetVisitorHomeEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandSetVisitorHome args) {
-            return new IslandSetVisitorHomeEvent(args.superiorPlayer, args.island, args.islandVisitorHome);
-        }
-
-        @Override
-        public void applyBukkitToPluginEvent(Event bukkitEvent, PluginEvent<IslandSetVisitorHome> pluginEvent) {
-            super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
-            pluginEvent.getArgs().islandVisitorHome = ((IslandSetVisitorHomeEvent) bukkitEvent).getIslandVisitorHome();
         }
     };
     public static final PluginEventType<IslandTransfer> ISLAND_TRANSFER_EVENT = new PluginEventType<IslandTransfer>(IslandTransferEvent.class) {
@@ -973,18 +753,6 @@ public abstract class PluginEventType<Args extends PluginEventArgs> extends Even
             super.applyBukkitToPluginEvent(bukkitEvent, pluginEvent);
             pluginEvent.getArgs().commands = ((IslandUpgradeEvent) bukkitEvent).getCommands();
             pluginEvent.getArgs().upgradeCost = ((IslandUpgradeEvent) bukkitEvent).getUpgradeCost();
-        }
-    };
-    public static final PluginEventType<IslandVisitorHomeTeleport> ISLAND_VISITOR_HOME_TELEPORT_EVENT = new PluginEventType<IslandVisitorHomeTeleport>(IslandVisitorHomeTeleportEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandVisitorHomeTeleport args) {
-            return new IslandVisitorHomeTeleportEvent(args.island, args.superiorPlayer, args.dimension);
-        }
-    };
-    public static final PluginEventType<IslandWarpTeleport> ISLAND_WARP_TELEPORT_EVENT = new PluginEventType<IslandWarpTeleport>(IslandWarpTeleportEvent.class) {
-        @Override
-        public Event createBukkitEvent(IslandWarpTeleport args) {
-            return new IslandWarpTeleportEvent(args.island, args.superiorPlayer, args.islandWarp);
         }
     };
     public static final PluginEventType<IslandWorldReset> ISLAND_WORLD_RESET_EVENT = new PluginEventType<IslandWorldReset>(IslandWorldResetEvent.class) {

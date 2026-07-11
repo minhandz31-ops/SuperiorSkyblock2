@@ -1,23 +1,16 @@
 package com.bgsoftware.superiorskyblock.core.menu;
 
 import com.bgsoftware.common.annotations.Nullable;
-import com.bgsoftware.superiorskyblock.SuperiorSkyblockPlugin;
 import com.bgsoftware.superiorskyblock.api.menu.MenuIslandCreationConfig;
 import com.bgsoftware.superiorskyblock.api.schematic.Schematic;
-import com.bgsoftware.superiorskyblock.api.world.Dimension;
 import com.bgsoftware.superiorskyblock.api.world.GameSound;
 import com.bgsoftware.superiorskyblock.api.wrappers.BlockOffset;
 import com.bgsoftware.superiorskyblock.core.menu.button.impl.IslandCreationButton;
-import com.bgsoftware.superiorskyblock.island.IslandUtils;
-import org.bukkit.block.Biome;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Objects;
 
 public class MenuConfig {
-
-    private static final SuperiorSkyblockPlugin plugin = SuperiorSkyblockPlugin.getPlugin();
 
     private MenuConfig() {
 
@@ -28,7 +21,6 @@ public class MenuConfig {
         private final Schematic schematic;
         @Nullable
         private final IslandCreationButton.Template template;
-        private final Biome biome;
 
         public IslandCreation(IslandCreationButton.Template template) {
             this(template.getSchematic(), template);
@@ -37,7 +29,6 @@ public class MenuConfig {
         public IslandCreation(Schematic schematic, IslandCreationButton.Template template) {
             this.schematic = schematic;
             this.template = template;
-            this.biome = Objects.requireNonNull(getBiomeInternal(template));
         }
 
         @Override
@@ -63,29 +54,6 @@ public class MenuConfig {
         @Override
         public BlockOffset getSpawnOffset() {
             return this.template == null ? null : this.template.getSpawnOffset();
-        }
-
-        @Override
-        public Biome getBiome() {
-            return this.biome;
-        }
-
-        private static Biome getBiomeInternal(@Nullable IslandCreationButton.Template template) {
-            if (template != null) {
-                Biome biome = template.getBiome();
-                if (biome != null)
-                    return biome;
-            }
-
-            Dimension defaultDimension = plugin.getSettings().getWorlds().getDefaultWorldDimension();
-
-            Biome biome = plugin.getNMSAlgorithms().getBiome(plugin.getSettings().getWorlds()
-                    .getDimensionConfig(defaultDimension).getBiome());
-
-            if (biome != null)
-                return biome;
-
-            return IslandUtils.getDefaultWorldBiome(defaultDimension);
         }
 
     }

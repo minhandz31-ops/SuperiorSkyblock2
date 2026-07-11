@@ -19,7 +19,6 @@ import com.bgsoftware.superiorskyblock.core.menu.converter.MenuConverter;
 import com.bgsoftware.superiorskyblock.core.menu.layout.AbstractMenuLayout;
 import com.bgsoftware.superiorskyblock.core.menu.view.AbstractMenuView;
 import com.bgsoftware.superiorskyblock.core.serialization.Serializers;
-import org.bukkit.block.Biome;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -68,21 +67,6 @@ public class MenuIslandCreation extends AbstractMenu<MenuIslandCreation.View, Me
                 }
 
                 IslandCreationButton.Builder buttonBuilder = new IslandCreationButton.Builder(schematic);
-
-                {
-                    String biomeName = itemSection.getString("biome");
-                    if (biomeName != null) {
-                        Biome biome = plugin.getNMSAlgorithms().getBiome(biomeName);
-
-                        if (biome == null) {
-                            Log.warnFromFile("island-creation.yml", "Invalid biome name for item ",
-                                    itemSectionName, ": ", biomeName);
-                            continue;
-                        }
-
-                        buttonBuilder.setBiome(biome);
-                    }
-                }
 
                 ConfigurationSection soundSection = cfg.getConfigurationSection("sounds." + itemSectionName);
                 if (soundSection != null) {

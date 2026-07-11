@@ -9,7 +9,6 @@ import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -186,16 +185,6 @@ public interface UpgradeLevel {
      * Get all the potion effects for this level.
      */
     Map<PotionEffectType, Integer> getPotionEffects();
-
-    /**
-     * Checks if this level has a custom bank limit.
-     */
-    boolean hasBankLimit();
-
-    /**
-     * Get the bank limit of this level.
-     */
-    BigDecimal getBankLimit();
 
     /**
      * Get a limit of a role for this level.

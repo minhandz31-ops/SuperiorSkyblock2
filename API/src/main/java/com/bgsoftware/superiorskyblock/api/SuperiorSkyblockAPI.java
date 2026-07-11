@@ -23,7 +23,6 @@ import com.bgsoftware.superiorskyblock.api.world.Dimension;
 import com.bgsoftware.superiorskyblock.api.wrappers.SuperiorPlayer;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
@@ -113,8 +112,8 @@ public class SuperiorSkyblockAPI {
      * @param schemName      the schematic of the island to be pasted
      * @param islandName     The island name
      */
-    public static void createIsland(SuperiorPlayer superiorPlayer, String schemName, Biome biome, String islandName) {
-        plugin.getGrid().createIsland(superiorPlayer, schemName, biome, islandName);
+    public static void createIsland(SuperiorPlayer superiorPlayer, String schemName, String islandName) {
+        plugin.getGrid().createIsland(superiorPlayer, schemName, islandName);
     }
 
     /**
@@ -122,12 +121,11 @@ public class SuperiorSkyblockAPI {
      *
      * @param superiorPlayer The new owner for the island.
      * @param schemName      The schematic that should be used.
-     * @param biome          A starting biome for the island.
      * @param islandName     The name of the new island.
      * @param offset         Should the island have an offset for it's values?
      */
-    public static void createIsland(SuperiorPlayer superiorPlayer, String schemName, Biome biome, String islandName, boolean offset) {
-        plugin.getGrid().createIsland(superiorPlayer, schemName, biome, islandName, offset);
+    public static void createIsland(SuperiorPlayer superiorPlayer, String schemName, String islandName, boolean offset) {
+        plugin.getGrid().createIsland(superiorPlayer, schemName, islandName, offset);
     }
 
     /**
