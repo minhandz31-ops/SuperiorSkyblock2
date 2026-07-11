@@ -75,8 +75,6 @@ public class SQLDatabase {
                 new Column("island_type", "TEXT"),
                 new Column("discord", "TEXT"),
                 new Column("paypal", "TEXT"),
-                new Column("worth_bonus", "BIG_DECIMAL"),
-                new Column("levels_bonus", "BIG_DECIMAL"),
                 new Column("locked", "BOOLEAN"),
                 new Column("ignored", "BOOLEAN"),
                 new Column("name", "TEXT"),
