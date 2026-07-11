@@ -68,10 +68,23 @@ public class PermissionTogglePairButton extends AbstractMenuViewButton<IslandPla
         IslandPrivilege leftPrivilege = template.leftPrivilege;
         IslandPrivilege rightPrivilege = template.rightPrivilege;
 
-        boolean leftEnabled = leftPrivilege != null &&
-                island.getPermissionNode(permissiblePlayer).hasPermission(leftPrivilege);
-        boolean rightEnabled = rightPrivilege != null &&
-                island.getPermissionNode(permissiblePlayer).hasPermission(rightPrivilege);
+        // If permissiblePlayer is null (e.g. editing by role, not player), use Guest role as fallback
+        boolean leftEnabled = false;
+        boolean rightEnabled = false;
+        if (leftPrivilege != null) {
+            if (permissiblePlayer != null) {
+                leftEnabled = island.getPermissionNode(permissiblePlayer).hasPermission(leftPrivilege);
+            } else {
+                leftEnabled = false; // default disabled when no player context
+            }
+        }
+        if (rightPrivilege != null) {
+            if (permissiblePlayer != null) {
+                rightEnabled = island.getPermissionNode(permissiblePlayer).hasPermission(rightPrivilege);
+            } else {
+                rightEnabled = false;
+            }
+        }
 
         TemplateItem buttonTemplateItem = template.getButtonTemplateItem();
         if (buttonTemplateItem == null)
