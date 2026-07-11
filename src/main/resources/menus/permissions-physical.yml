@@ -1,0 +1,65 @@
+######################################################
+##                                                  ##
+##                SuperiorSkyblock 2                ##
+##                Developed by Ome_R                ##
+##                                                  ##
+######################################################
+
+title: '&lPhysical Permissions'
+previous-menu: true
+
+# 27-slot chest (3 rows x 9 cols)
+# Border = '$', 4 Paper items = slots 11-14
+pattern:
+  - '$ $ $ $ $ $ $ $ $'
+  - '$ ! @ # $ $ $ $ $'
+  - '$ $ $ $ $ $ $ $ $'
+
+# Button slot mappings
+break: '!'
+build: '@'
+chest: '#'
+drop-pickup: '$'
+
+items:
+  '$':
+    type: STAINED_GLASS_PANE
+    data: 15
+    name: '&f'
+  '!':
+    type: PAPER
+    name: '&6Break Blocks'
+    lore:
+      - '&7Left-click: &bBREAK (normal blocks)'
+      - '&7Right-click: &eSPAWNER_BREAK (spawners)'
+      - ''
+      - '&7Click to toggle permission.'
+  '@':
+    type: PAPER
+    name: '&6Build Blocks'
+    lore:
+      - '&7Left-click: &bBUILD'
+      - ''
+      - '&7Click to toggle permission.'
+  '#':
+    type: PAPER
+    name: '&6Chest Access'
+    lore:
+      - '&7Left-click: &bCHEST_ACCESS'
+      - '&7Right-click: &eISLAND_CHEST'
+      - ''
+      - '&7Click to toggle permission.'
+
+sounds:
+  '!':
+    type: ORB_PICKUP
+    volume: 0.2
+    pitch: 0.2
+  '@':
+    type: ORB_PICKUP
+    volume: 0.2
+    pitch: 0.2
+  '#':
+    type: ORB_PICKUP
+    volume: 0.2
+    pitch: 0.2

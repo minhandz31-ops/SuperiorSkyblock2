@@ -1,0 +1,69 @@
+######################################################
+##                                                  ##
+##                SuperiorSkyblock 2                ##
+##                Developed by Ome_R                ##
+##                                                  ##
+######################################################
+
+title: '&lCommand & Management'
+previous-menu: true
+
+# 27-slot chest (3 rows x 9 cols)
+# Border = '$', 3 Paper category items = slots 11-13
+pattern:
+  - '$ $ $ $ $ $ $ $ $'
+  - '$ ! @ # $ $ $ $ $'
+  - '$ $ $ $ $ $ $ $ $'
+
+# Button slot mappings
+management: '!'
+settings: '@'
+red-flag: '#'
+
+items:
+  '$':
+    type: STAINED_GLASS_PANE
+    data: 15
+    name: '&f'
+  '!':
+    type: PAPER
+    name: '&6Island Management'
+    lore:
+      - '&7Invite, Kick, Ban, Expel'
+      - '&7Coop, Promote, Demote'
+      - ''
+      - '&aClick to view permissions!'
+      - '&cMember+ only'
+  '@':
+    type: PAPER
+    name: '&6Island Settings'
+    lore:
+      - '&7Change Name, Set Home'
+      - '&7Close/Open Island'
+      - '&7Discord settings'
+      - ''
+      - '&aClick to view permissions!'
+  '#':
+    type: PAPER
+    name: '&c&lRED FLAG (Dangerous)'
+    lore:
+      - '&7Disband Island'
+      - '&7Set Role, Set Permission'
+      - '&7Set Settings, ALL'
+      - ''
+      - '&cDo NOT assign to Coop/Visitor!'
+      - '&aClick to view permissions!'
+
+sounds:
+  '!':
+    type: ORB_PICKUP
+    volume: 0.2
+    pitch: 0.2
+  '@':
+    type: ORB_PICKUP
+    volume: 0.2
+    pitch: 0.2
+  '#':
+    type: ORB_PICKUP
+    volume: 0.2
+    pitch: 0.2
