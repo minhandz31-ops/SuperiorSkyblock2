@@ -3152,27 +3152,11 @@ public class SIsland implements Island {
                 });
                 disableTime = true;
                 break;
-            case "ALWAYS_MIDDLE_DAY":
-                getAllPlayersInside().forEach(superiorPlayer -> {
-                    Player player = superiorPlayer.asPlayer();
-                    if (player != null)
-                        player.setPlayerTime(6000, false);
-                });
-                disableTime = true;
-                break;
             case "ALWAYS_NIGHT":
                 getAllPlayersInside().forEach(superiorPlayer -> {
                     Player player = superiorPlayer.asPlayer();
                     if (player != null)
                         player.setPlayerTime(14000, false);
-                });
-                disableTime = true;
-                break;
-            case "ALWAYS_MIDDLE_NIGHT":
-                getAllPlayersInside().forEach(superiorPlayer -> {
-                    Player player = superiorPlayer.asPlayer();
-                    if (player != null)
-                        player.setPlayerTime(18000, false);
                 });
                 disableTime = true;
                 break;
@@ -3206,12 +3190,8 @@ public class SIsland implements Island {
         if (disableTime) {
             if (settings != IslandFlags.ALWAYS_DAY && islandFlags.remove(IslandFlags.ALWAYS_DAY) != null)
                 IslandsDatabaseBridge.removeIslandFlag(this, IslandFlags.ALWAYS_DAY);
-            if (settings != IslandFlags.ALWAYS_MIDDLE_DAY && islandFlags.remove(IslandFlags.ALWAYS_MIDDLE_DAY) != null)
-                IslandsDatabaseBridge.removeIslandFlag(this, IslandFlags.ALWAYS_MIDDLE_DAY);
             if (settings != IslandFlags.ALWAYS_NIGHT && islandFlags.remove(IslandFlags.ALWAYS_NIGHT) != null)
                 IslandsDatabaseBridge.removeIslandFlag(this, IslandFlags.ALWAYS_NIGHT);
-            if (settings != IslandFlags.ALWAYS_MIDDLE_NIGHT && islandFlags.remove(IslandFlags.ALWAYS_MIDDLE_NIGHT) != null)
-                IslandsDatabaseBridge.removeIslandFlag(this, IslandFlags.ALWAYS_MIDDLE_NIGHT);
         }
 
         if (disableWeather) {
@@ -3243,9 +3223,7 @@ public class SIsland implements Island {
 
         switch (settings.getName()) {
             case "ALWAYS_DAY":
-            case "ALWAYS_MIDDLE_DAY":
             case "ALWAYS_NIGHT":
-            case "ALWAYS_MIDDLE_NIGHT":
                 getAllPlayersInside().forEach(superiorPlayer -> {
                     Player player = superiorPlayer.asPlayer();
                     if (player != null)
@@ -3285,14 +3263,8 @@ public class SIsland implements Island {
                 case "ALWAYS_DAY":
                     time = 0L;
                     break;
-                case "ALWAYS_MIDDLE_DAY":
-                    time = 6000L;
-                    break;
                 case "ALWAYS_NIGHT":
                     time = 14000L;
-                    break;
-                case "ALWAYS_MIDDLE_NIGHT":
-                    time = 18000L;
                     break;
                 case "ALWAYS_SHINY":
                     weather = WeatherType.CLEAR;

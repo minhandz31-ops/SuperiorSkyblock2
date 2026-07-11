@@ -783,12 +783,8 @@ public class RegionManagerServiceImpl implements RegionManagerService, IService 
                 // Fixes https://github.com/BG-Software-LLC/SuperiorSkyblock2/issues/1260
                 if (toIsland.hasSettingsEnabled(IslandFlags.ALWAYS_DAY)) {
                     player.setPlayerTime(0, false);
-                } else if (toIsland.hasSettingsEnabled(IslandFlags.ALWAYS_MIDDLE_DAY)) {
-                    player.setPlayerTime(6000, false);
                 } else if (toIsland.hasSettingsEnabled(IslandFlags.ALWAYS_NIGHT)) {
                     player.setPlayerTime(14000, false);
-                } else if (toIsland.hasSettingsEnabled(IslandFlags.ALWAYS_MIDDLE_NIGHT)) {
-                    player.setPlayerTime(18000, false);
                 }
 
                 if (toIsland.hasSettingsEnabled(IslandFlags.ALWAYS_SHINY)) {

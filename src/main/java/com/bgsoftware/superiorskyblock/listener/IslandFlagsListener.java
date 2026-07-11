@@ -114,14 +114,6 @@ public class IslandFlagsListener extends AbstractGameEventListener {
         if (item.getItemStack().getType() != Material.EGG)
             return false;
 
-        if (preventAction(entityLocation, IslandFlags.EGG_LAY)) {
-            for (Entity entity : item.getNearbyEntities(1, 1, 1)) {
-                if (entity instanceof Chicken) {
-                    return true;
-                }
-            }
-        }
-
         return false;
     }
 
@@ -150,10 +142,7 @@ public class IslandFlagsListener extends AbstractGameEventListener {
                     }
                 } else if (remover instanceof Ghast) {
                     // Explosion was set by TNT.
-                    if (preventAction(entityLocation, IslandFlags.GHAST_FIREBALL)) {
-                        e.setCancelled();
-                        return;
-                    }
+                    // GHAST_FIREBALL flag removed - allow ghast fireball damage
                 }
             }
 
@@ -216,15 +205,15 @@ public class IslandFlagsListener extends AbstractGameEventListener {
                 break;
             case WITHER:
             case WITHER_SKULL:
-                islandFlag = IslandFlags.WITHER_EXPLOSION;
-                break;
+                // WITHER_EXPLOSION flag removed - allow wither damage
+                return false;
             case FIREBALL: {
                 ProjectileSource projectileSource = originalFireballsDamager.remove(source.getEntityId());
                 if (projectileSource == null)
                     projectileSource = ((Fireball) source).getShooter();
                 if (projectileSource instanceof Ghast) {
-                    islandFlag = IslandFlags.GHAST_FIREBALL;
-                    break;
+                    // GHAST_FIREBALL flag removed - allow ghast fireball damage
+                    return false;
                 }
             }
             default:
@@ -254,29 +243,11 @@ public class IslandFlagsListener extends AbstractGameEventListener {
     }
 
     private void onCropsGrowth(GameEvent<GameEventArgs.BlockGrowEvent> e) {
-        Block block = e.getArgs().block;
-
-        // We only check island flags in relevant worlds
-        if (shouldIgnoreWorldEvents(block.getWorld())) {
-            return;
-        }
-
-        try (ObjectsPools.Wrapper<Location> wrapper = ObjectsPools.LOCATION.obtain()) {
-            if (preventAction(block.getLocation(wrapper.getHandle()), IslandFlags.CROPS_GROWTH))
-                e.setCancelled();
-        }
+        // CROPS_GROWTH flag removed - crops grow freely
     }
 
     private void onTreeGrowth(GameEvent<GameEventArgs.StructureGrowEvent> e) {
-        Location location = e.getArgs().location;
-
-        // We only check island flags in relevant worlds
-        if (shouldIgnoreWorldEvents(location.getWorld())) {
-            return;
-        }
-
-        if (preventAction(location, IslandFlags.TREE_GROWTH))
-            e.setCancelled();
+        // TREE_GROWTH flag removed - trees grow freely
     }
 
     private void onFireSpread(GameEvent<GameEventArgs.BlockBurnEvent> e) {
@@ -311,20 +282,7 @@ public class IslandFlagsListener extends AbstractGameEventListener {
     }
 
     private void onEndermanGrief(GameEvent<GameEventArgs.EntityChangeBlockEvent> e) {
-        if (!(e.getArgs().entity instanceof Enderman))
-            return;
-
-        Block block = e.getArgs().block;
-
-        // We only check island flags in relevant worlds
-        if (shouldIgnoreWorldEvents(block.getWorld())) {
-            return;
-        }
-
-        try (ObjectsPools.Wrapper<Location> wrapper = ObjectsPools.LOCATION.obtain()) {
-            if (preventAction(block.getLocation(wrapper.getHandle()), IslandFlags.ENDERMAN_GRIEF))
-                e.setCancelled();
-        }
+        // ENDERMAN_GRIEF flag removed - enderman can grief freely
     }
 
     private void onPoisonAttack(GameEvent<GameEventArgs.ProjectileHitEvent> e) {

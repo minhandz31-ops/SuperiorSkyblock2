@@ -8,24 +8,36 @@ import java.util.Locale;
 
 public class IslandFlags {
 
+    // Weather / Time
     public static final IslandFlag ALWAYS_DAY = register("ALWAYS_DAY");
-    public static final IslandFlag ALWAYS_MIDDLE_DAY = register("ALWAYS_MIDDLE_DAY");
     public static final IslandFlag ALWAYS_NIGHT = register("ALWAYS_NIGHT");
-    public static final IslandFlag ALWAYS_MIDDLE_NIGHT = register("ALWAYS_MIDDLE_NIGHT");
     public static final IslandFlag ALWAYS_RAIN = register("ALWAYS_RAIN");
     public static final IslandFlag ALWAYS_SHINY = register("ALWAYS_SHINY");
-    public static final IslandFlag CREEPER_EXPLOSION = register("CREEPER_EXPLOSION");
-    public static final IslandFlag CROPS_GROWTH = register("CROPS_GROWTH");
-    public static final IslandFlag EGG_LAY = register("EGG_LAY");
-    public static final IslandFlag ENDERMAN_GRIEF = register("ENDERMAN_GRIEF");
-    public static final IslandFlag FIRE_SPREAD = register("FIRE_SPREAD");
-    public static final IslandFlag GHAST_FIREBALL = register("GHAST_FIREBALL");
-    public static final IslandFlag LAVA_FLOW = register("LAVA_FLOW");
-    public static final IslandFlag PVP = register("PVP");
-    public static final IslandFlag TNT_EXPLOSION = register("TNT_EXPLOSION");
-    public static final IslandFlag TREE_GROWTH = register("TREE_GROWTH");
+
+    // Liquid flow (essential for cobblestone generators)
     public static final IslandFlag WATER_FLOW = register("WATER_FLOW");
-    public static final IslandFlag WITHER_EXPLOSION = register("WITHER_EXPLOSION");
+    public static final IslandFlag LAVA_FLOW = register("LAVA_FLOW");
+
+    // Explosions / Fire
+    public static final IslandFlag CREEPER_EXPLOSION = register("CREEPER_EXPLOSION");
+    public static final IslandFlag TNT_EXPLOSION = register("TNT_EXPLOSION");
+    public static final IslandFlag FIRE_SPREAD = register("FIRE_SPREAD");
+
+    // Mob spawning
+    public static final IslandFlag NATURAL_MONSTER_SPAWN = register("NATURAL_MONSTER_SPAWN");
+    public static final IslandFlag NATURAL_ANIMALS_SPAWN = register("NATURAL_ANIMALS_SPAWN");
+    public static final IslandFlag SPAWNER_MONSTER_SPAWN = register("SPAWNER_MONSTER_SPAWN");
+    public static final IslandFlag SPAWNER_ANIMALS_SPAWN = register("SPAWNER_ANIMALS_SPAWN");
+
+    // PvP
+    public static final IslandFlag PVP = register("PVP");
+
+    // REMOVED (not essential for Skyblock survival):
+    // ALWAYS_MIDDLE_DAY, ALWAYS_MIDDLE_NIGHT (redundant with ALWAYS_DAY/NIGHT)
+    // CROPS_GROWTH, TREE_GROWTH (crops/trees grow by default in Minecraft)
+    // EGG_LAY (minor feature)
+    // ENDERMAN_GRIEF (minor feature)
+    // GHAST_FIREBALL, WITHER_EXPLOSION (rare scenarios)
 
     private static String ALL_FLAG_NAMES;
     private static int KNOWN_FLAGS_COUNT;
